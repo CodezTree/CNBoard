@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         noticeDataList = new ArrayList<NoticeData>();
         noticeDataList.add(new NoticeData("2018-11-10", "notice1_20181110.png"));
         noticeDataList.add(new NoticeData("2018-11-16", "notice2_20181116.png"));
-        noticeDataList.add(new NoticeData("2018-11-20", "notice3_20181120.jpeg"));
+        noticeDataList.add(new NoticeData("2018-11-21", "notice3_20181120.jpeg"));
         //http://45.32.49.247/notice/notice2_20181116.png
 
         foodButton = findViewById(R.id.bt_food);
