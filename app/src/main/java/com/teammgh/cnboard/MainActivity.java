@@ -15,16 +15,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class    MainActivity extends AppCompatActivity {
 
     Toolbar myToolbar;
     RecyclerView mRecyclerView;
@@ -37,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.content_main);
 
         mRecyclerView = findViewById(R.id.notice_recycler);
         mRecyclerView.setHasFixedSize(true);
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         noticeDataList = new ArrayList<NoticeData>();
         noticeDataList.add(new NoticeData("2018-11-10", "notice1_20181110.png"));
         noticeDataList.add(new NoticeData("2018-11-16", "notice2_20181116.png"));
-        noticeDataList.add(new NoticeData("2018-11-21", "notice3_20181120.jpeg"));
+        noticeDataList.add(new NoticeData("2018-11-20", "notice3_20181120.jpeg"));
         //http://45.32.49.247/notice/notice2_20181116.png
 
         foodButton = findViewById(R.id.bt_food);

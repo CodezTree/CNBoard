@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_badge"
+            android:title="공지사항"
+            android:icon="@drawable/ic_notifications_black_24dp"/>
+        <item
+            android:id="@+id/nav_food_table"
+            android:title="급식메뉴"
+            android:icon="@drawable/ic_local_dining_black_24dp"/>
+        <item
+            android:id="@+id/nav_d_day"
+            android:title="D-DAY"
+            android:icon="@drawable/ic_event_available_black_24dp"/>
+        <item
+            android:id="@+id/nav_test"
+            android:title="시험범위 확인"
+            android:icon="@drawable/ic_playlist_add_check_black_24dp"/>
+    </group>
+</menu>

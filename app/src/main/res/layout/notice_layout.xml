@@ -21,15 +21,42 @@
         android:gravity="center_horizontal"
         >
 
+        <Button
+            android:layout_width="35dp"
+            android:layout_height="7dp"
+            android:background="#ff5252"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="left"/>
+
         <TextView
             android:id="@+id/tv_notice_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="12sp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="0dp"
+            tools:text="2018/11/24"/>
+
+        <TextView
+            android:id="@+id/tv_notice_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            tools:text="2018 교내 과제연구 수상전 수상내역"/>
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="2dp"
             android:layout_marginBottom="15dp"
-            tools:text="2018/11/24 - 2018//11/28"/>
+            android:background="#818181"
+            >
+
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"
