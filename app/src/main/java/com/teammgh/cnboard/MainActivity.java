@@ -1,71 +1,94 @@
 package com.teammgh.cnboard;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.navigation.NavigationView;
 
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 
-public class    MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     Toolbar myToolbar;
-    RecyclerView mRecyclerView;
-    RecyclerView.LayoutManager mLayoutManager;
-    Button foodButton;
+    LinearLayout setting;
 
-    ArrayList<NoticeData> noticeDataList;
-    NoticeAdapter noticeAdapter;
+    FragmentManager fm;
+    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
-
-        mRecyclerView = findViewById(R.id.notice_recycler);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        setContentView(R.layout.activity_main);
 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        noticeDataList = new ArrayList<NoticeData>();
-        noticeDataList.add(new NoticeData("2018-11-10", "notice1_20181110.png"));
-        noticeDataList.add(new NoticeData("2018-11-16", "notice2_20181116.png"));
-        noticeDataList.add(new NoticeData("2018-11-20", "notice3_20181120.jpeg"));
-        //http://45.32.49.247/notice/notice2_20181116.png
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        foodButton = findViewById(R.id.bt_food);
+        toggle.setDrawerIndicatorEnabled(false);
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_dehaze_black, getTheme());
+        toggle.setHomeAsUpIndicator(drawable);
+        toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        setting = findViewById(R.id.bt_setting);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // SETTING
+            }
+        }); // SETTING BUTTON
+
+        /*foodButton = findViewById(R.id.bt_food);
         foodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, FoodActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/ // FOOD BUTTON
 
-        requestNoticeList();
+        fm = getSupportFragmentManager();
+        fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_view, new NoticeFragment());
+        fragmentTransaction.commit();
 
-        noticeAdapter = new NoticeAdapter(noticeDataList, MainActivity.this);
 
-        mRecyclerView.setAdapter(noticeAdapter);
     }
 
     @Override
@@ -76,44 +99,34 @@ public class    MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.menu_refresh:
-                requestNoticeList();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_notice) {
+            // NOTICE
+            fm = getSupportFragmentManager();
+            fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_view, new NoticeFragment());
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_food_table) {
+            // FOOD TABLE
+            fm = getSupportFragmentManager();
+            fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_view, new FoodFragment());
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_d_day) {
+            // D-DAY
+            fragmentTransaction.replace(R.id.fragment_view, new NoticeFragment());
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_test) {
+            // NAV TEST
+            fragmentTransaction.replace(R.id.fragment_view, new NoticeFragment());
+            fragmentTransaction.commit();
         }
-    }
 
-    public void requestNoticeList() {
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    Log.d("test", "refreshResponse");
-                    Log.d("test", "response : "+response);
-                    String[] items = response.split("\n");
-                    noticeDataList.clear();
-
-                    String[] temp;
-                    for(String tmpString : items) {
-                        temp = tmpString.split("%%");
-
-                        noticeDataList.add(new NoticeData(temp[0], temp[1]));
-                        Log.d("test","time : "+temp[0] + "   URL : "+temp[1]);
-                    }
-
-                    noticeAdapter.notifyDataSetChanged();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        RefreshNotice refreshUserData = new RefreshNotice(responseListener);
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-        queue.add(refreshUserData);
-        Log.d("test", "refreshRequest");
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
