@@ -3,6 +3,15 @@
     <string name="string_refresh">Refresh</string>
     <string name="navigation_drawer_open">open nav drawer</string>
     <string name="navigation_drawer_close">close nav drawer</string>
+    <string name="dday_title">D-DAY 제목</string>
+    <string name="title">제목</string>
+    <string name="dday_date">D-DAY 날짜</string>
+    <string name="notificate_set">알림 설정</string>
+    <string name="regist">알림센터에 등록</string>
+    <string name="regisn_detail">폰 상단 알림센터에 D-DAY 가 등록됩니다.</string>
+    <string name="cancel">취소하기</string>
+    <string name="ok">등록하기</string>
+    <string name="add_dday">D-DAY 추가하기</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
