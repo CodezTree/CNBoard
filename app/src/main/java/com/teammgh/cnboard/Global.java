@@ -1,4 +1,4 @@
-package com.example.cnboardsubjest;
+package com.teammgh.cnboard;
 
 public class Global {
 

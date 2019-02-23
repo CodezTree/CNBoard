@@ -1,7 +1,6 @@
-package com.example.cnboardsubjest;
+package com.teammgh.cnboard;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,9 +11,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static com.example.cnboardsubjest.Global.categoryNo;
-import static com.example.cnboardsubjest.Global.grade;
-import static com.example.cnboardsubjest.Global.subjectIndex;
+import androidx.appcompat.app.AppCompatActivity;
+
+import static com.teammgh.cnboard.Global.categoryNo;
+import static com.teammgh.cnboard.Global.grade;
+import static com.teammgh.cnboard.Global.subjectIndex;
+
 
 public class InputSubject extends AppCompatActivity {
 
@@ -31,7 +33,7 @@ public class InputSubject extends AppCompatActivity {
     String [] arrSubjectMemo3 = new String[41];	// 3학년 과목별 시험범위
 
     int subjectMemoIndex=0;
-    int subjectIndex1=0;
+    String subjectIndex1;
 
 
     ArrayList<Integer> arrKey = new ArrayList<Integer>();       // 특정학년의 과목의 키번호 배얼
@@ -40,7 +42,7 @@ public class InputSubject extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.subjectinput);
+        setContentView(R.layout.enrolment_input);
 
 
         igrade1_btn = findViewById(R.id.igrade1_btn);
@@ -83,7 +85,7 @@ public class InputSubject extends AppCompatActivity {
         igrade1_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Global.grade = 0;
+                grade = 0;
             }
 
         });
@@ -91,7 +93,7 @@ public class InputSubject extends AppCompatActivity {
         igrade2_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Global.grade = 1;
+                grade = 1;
             }
 
         });
@@ -99,7 +101,7 @@ public class InputSubject extends AppCompatActivity {
         igrade3_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Global.grade = 2;
+                grade = 2;
             }
 
         });
@@ -120,7 +122,7 @@ public class InputSubject extends AppCompatActivity {
         Category_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-               Global.categoryNo = position;
+               categoryNo = position;
             }
 
             @Override
@@ -212,7 +214,7 @@ public class InputSubject extends AppCompatActivity {
         });
 
     }
-    private void uploadtoServer() {
+    private void uploadToServer() {
 
 
      switch(grade){

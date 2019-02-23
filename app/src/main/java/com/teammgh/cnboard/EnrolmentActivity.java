@@ -1,6 +1,6 @@
-package com.example.cnboardsubjest;
+package com.teammgh.cnboard;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,9 +14,9 @@ import java.util.List;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.example.cnboardsubjest.Global.grade;
+import static com.teammgh.cnboard.Global.grade;
 
-public class MainActivity extends AppCompatActivity {
+public class EnrolmentActivity extends AppCompatActivity {
 
     Button input_btn,btn1_grade,btn2_grade,btn3_grade;
     Spinner sc_spin,scgroup_spin,lan_spin,social_spin,it_spin,sport_spin,langroup_spin;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.enrolment_student);
         sc_spin = findViewById(R.id.sc_spin);
         scgroup_spin = findViewById(R.id.scgroup_spin);
         lan_spin = findViewById(R.id.lan_spin);
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 sc_lin.setVisibility(INVISIBLE);
 
 
-                Global.grade = 0;
+                grade = 0;
 
 
             }
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 social_lin.setVisibility(VISIBLE);
                 it_lin.setVisibility(VISIBLE);
 
-                Global.grade = 1;
+                grade = 1;
 
             }
         });
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 social_lin.setVisibility(INVISIBLE);
                 it_lin.setVisibility(INVISIBLE);
 
-                Global.grade = 2;
+                grade = 2;
 
             }
         });
