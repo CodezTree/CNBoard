@@ -3,11 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/Linear">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:orientation="horizontal"
             android:layout_margin="10dp">
 
@@ -17,7 +18,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="1학년" />
+                android:layout_margin="10dp"
+                android:text="1학년"
+                android:background = "@drawable/gradebtn_rectangle"
+                android:textColor="#707070" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -25,6 +29,9 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="2학년"
+                android:background = "@drawable/gradebtn_rectangle"
+                android:textColor="#707070"
+                android:layout_margin="10dp"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -33,6 +40,9 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="3학년"
+                android:background = "@drawable/gradebtn_rectangle"
+                android:textColor="#707070"
+                android:layout_margin="10dp"
                 />
         </LinearLayout>
 
@@ -209,6 +219,23 @@
         android:longClickable="true">
 
     </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="저장"
+            android:layout_marginRight="15dp"
+            android:height="15dp"
+            android:id="@+id/save_btn"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>
 
