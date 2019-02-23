@@ -95,6 +95,7 @@
             android:background="#ffffff"
             android:layout_margin="1dp"
             android:clickable="true"
+            android:focusable="true"
             />
         <TextView
             android:id="@+id/tue1"
@@ -104,6 +105,7 @@
             android:background="#ffffff"
             android:layout_margin="1dp"
             android:clickable="true"
+            android:focusable="true"
             />
         <TextView
             android:id="@+id/wed1"
@@ -113,6 +115,7 @@
             android:background="#ffffff"
             android:layout_margin="1dp"
             android:clickable="true"
+            android:focusable="true"
             />
         <TextView
             android:id="@+id/thu1"
@@ -122,6 +125,7 @@
             android:background="#ffffff"
             android:layout_margin="1dp"
             android:clickable="true"
+            android:focusable="true"
             />
         <TextView
             android:id="@+id/fri1"
@@ -131,6 +135,7 @@
             android:background="#ffffff"
             android:layout_margin="1dp"
             android:clickable="true"
+            android:focusable="true"
             />
         <TextView
             android:id="@+id/sat1"
@@ -140,6 +145,7 @@
             android:background="#ffffff"
             android:layout_margin="1dp"
             android:clickable="true"
+            android:focusable="true"
             />
         <TextView
             android:id="@+id/sun1"
@@ -149,6 +155,7 @@
             android:background="#ffffff"
             android:layout_margin="1dp"
             android:clickable="true"
+            android:focusable="true"
             />
         </TableRow>
         <TableRow>
@@ -167,6 +174,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/tue2"
@@ -176,6 +184,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/wed2"
@@ -185,6 +194,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/thu2"
@@ -194,6 +204,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/fri2"
@@ -203,6 +214,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/sat2"
@@ -212,6 +224,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/sun2"
@@ -221,6 +234,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
         </TableRow>
         <TableRow>
@@ -239,6 +253,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/tue3"
@@ -248,6 +263,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/wed3"
@@ -257,6 +273,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/thu3"
@@ -266,6 +283,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/fri3"
@@ -275,6 +293,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/sat3"
@@ -284,6 +303,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
             <TextView
                 android:id="@+id/sun3"
@@ -293,6 +313,7 @@
                 android:background="#ffffff"
                 android:layout_margin="1dp"
                 android:clickable="true"
+                android:focusable="true"
                 />
         </TableRow>
 

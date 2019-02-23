@@ -69,7 +69,7 @@ public class EnrolmentActivity extends AppCompatActivity {
 
         GetDataFromServer();
 
-        adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_single_choice,mySubject) ; //리스트뷰 어뎁터
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_single_choice, mySubject) ; //리스트뷰 어뎁터
 
         entire_lin.setVisibility(INVISIBLE);
         sc_lin.setVisibility(INVISIBLE);

@@ -214,6 +214,7 @@ public class InputSubject extends AppCompatActivity {
         });
 
     }
+
     private void uploadToServer() {
 
 

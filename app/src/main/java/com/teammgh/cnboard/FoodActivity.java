@@ -19,7 +19,7 @@ public class FoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R .layout.activity_food);
 
         tv_time = findViewById(R.id.tv_time);
         tv_food = findViewById(R.id.tv_food);

@@ -4,7 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -142,6 +142,7 @@ public class DdayActivity extends AppCompatActivity {
             textview_mday.setText(dYear + "년 " + dMonth + "월 " + dDay + "일 ");
         }
     };
+
     protected Dialog onCreateDialog (int id) {
         switch (id) {
             case DIALOG_DATE :
