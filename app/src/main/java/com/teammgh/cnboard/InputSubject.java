@@ -20,7 +20,7 @@ import static com.teammgh.cnboard.Global.subjectIndex;
 
 public class InputSubject extends AppCompatActivity {
 
-    Button igrade1_btn, igrade2_btn, igrade3_btn, SubAdd_btn, SubDel_btn,  AddEditDelSave_btn, SubrangeSave_btn;
+    Button igrade1_btn, igrade2_btn, igrade3_btn, SubAdd_btn, SubDel_btn,Subrange_btn;
     EditText AddEditDel_edtxt, Subrange_edtxt;
     Spinner Category_spin, Subject_spin;
     public ArrayAdapter<String> Categpry, Subject;
@@ -50,17 +50,13 @@ public class InputSubject extends AppCompatActivity {
         igrade3_btn= findViewById(R.id.igrade3_btn);
         SubAdd_btn= findViewById(R.id.SubAdd_btn);
         SubDel_btn = findViewById(R.id.SubDel_btn);
-        AddEditDelSave_btn = findViewById(R.id.AddEditDelSave_btn);
-        SubrangeSave_btn = findViewById(R.id.SubRange_btn);
-
-        AddEditDel_edtxt = findViewById(R.id.AddEditDel_edtxt);
         Subrange_edtxt= findViewById(R.id.SubRange_edtxt);
-
         Category_spin = findViewById(R.id.Category_spin);
         Subject_spin = findViewById(R.id.Subject_spin);
+        Subrange_btn = findViewById(R.id.SubRange_btn);
 
         Subrange_edtxt.setVisibility(View.INVISIBLE);
-        AddEditDelSave_btn.setVisibility(View.INVISIBLE);
+
 
         arrSubject [0] = "01:01:국어,01:02:영어,01:03:일본어1,01:04:중국어1,01:05:통합사회,01:06:한국사,02:07:수학,02:08:통합과학,02:09:기술가정,03:10:음악연주,03:11:체육";	// 1학년 과목
         arrSubject [1] = "01:01:철학,01:02:언어와 매체,01:03:문예 창작 입문,01:04:문학 개론,01:05:영어1,01:06:실용영어,01:07:심화 영어 회화1,01:08:영어권 문화,01:09:중국어2,02:10:사회 탐구 방법,02:11:사회 문제 탐구,02:12:사회문화,02:13:세계사,02:14:윤리와 사상,02:15:정치와 법,02:16:한국지리,02:17:경제,03:18:수학1,03:19:수학2,03:20:화학1,03:21:물리학1,03:22:생명과학1,04:23:정보과학,04:24:공학일반,05:25:미술,05:26:운동과 건강,05:27:음악 이론,05:28:체육과 진로탐구";		// 2학년 카테고리
@@ -162,9 +158,9 @@ public class InputSubject extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 subjectIndex = position;   //subjectIndex = spinnerSubject.SelectedIndex;
                 Subrange_edtxt.setVisibility(View.VISIBLE);
-                AddEditDelSave_btn.setVisibility(View.VISIBLE);
+                SubDel_btn.setVisibility(View.VISIBLE);
 
-                AddEditDelSave_btn.setOnClickListener(new View.OnClickListener() {
+                SubDel_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         arrData.remove(subjectIndex);
@@ -181,7 +177,8 @@ public class InputSubject extends AppCompatActivity {
             }
         });
 
-        SubrangeSave_btn.setOnClickListener(new View.OnClickListener() {
+        // 저장
+        Subrange_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -192,18 +189,21 @@ public class InputSubject extends AppCompatActivity {
                 switch(grade){
 
                     case 0:
-                        arrSubjectMemo1[subjectMemoIndex] = Subrange_edtxt.getText().toString();
+                        String Subrange1 = Subrange_edtxt.getText().toString();
+                        arrSubjectMemo1[subjectMemoIndex] =  subjectIndex1+":"+Subrange1;
                         uploadToServer();
 
                         break;
 
                     case 1:
-                        arrSubjectMemo2[subjectMemoIndex] =  Subrange_edtxt.getText().toString();
+                        String Subrange2 = Subrange_edtxt.getText().toString();
+                        arrSubjectMemo2[subjectMemoIndex] =  subjectIndex1+":"+Subrange2;
                         uploadToServer();
 
                         break;
                     case 2:
-                         arrSubjectMemo3[subjectMemoIndex] = Subrange_edtxt.getText().toString();
+                        String Subrange3 = Subrange_edtxt.getText().toString();
+                         arrSubjectMemo3[subjectMemoIndex] = subjectIndex1+":"+Subrange3;
                         //arrSubjectMemo3[subjectMemoIndex].uploadToServer();
 
                 }
@@ -221,14 +221,17 @@ public class InputSubject extends AppCompatActivity {
      switch(grade){
          case 0 :
              //arrSubjectMemo1[subjectMemoIndex]을 서버에 올림
+             Toast.makeText(getApplicationContext(),"1학년 서버에 올림",Toast.LENGTH_SHORT).show();
              break;
 
          case 1 :
              //arrSubjectMemo2[subjectMemoIndex]을 서버에 올림
+             Toast.makeText(getApplicationContext(),"2학년 서버에 올림",Toast.LENGTH_SHORT).show();
              break;
 
          case 2 :
              //arrSubjectMemo3[subjectMemoIndex]을 서버에 올림
+             Toast.makeText(getApplicationContext(),"3학년 서버ㅔ 올림",Toast.LENGTH_SHORT).show();
              break;
 
      }

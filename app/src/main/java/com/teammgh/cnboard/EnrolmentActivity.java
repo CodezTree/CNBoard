@@ -2,7 +2,6 @@ package com.teammgh.cnboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-//내일 해야할 일 : 삭제 버튼 구현하기, 1 2 3 학년 버튼 누를때마다 각 학년에 맞게 버튼 색 바뀌기>> 다했다 예 ^__^
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -14,8 +13,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,6 +86,7 @@ public class EnrolmentActivity extends AppCompatActivity {
         btn1_grade = findViewById(R.id.grade1_btn);
         btn2_grade = findViewById(R.id.grade2_btn);
         btn3_grade = findViewById(R.id.grade3_btn);
+        del_btn = findViewById(R.id.del_btn);
 
 
         GetDataFromServer();
@@ -110,6 +108,7 @@ public class EnrolmentActivity extends AppCompatActivity {
 
         listView.setVisibility(INVISIBLE);
         del_btn.setVisibility(INVISIBLE);
+        save_btn.setVisibility(INVISIBLE);
 
 
         btn1_grade.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +127,7 @@ public class EnrolmentActivity extends AppCompatActivity {
                 btn1_grade.setBackgroundResource(R.drawable.grade1btn_rectangle);
                 btn2_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
                 btn3_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                btn1_grade.setTextColor(Color.rgb(255,255,255));
 
                 Linear.setBackgroundColor(Color.rgb(255, 248, 248));
                 grade = 0;
@@ -148,6 +148,7 @@ public class EnrolmentActivity extends AppCompatActivity {
                 social_lin.setVisibility(VISIBLE);
                 it_lin.setVisibility(VISIBLE);
                 Linear.setBackgroundColor(Color.rgb(241, 255, 241));
+                btn2_grade.setTextColor(Color.rgb(255,255,255));
 
                 btn2_grade.setBackgroundResource(R.drawable.grade2btn_rectangle);
                 btn3_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
@@ -172,6 +173,7 @@ public class EnrolmentActivity extends AppCompatActivity {
                 social_lin.setVisibility(INVISIBLE);
                 it_lin.setVisibility(INVISIBLE);
                 Linear.setBackgroundColor(Color.rgb(241, 242, 252));
+                btn3_grade.setTextColor(Color.rgb(255,255,255));
 
                 btn3_grade.setBackgroundResource(R.drawable.grade3btn_rectangle);
                 btn1_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
@@ -313,9 +315,11 @@ public class EnrolmentActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
                 String retValLan = lan.get(position);
-                mySubject.add(retValLan);
+                String SubjectN = lanN.get(position);
+                mySubject.add(SubjectN+" : " +retValLan);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
 
                 final int subjectnum = position;
 
@@ -340,10 +344,13 @@ public class EnrolmentActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String retValsocial = social.get(position);
-                mySubject.add(retValsocial);
+                String SubjectN = socialN.get(position);
+                mySubject.add(SubjectN+" : " +retValsocial);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
                 del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
+
 
                 final int subjectnum = position;
 
@@ -364,10 +371,12 @@ public class EnrolmentActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String retValsc = sc.get(position);
-                mySubject.add(retValsc);
+                String SubjectN = scN.get(position);
+                mySubject.add(SubjectN+" : " +retValsc);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
                 del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
 
                 final int subjectnum = position;
 
@@ -388,10 +397,12 @@ public class EnrolmentActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String retValit = it.get(position);
-                mySubject.add(retValit);
+                String SubjectN = itN.get(position);
+                mySubject.add(SubjectN+" : " +retValit);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
                 del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
 
                 final int subjectnum = position;
 
@@ -412,10 +423,12 @@ public class EnrolmentActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String retValsport = sport.get(position);
-                mySubject.add(retValsport);
+                String SubjectN = sportN.get(position);
+                mySubject.add(SubjectN+" : " +retValsport);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
                 del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
 
                 final int subjectnum = position;
 
@@ -436,10 +449,12 @@ public class EnrolmentActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String retValLangroup = langroup.get(position);
-                mySubject.add(retValLangroup);
+                String SubjectN = langroupN.get(position);
+                mySubject.add(SubjectN+" : " +retValLangroup);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
                 del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
 
                 final int subjectnum = position;
 
@@ -460,10 +475,12 @@ public class EnrolmentActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 String retValscgroup = scgroup.get(position);
-                mySubject.add(retValscgroup);
+                String SubjectN = scgroupN.get(position);
+                mySubject.add(SubjectN+" : " +retValscgroup);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
                 del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
 
                 final int subjectnum = position;
 

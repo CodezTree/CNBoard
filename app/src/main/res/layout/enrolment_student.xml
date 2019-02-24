@@ -212,8 +212,8 @@
         android:layout_height="131dp"
         android:layout_margin="10dp"
         android:clickable="true"
-        android:focusable="true"
         android:dividerHeight="2dp"
+        android:focusable="true"
         android:focusableInTouchMode="true"
         android:isScrollContainer="true"
         android:longClickable="true">
@@ -227,12 +227,21 @@
         android:gravity="right">
 
         <Button
+            android:id="@+id/del_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="저장"
-            android:layout_marginRight="15dp"
-            android:height="15dp"
-            android:id="@+id/save_btn"/>
+            android:layout_marginRight="10dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="삭제" />
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="13dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="저장" />
+
 
     </LinearLayout>
 

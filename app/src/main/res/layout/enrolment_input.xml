@@ -113,28 +113,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="25"
-            android:id="@+id/AddEditDel_edtxt"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="75"
-            android:layout_marginLeft="5dp"
-            android:text="저장"
-            android:id="@+id/AddEditDelSave_btn"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="25"
             android:hint="시험범위를 입력하세요"
             android:id="@+id/SubRange_edtxt"/>
 
