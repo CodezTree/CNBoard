@@ -2,7 +2,7 @@ package com.teammgh.cnboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-//내일 해야할 일 : 삭제 버튼 구현하기, 1 2 3 학년 버튼 누를때마다 각 학년에 맞게 버튼 색 바뀌기
+//내일 해야할 일 : 삭제 버튼 구현하기, 1 2 3 학년 버튼 누를때마다 각 학년에 맞게 버튼 색 바뀌기>> 다했다 예 ^__^
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
