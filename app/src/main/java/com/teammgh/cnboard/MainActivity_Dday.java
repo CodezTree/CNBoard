@@ -34,6 +34,7 @@ public class MainActivity_Dday extends AppCompatActivity {
         button_add_dday = (Button) findViewById(R.id.button_add_dday);
         listView = (ListView) findViewById(R.id.listview);
 
+
         adapter = new ListViewAdapter();
         listView.setAdapter(adapter);
 

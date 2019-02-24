@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class RefreshNotice extends StringRequest{
 
-    final static private String URL = "http://10.1.111.142/notice/noticeList";
+    final static private String URL = "http://45.32.49.247/notice/noticeList";
     private Map<String, String> parameters;
 
     public RefreshNotice(Response.Listener<String> listener) {
