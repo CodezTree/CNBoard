@@ -119,10 +119,10 @@ public class InputSubject extends AppCompatActivity {
         //    - 사용자가 카테고리를 선택했을때 카테고리 번호를 설정한다.
         //=====================================================================================
 
-        Category_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+             Category_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-               categoryNo = position;
+                categoryNo = position;
             }
 
             @Override

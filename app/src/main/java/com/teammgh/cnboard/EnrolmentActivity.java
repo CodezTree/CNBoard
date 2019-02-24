@@ -29,7 +29,7 @@ import com.google.gson.GsonBuilder;
 
 public class EnrolmentActivity extends AppCompatActivity {
 
-    Button save_btn,btn1_grade,btn2_grade,btn3_grade;
+    Button save_btn,btn1_grade,btn2_grade,btn3_grade,del_btn;
     Spinner sc_spin,scgroup_spin,lan_spin,social_spin,it_spin,sport_spin,langroup_spin;
     LinearLayout entire_lin,sc_lin,scgroup_lin,lan_lin,social_lin,it_lin,sport_lin,langroup_lin,Linear;
     public ArrayAdapter<String> Ap_langroup,Ap_scgroup,Ap_sport,Ap_lan,Ap_sc,Ap_it,Ap_social; //과목 어뎁터
@@ -109,6 +109,7 @@ public class EnrolmentActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         listView.setVisibility(INVISIBLE);
+        del_btn.setVisibility(INVISIBLE);
 
 
         btn1_grade.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +124,10 @@ public class EnrolmentActivity extends AppCompatActivity {
                 social_lin.setVisibility(INVISIBLE);
                 it_lin.setVisibility(INVISIBLE);
                 sc_lin.setVisibility(INVISIBLE);
+
+                btn1_grade.setBackgroundResource(R.drawable.grade1btn_rectangle);
+                btn2_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                btn3_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
 
                 Linear.setBackgroundColor(Color.rgb(255, 248, 248));
                 grade = 0;
@@ -144,6 +149,10 @@ public class EnrolmentActivity extends AppCompatActivity {
                 it_lin.setVisibility(VISIBLE);
                 Linear.setBackgroundColor(Color.rgb(241, 255, 241));
 
+                btn2_grade.setBackgroundResource(R.drawable.grade2btn_rectangle);
+                btn3_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                btn1_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
+
                 grade = 1;
 
             }
@@ -163,6 +172,10 @@ public class EnrolmentActivity extends AppCompatActivity {
                 social_lin.setVisibility(INVISIBLE);
                 it_lin.setVisibility(INVISIBLE);
                 Linear.setBackgroundColor(Color.rgb(241, 242, 252));
+
+                btn3_grade.setBackgroundResource(R.drawable.grade3btn_rectangle);
+                btn1_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                btn2_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
 
                 grade = 2;
 
@@ -303,8 +316,22 @@ public class EnrolmentActivity extends AppCompatActivity {
                 mySubject.add(retValLan);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
-            }
 
+                final int subjectnum = position;
+
+                del_btn.setVisibility(VISIBLE);
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+
+
+            }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -316,6 +343,17 @@ public class EnrolmentActivity extends AppCompatActivity {
                 mySubject.add(retValsocial);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
 
             @Override
@@ -329,6 +367,17 @@ public class EnrolmentActivity extends AppCompatActivity {
                 mySubject.add(retValsc);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
 
             @Override
@@ -342,6 +391,17 @@ public class EnrolmentActivity extends AppCompatActivity {
                 mySubject.add(retValit);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
 
             @Override
@@ -355,6 +415,17 @@ public class EnrolmentActivity extends AppCompatActivity {
                 mySubject.add(retValsport);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
 
             @Override
@@ -368,6 +439,17 @@ public class EnrolmentActivity extends AppCompatActivity {
                 mySubject.add(retValLangroup);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
 
             @Override
@@ -381,6 +463,17 @@ public class EnrolmentActivity extends AppCompatActivity {
                 mySubject.add(retValscgroup);
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
 
             @Override
