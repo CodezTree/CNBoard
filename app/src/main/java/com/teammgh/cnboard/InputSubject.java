@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.teammgh.cnboard.Global.arrData;
+import static com.teammgh.cnboard.Global.arrKey;
 import static com.teammgh.cnboard.Global.categoryNo;
 import static com.teammgh.cnboard.Global.grade;
 import static com.teammgh.cnboard.Global.subjectIndex;
@@ -35,9 +37,6 @@ public class InputSubject extends AppCompatActivity {
     int subjectMemoIndex=0;
     String subjectIndex1;
 
-
-    ArrayList<Integer> arrKey = new ArrayList<Integer>();       // 특정학년의 과목의 키번호 배얼
-    ArrayList<String> arrData = new ArrayList<String>();        // 특정학년의 과목이름 배열
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +81,11 @@ public class InputSubject extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 grade = 0;
+
+                Toast.makeText(getApplicationContext(),"1학년",Toast.LENGTH_SHORT).show();
+                setCategory();
+
+
             }
 
         });
@@ -90,6 +94,8 @@ public class InputSubject extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 grade = 1;
+                Toast.makeText(getApplicationContext(),"2학년",Toast.LENGTH_SHORT).show();
+                setCategory();
             }
 
         });
@@ -98,17 +104,11 @@ public class InputSubject extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 grade = 2;
+                Toast.makeText(getApplicationContext(),"1학년",Toast.LENGTH_SHORT).show();
+                setCategory();
             }
 
         });
-
-        String[]arrItem = arrCate[grade].split(",");// 특정 학년의 카테고리 목록
-
-
-        // arrItem 을 스피너에 추가
-        Categpry = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrItem);
-        Category_spin.setAdapter(Categpry);
-
 
         //=====================================================================================
         // 3. 사용자가 카테고리를 선택하면 해당 학년의 해당 카테고리의 과목 스피너를 생성한다.
@@ -119,6 +119,8 @@ public class InputSubject extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 categoryNo = position;
+
+                setSubject();
             }
 
             @Override
@@ -126,26 +128,6 @@ public class InputSubject extends AppCompatActivity {
             }
         });
 
-        String[] arrItem1 = arrSubject[grade].split(",");	 // A001 특정학년의 과목 목록    - [0]01:01:국어,[1]01:02:영어....[11]03:11:체욱
-        arrKey = new ArrayList<Integer>();       // 특정학년의 과목의 키번호 배얼
-        arrData = new ArrayList<String>();        // 특정학년의 과목이름 배열
-
-        // 사용자가 선택한 학년의 과목배열 전체를 루프 실행
-        for (int i=0; i< arrItem1.length;i++)
-        {
-            String[]arrItem2 = arrItem1[i].split(":");	// [0]01, [1]01, [2]국어, [3]01, [4]01, [5]영어
-
-            // 과목의 카테고리가 학생이 선택한 카테고리와 같으면 배열에 추가
-            if (Integer.parseInt(arrItem2[0]) == categoryNo) 				// A003  index는 스피너에 들어있는 원소의 번호
-            {
-                arrKey.add(Integer.parseInt(arrItem2[1]));	// 04, 05, 06
-                arrData.add(arrItem2[2]);	// 컴퓨터, 수학, 기계
-            }
-        }
-        // arrData를 과목 스피너에 추가 : 컴퓨터, 수학, 기계
-
-        Subject = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrData);
-        Subject_spin.setAdapter(Subject);
 
         //=====================================================================================
         // 4. 사용자가  과목을 선택하면 선생님이 과목설명을 입력하는 란을 생성한다.
@@ -212,6 +194,37 @@ public class InputSubject extends AppCompatActivity {
             }
 
         });
+
+    }
+
+    public void setCategory(){
+        String[]arrItem = arrCate[grade].split(",");// 특정 학년의 카테고리 목록
+
+
+        // arrItem 을 스피너에 추가
+        Categpry = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrItem);
+        Category_spin.setAdapter(Categpry);
+    }
+    public void setSubject(){
+
+        String[] arrItem1 = arrSubject[grade].split(",");	 // A001 특정학년의 과목 목록    - [0]01:01:국어,[1]01:02:영어....[11]03:11:체욱
+
+        // 사용자가 선택한 학년의 과목배열 전체를 루프 실행
+        for (int i=0; i< arrItem1.length;i++)
+        {
+            String[]arrItem2 = arrItem1[i].split(":");	// [0]01, [1]01, [2]국어, [3]01, [4]01, [5]영어
+
+            // 과목의 카테고리가 학생이 선택한 카테고리와 같으면 배열에 추가
+            if (Integer.parseInt(arrItem2[0]) == categoryNo) 				// A003  index는 스피너에 들어있는 원소의 번호
+            {
+                arrKey.add(Integer.parseInt(arrItem2[1]));	// 04, 05, 06
+                arrData.add(arrItem2[2]);	// 컴퓨터, 수학, 기계
+            }
+        }
+        // arrData를 과목 스피너에 추가 : 컴퓨터, 수학, 기계
+
+        Subject = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrData);
+        Subject_spin.setAdapter(Subject);
 
     }
 

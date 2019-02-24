@@ -20,15 +20,18 @@
         <activity android:name=".NoticeDetailActivity" />
         <activity android:name=".FoodActivity" />
         <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".EnrolmentActivity"/>
+        <activity android:name=".EnrolmentActivity">
+
+        </activity>
         <activity android:name=".LakeViewActivity"/>
-        <activity android:name=".InputSubject"/>
+        <activity android:name=".InputSubject">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".DdayActivity"/>
         <activity android:name=".MainActivity_Dday"/>
     </application>
