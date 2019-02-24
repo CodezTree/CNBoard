@@ -1,4 +1,5 @@
 package com.teammgh.cnboard;
+//내일 할 일 switch문에서 arrSubjectMemo1[subjectMemoIndex]이거 가능한지 보기, 입력 버튼 누르면 2차원 배열 하나로 서버로 넘겨줄 수 있도록 수정하기
 
 import android.os.Bundle;
 import android.view.View;

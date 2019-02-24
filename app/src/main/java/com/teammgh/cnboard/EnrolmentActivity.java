@@ -2,6 +2,9 @@ package com.teammgh.cnboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//내일 할 일 :arrSubject 과목 배열 순서 인풋꺼 과목 배열 순서랑 같은지 보기,switch문에서 arrItem1[i] 가능한지 보기, 여튼 이차원 배열로 받는걸로 바꼇으니까 그거 잘 적용되는지 보기
+//arrSubject 다 채우기 워드 보면서
+//이거 스피너 어뎁터 적용하는거 다 메소드로 빼서 스피너 원소 클릭하자마자 다음 스피너 채우도록 하기 -- 인풋도 마찬가지
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -50,11 +53,9 @@ public class EnrolmentActivity extends AppCompatActivity {
     List<String> socialN = new ArrayList<>();
     List<String> itN  = new ArrayList<>();
 
-    String [] arrSubjectMemo1 = new String[11];	// 1학년 과목별 시험범위 -GetDataFromServer()로 값 서버에서 불러와야함
-    String [] arrSubjectMemo3 = new String[41];	// 3학년 과목별 시험범위 -GetDataFromServer()로 값 서버에서 불러와야함
-    String [] arrSubjectMemo2 = new String[28];	// 2학년 과목별 시험범위 -GetDataFromServer()로 값 서버에서 불러와야함
-
     String [] arrSubject = new String[3];
+
+    String [][] arrSubjectMemo = new String[3][];	// 1학년 과목별 시험범위 -GetDataFromServer()로 값 서버에서 불러와야함
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +89,9 @@ public class EnrolmentActivity extends AppCompatActivity {
         btn3_grade = findViewById(R.id.grade3_btn);
         del_btn = findViewById(R.id.del_btn);
 
+        arrSubject[0] = "국어,영어,일본어I,중국어I,통합사회,한국사,기술가정,통합과학,음악연주,체육";
 
-        GetDataFromServer();
+                GetDataFromServer();
 
         adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_single_choice, mySubject); //리스트뷰 어뎁터
 
@@ -109,6 +111,9 @@ public class EnrolmentActivity extends AppCompatActivity {
         listView.setVisibility(INVISIBLE);
         del_btn.setVisibility(INVISIBLE);
         save_btn.setVisibility(INVISIBLE);
+
+
+
 
 
         btn1_grade.setOnClickListener(new View.OnClickListener() {
@@ -194,17 +199,17 @@ public class EnrolmentActivity extends AppCompatActivity {
                 sport_lin.setVisibility(VISIBLE);
 
                 for (int i = 0; i <= 5; i++) {
-                    langroup.add(arrSubjectMemo1[i]);             //langroup = 시험범위 배열 -- 서버에서 1학년 시험범위를 불러옴          *lan group1 = "국어 시험범위는 100-139페이지","사회 시험범위는 100-399페이지".....
+                    langroup.add(arrSubjectMemo[0][i]);             //langroup = 시험범위 배열 -- 서버에서 1학년 시험범위를 불러옴          *lan group1 = "국어 시험범위는 100-139페이지","사회 시험범위는 100-399페이지".....
                     langroupN.add(arrItem1[i]);                   //langroupN = 과목이름 배열  *langroupR1= "국어","영어","일본어1","중국어1","통합사회","한국사"
                 }
 
                 for (int i = 6; i <= 8; i++) {
-                    scgroup.add(arrSubjectMemo1[i]);
+                    scgroup.add(arrSubjectMemo[0][i]);
                     scgroupN.add(arrItem1[i]);
                 }
 
                 for (int i = 9; i <= 10; i++) {
-                    sport.add(arrSubjectMemo1[i]);
+                    sport.add(arrSubjectMemo[0][i]);
                     sportN.add(arrItem1[i]);
                 }
 
@@ -226,27 +231,27 @@ public class EnrolmentActivity extends AppCompatActivity {
                 social_lin.setVisibility(VISIBLE);
 
                 for (int i = 0; i <= 8; i++) {
-                    lan.add(arrSubjectMemo2[i]);
+                    lan.add(arrSubjectMemo[1][i]);
                     lanN.add(arrItem1[i]);
                 }
 
                 for (int i = 9; i <= 16; i++) {
-                    social.add(arrSubjectMemo2[i]);
+                    social.add(arrSubjectMemo[1][i]);
                     socialN.add(arrItem1[i]);
                 }
 
                 for (int i = 17; i <= 21; i++) {
-                    sc.add(arrSubjectMemo2[i]);
+                    sc.add(arrSubjectMemo[1][i]);
                     scN.add(arrItem1[i]);
 
                 }
                 for (int i = 22; i <= 23; i++) {
-                    it.add(arrSubjectMemo2[i]);
+                    it.add(arrSubjectMemo[1][i]);
                     itN.add(arrItem1[i]);
 
                 }
                 for (int i = 24; i <= 27; i++) {
-                    sport.add(arrSubjectMemo2[i]);
+                    sport.add(arrSubjectMemo[1][i]);
                     sportN.add(arrItem1[i]);
                 }
 
@@ -273,25 +278,25 @@ public class EnrolmentActivity extends AppCompatActivity {
                 social_lin.setVisibility(VISIBLE);
 
                 for (int i = 0; i <= 6; i++) {
-                    lan.add(arrSubjectMemo3[i]);
+                    lan.add(arrSubjectMemo[2][i]);
                     lanN.add(arrItem1[i]);
                 }
 
                 for (int i = 7; i <= 13; i++) {
-                    social.add(arrSubjectMemo3[i]);
+                    social.add(arrSubjectMemo[2][i]);
                     socialN.add(arrItem1[i]);
                 }
 
                 for (int i = 14; i <= 26; i++) {
-                    sc.add(arrSubjectMemo3[i]);
+                    sc.add(arrSubjectMemo[2][i]);
                     scN.add(arrItem1[i]);
                 }
                 for (int i = 27; i <= 30; i++) {
-                    it.add(arrSubjectMemo3[i]);
+                    it.add(arrSubjectMemo[2][i]);
                     itN.add(arrItem1[i]);
                 }
                 for (int i = 31; i <= 40; i++) {
-                    sport.add(arrSubjectMemo3[i]);
+                    sport.add(arrSubjectMemo[2][i]);
                     sportN.add(arrItem1[i]);
                 }
                 Ap_lan = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lanN);
@@ -512,9 +517,7 @@ public class EnrolmentActivity extends AppCompatActivity {
 
     private void GetDataFromServer(){
 
-        /*
-     arrSubjectMemo1,arrSubjectMemo2,arrSubjectMemo3을 서버에서 불러옴
-         */
+        //arrSubjectMemo 를 서버에서 가져온다.
         }
 
     private void saveData() {
