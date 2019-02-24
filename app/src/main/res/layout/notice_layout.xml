@@ -26,8 +26,8 @@
             android:layout_height="7dp"
             android:background="#ff5252"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_gravity="left"/>
+            android:layout_marginStart="5dp"
+            android:layout_gravity="start"/>
 
         <TextView
             android:id="@+id/tv_notice_time"
@@ -62,6 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/iv_notice"
+            android:contentDescription="notice Image"
             android:layout_marginBottom="20dp"/>
 
     </LinearLayout>

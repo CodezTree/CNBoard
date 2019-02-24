@@ -212,7 +212,7 @@
         android:layout_height="131dp"
         android:layout_margin="10dp"
         android:clickable="true"
-        android:contextClickable="true"
+        android:focusable="true"
         android:dividerHeight="2dp"
         android:focusableInTouchMode="true"
         android:isScrollContainer="true"
