@@ -316,8 +316,5 @@
                 android:focusable="true"
                 />
         </TableRow>
-
-
     </TableLayout>
-
 </LinearLayout>
