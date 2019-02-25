@@ -1,11 +1,8 @@
 package com.teammgh.cnboard;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-//내일 할 일 :arrSubject 과목 배열 순서 인풋꺼 과목 배열 순서랑 같은지 보기,switch문에서 arrItem1[i] 가능한지 보기, 여튼 이차원 배열로 받는걸로 바꼇으니까 그거 잘 적용되는지 보기
-//arrSubject 다 채우기 워드 보면서
-//이거 스피너 어뎁터 적용하는거 다 메소드로 빼서 스피너 원소 클릭하자마자 다음 스피너 채우도록 하기 -- 인풋도 마찬가지
-
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,16 +13,19 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.teammgh.cnboard.Global.grade;
+import static com.teammgh.cnboard.Global.mySubData1;
 import static com.teammgh.cnboard.Global.mySubject;
-
+import static com.teammgh.cnboard.Global.mySubjectList;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 
 public class EnrolmentActivity extends AppCompatActivity {
 
@@ -38,24 +38,9 @@ public class EnrolmentActivity extends AppCompatActivity {
     private Gson gson;
 
 
-    List<String> langroup  = new ArrayList<>();
-    List<String> scgroup = new ArrayList<>();
-    List<String> sport = new ArrayList<>();
-    List<String> lan  = new ArrayList<>();
-    List<String> sc = new ArrayList<>();
-    List<String> social = new ArrayList<>();
-    List<String> it  = new ArrayList<>();
-    List<String> langroupN  = new ArrayList<>();
-    List<String> scgroupN = new ArrayList<>();
-    List<String> sportN = new ArrayList<>();
-    List<String> lanN  = new ArrayList<>();
-    List<String> scN = new ArrayList<>();
-    List<String> socialN = new ArrayList<>();
-    List<String> itN  = new ArrayList<>();
-
+    List<String> langroup,scgroup,sport,lan,sc,social,it,langroupN,scgroupN,sportN,lanN,scN,socialN,itN;
     String [] arrSubject = new String[3];
-
-    String [][] arrSubjectMemo = new String[3][];	// 1학년 과목별 시험범위 -GetDataFromServer()로 값 서버에서 불러와야함
+    String [][] arrSubjectMemo = new String[3][]; 	// 1학년 과목별 시험범위 -GetDataFromServer()로 값 서버에서 불러와야함
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +74,13 @@ public class EnrolmentActivity extends AppCompatActivity {
         btn3_grade = findViewById(R.id.grade3_btn);
         del_btn = findViewById(R.id.del_btn);
 
-        arrSubject[0] = "국어,영어,일본어I,중국어I,통합사회,한국사,기술가정,통합과학,음악연주,체육";
+        arrSubject[0] = "국어,영어,일본어I,중국어I,통합사회,한국사,수학,통합과학,기술가정,음악연주,체육";
+        arrSubject[1] = "철학,언어와 매체,문예 창작 입문,문학 개론,영어1,실용영어,심화 영어 회화1,영어권 문화,중국어2,사회 탐구 방법,사회 문제 탐구,사회문화,세계사,윤리와 사상,정치와 법,한국지리,경제,수학1,수학2,화학1,물리학1,생명과학1,정보과학,공학일반,미술,운동과 건강,음악 이론,체육과 진로탐구";
+        arrSubject[2] = "교육학,논리학논술,심화 영어 독해1,영어회화,일본어회화1,국어작문,화법과 작문,국제경제,국제법,비교문화,사회문화,생활과윤리,세계지리,한국의사회와문화,고급물리,고급생명과학,고급수학,고급화학,고급물리,생명과학2,생명과학실험,심화물리,심화수학1,심화수학2,심화화학,화학실험,환경과학,공학기술,정보통신,정보과학(3학년),로봇제작,마케팅과 광고,시창청음,:미술사,스포츠과학,영화감상과비평,육상운동,입체조형,제품디자인,진로와직업,체력운동";
 
-                GetDataFromServer();
-
-        adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_single_choice, mySubject); //리스트뷰 어뎁터
+        GetDataFromServer();
+        First();
+        init();
 
         entire_lin.setVisibility(INVISIBLE);
         sc_lin.setVisibility(INVISIBLE);
@@ -105,15 +92,12 @@ public class EnrolmentActivity extends AppCompatActivity {
         langroup_lin.setVisibility(INVISIBLE);
 
 
-        listView = (ListView) findViewById(R.id.listview);
+        listView = (ListView)findViewById(R.id.listview);
         listView.setAdapter(adapter);
 
         listView.setVisibility(INVISIBLE);
         del_btn.setVisibility(INVISIBLE);
         save_btn.setVisibility(INVISIBLE);
-
-
-
 
 
         btn1_grade.setOnClickListener(new View.OnClickListener() {
@@ -135,9 +119,11 @@ public class EnrolmentActivity extends AppCompatActivity {
                 btn1_grade.setTextColor(Color.rgb(255,255,255));
 
                 Linear.setBackgroundColor(Color.rgb(255, 248, 248));
+
+                ++Global.a;
                 grade = 0;
-
-
+                setSubject();
+                Warning();
             }
         });
         btn2_grade.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +145,10 @@ public class EnrolmentActivity extends AppCompatActivity {
                 btn3_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
                 btn1_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
 
+                ++Global.a;
                 grade = 1;
+                setSubject();
+                Warning();
 
             }
         });
@@ -184,11 +173,232 @@ public class EnrolmentActivity extends AppCompatActivity {
                 btn1_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
                 btn2_grade.setBackgroundResource(R.drawable.gradebtn_rectangle);
 
+                ++Global.a;
                 grade = 2;
+                setSubject();
+                Warning();
 
             }
         });
 
+
+
+
+
+        lan_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+                String retValLan = lan.get(position);
+                String SubjectN = lanN.get(position);
+                mySubject.add(SubjectN+" : " +retValLan);
+                mySubjectList.get(grade).add(retValLan);
+                adapter.notifyDataSetChanged();
+                listView.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setVisibility(VISIBLE);
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        social_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                String retValsocial = social.get(position);
+                String SubjectN = socialN.get(position);
+                mySubject.add(SubjectN+" : " +retValsocial);
+                mySubjectList.get(grade).add(retValsocial);
+                adapter.notifyDataSetChanged();
+                listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
+
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        mySubjectList.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        sc_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                String retValsc = sc.get(position);
+                String SubjectN = scN.get(position);
+                mySubject.add(SubjectN+" : " +retValsc);
+                mySubjectList.get(grade).add(retValsc);
+                adapter.notifyDataSetChanged();
+                listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        mySubjectList.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        it_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                String retValit = it.get(position);
+                String SubjectN = itN.get(position);
+                mySubject.add(SubjectN+" : " +retValit);
+                mySubjectList.get(grade).add(retValit);
+                adapter.notifyDataSetChanged();
+                listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        mySubjectList.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        sport_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                String retValsport = sport.get(position);
+                String SubjectN = sportN.get(position);
+                mySubject.add(SubjectN+" : " +retValsport);
+                mySubjectList.get(grade).add(retValsport);
+                adapter.notifyDataSetChanged();
+                listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        mySubjectList.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        langroup_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                String retValLangroup = langroup.get(position);
+                String SubjectN = langroupN.get(position);
+                mySubject.add(SubjectN+" : " +retValLangroup);
+                mySubjectList.get(grade).add(retValLangroup);
+                adapter.notifyDataSetChanged();
+                listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        mySubjectList.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        scgroup_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                String retValscgroup = scgroup.get(position);
+                String SubjectN = scgroupN.get(position);
+                mySubject.add(SubjectN+" : " +retValscgroup);
+                mySubjectList.get(grade).add(retValscgroup);
+                adapter.notifyDataSetChanged();
+                listView.setVisibility(VISIBLE);
+                del_btn.setVisibility(VISIBLE);
+                save_btn.setVisibility(VISIBLE);
+
+                final int subjectnum = position;
+
+                del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mySubject.remove(subjectnum);
+                        mySubjectList.remove(subjectnum);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        save_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                saveData();
+                getData();
+                adapter.notifyDataSetChanged();
+
+                Toast.makeText(getApplicationContext(),"시험범위가 저장되었습니다.",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setSubject(){
 
         String[] arrItem1 = arrSubject[grade].split(",");
         switch (grade) {
@@ -213,9 +423,9 @@ public class EnrolmentActivity extends AppCompatActivity {
                     sportN.add(arrItem1[i]);
                 }
 
-                Ap_scgroup = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, langroupN); //스피너 과목이름으로 채움  *Ap_scgroup = 과목 배열
-                Ap_langroup = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scgroupN);
-                Ap_sport = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sportN);
+                Ap_scgroup = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, langroupN); //스피너 과목이름으로 채움  *Ap_scgroup = 과목 배열
+                Ap_langroup = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, scgroupN);
+                Ap_sport = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sportN);
                 scgroup_spin.setAdapter(Ap_scgroup);
                 langroup_spin.setAdapter(Ap_langroup);
                 sport_spin.setAdapter(Ap_sport);
@@ -255,11 +465,11 @@ public class EnrolmentActivity extends AppCompatActivity {
                     sportN.add(arrItem1[i]);
                 }
 
-                Ap_lan = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lanN);
-                Ap_social = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, socialN);
-                Ap_sport = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sportN);
-                Ap_it = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itN);
-                Ap_sc = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scN);
+                Ap_lan = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lanN);
+                Ap_social = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, socialN);
+                Ap_sport = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sportN);
+                Ap_it = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itN);
+                Ap_sc = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, scN);
 
                 lan_spin.setAdapter(Ap_lan);
                 social_spin.setAdapter(Ap_social);
@@ -299,11 +509,11 @@ public class EnrolmentActivity extends AppCompatActivity {
                     sport.add(arrSubjectMemo[2][i]);
                     sportN.add(arrItem1[i]);
                 }
-                Ap_lan = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lanN);
-                Ap_social = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, socialN);
-                Ap_sport = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sportN);
-                Ap_it = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itN);
-                Ap_sc = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scN);
+                Ap_lan = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lanN);
+                Ap_social = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, socialN);
+                Ap_sport = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sportN);
+                Ap_it = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itN);
+                Ap_sc = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, scN);
 
                 lan_spin.setAdapter(Ap_lan);
                 social_spin.setAdapter(Ap_social);
@@ -315,204 +525,6 @@ public class EnrolmentActivity extends AppCompatActivity {
         }
 
 
-        lan_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-
-                String retValLan = lan.get(position);
-                String SubjectN = lanN.get(position);
-                mySubject.add(SubjectN+" : " +retValLan);
-                adapter.notifyDataSetChanged();
-                listView.setVisibility(VISIBLE);
-                save_btn.setVisibility(VISIBLE);
-
-                final int subjectnum = position;
-
-                del_btn.setVisibility(VISIBLE);
-
-                del_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mySubject.remove(subjectnum);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-
-
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-        social_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String retValsocial = social.get(position);
-                String SubjectN = socialN.get(position);
-                mySubject.add(SubjectN+" : " +retValsocial);
-                adapter.notifyDataSetChanged();
-                listView.setVisibility(VISIBLE);
-                del_btn.setVisibility(VISIBLE);
-                save_btn.setVisibility(VISIBLE);
-
-
-                final int subjectnum = position;
-
-                del_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mySubject.remove(subjectnum);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-        sc_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String retValsc = sc.get(position);
-                String SubjectN = scN.get(position);
-                mySubject.add(SubjectN+" : " +retValsc);
-                adapter.notifyDataSetChanged();
-                listView.setVisibility(VISIBLE);
-                del_btn.setVisibility(VISIBLE);
-                save_btn.setVisibility(VISIBLE);
-
-                final int subjectnum = position;
-
-                del_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mySubject.remove(subjectnum);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-        it_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String retValit = it.get(position);
-                String SubjectN = itN.get(position);
-                mySubject.add(SubjectN+" : " +retValit);
-                adapter.notifyDataSetChanged();
-                listView.setVisibility(VISIBLE);
-                del_btn.setVisibility(VISIBLE);
-                save_btn.setVisibility(VISIBLE);
-
-                final int subjectnum = position;
-
-                del_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mySubject.remove(subjectnum);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-        sport_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String retValsport = sport.get(position);
-                String SubjectN = sportN.get(position);
-                mySubject.add(SubjectN+" : " +retValsport);
-                adapter.notifyDataSetChanged();
-                listView.setVisibility(VISIBLE);
-                del_btn.setVisibility(VISIBLE);
-                save_btn.setVisibility(VISIBLE);
-
-                final int subjectnum = position;
-
-                del_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mySubject.remove(subjectnum);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-        langroup_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String retValLangroup = langroup.get(position);
-                String SubjectN = langroupN.get(position);
-                mySubject.add(SubjectN+" : " +retValLangroup);
-                adapter.notifyDataSetChanged();
-                listView.setVisibility(VISIBLE);
-                del_btn.setVisibility(VISIBLE);
-                save_btn.setVisibility(VISIBLE);
-
-                final int subjectnum = position;
-
-                del_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mySubject.remove(subjectnum);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-        scgroup_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String retValscgroup = scgroup.get(position);
-                String SubjectN = scgroupN.get(position);
-                mySubject.add(SubjectN+" : " +retValscgroup);
-                adapter.notifyDataSetChanged();
-                listView.setVisibility(VISIBLE);
-                del_btn.setVisibility(VISIBLE);
-                save_btn.setVisibility(VISIBLE);
-
-                final int subjectnum = position;
-
-                del_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mySubject.remove(subjectnum);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-        save_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                saveData();
-                getData();
-                adapter.notifyDataSetChanged();
-            }
-
-
-        });
     }
 
     private void GetDataFromServer(){
@@ -522,27 +534,100 @@ public class EnrolmentActivity extends AppCompatActivity {
 
     private void saveData() {
 
-        gson = new GsonBuilder().create();
-        // JSON 으로 변환
-        String strmySub = gson.toJson(mySubject, EnrolmentActivity.class);
-
         SharedPreferences mySubData = getSharedPreferences("mySubData", MODE_PRIVATE);
         SharedPreferences.Editor editor = mySubData.edit();
-        editor.putString("mySubject", strmySub); // JSON으로 변환한 객체를 저장한다.
+        Gson gson = new Gson();
+        // JSON 으로 변환
+        String strmySub = gson.toJson(mySubject, EnrolmentActivity.class);
+        editor.putString("mySubject1", strmySub); // JSON으로 변환한 객체를 저장한다.
         editor.commit(); //완료한다.
+        init();
+        Global.grade = -1;
     }
-    protected void getData(){
-        SharedPreferences mySubData1 = getSharedPreferences("mySubData", MODE_PRIVATE);
-        String strmySub = mySubData1.getString("mySubject", "");
-
+    protected void getData(){ // 앱 껏다가 켰을 때 자기가 저장한 시험범위 리스트를 잃어버리지 않도록 저장해주는 역할
+        mySubData1 = getSharedPreferences("mySubData", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String strmySub = mySubData1.getString("mySubData", "");
         // 변환
-        EnrolmentActivity strmySub1 = gson.fromJson(strmySub, EnrolmentActivity.class); //여기 잘 모르겠다... 그러면 listview adapter에 들어가는 배열을 저장버튼 누른뒤에는 strmySub로 바꿔야하는건가..
-                                                                                        //그럼 또 strmySub을 ArrayList로 바꿔야하는것인가ㅜㅜ
-        //mySubject = strmySub1;
+        Type type = new TypeToken<ArrayList<EnrolmentActivity>>() {}.getType();
+        mySubject = gson.fromJson(strmySub,type);  //mySubject는 adapter의 내용
         adapter.notifyDataSetChanged();
-
-
     }
+    private void First(){
+        if(mySubData1.contains("mySubData")){
+            getData();
+        }
+    }
+    private void Warning(){
 
+        if( Global.a >= 2) {
+            if (!mySubData1.contains("mySubData")) {
+                init();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(EnrolmentActivity.this);
+                dialog.setTitle("초기화 경고")
+                        .setMessage("시험범위가 저장되지 않았습니다. 시험범위를 저장하지 않은 채 학년 버튼을 다시 누르면 선택한 것이 모두 초기화 됩니다. 그래도 계속 진행하시겠습니까?")
+                        .setPositiveButton("계속 진행합니다", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(EnrolmentActivity.this, "현재까지의 선택이 모두 초기화 되었습니다. 처음부터 다시 진행해주십시요", Toast.LENGTH_SHORT).show();
+                                //OnClick 리스너 실행, 초기화
+                                init();
+                            }
+                        })
+                        .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(EnrolmentActivity.this, "계속 진행하지 않습니다.", Toast.LENGTH_SHORT).show();
+                                //OnClick 리스너 실행하지 않음, 초기화 하지 않음
+                            }
+                        }).create().show();
+            }
+        }
+    }
+    public void onBackPressed() {
 
+        // Alert을 이용해 종료시키기
+        if(!mySubData1.contains("mySubData")){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(EnrolmentActivity.this);
+        dialog .setTitle("부적절한 종료 경고")
+                .setMessage("선택된 시험범위가 저장되지 않았습니다. 그래도 종료하시겠습니까? /n 종료시 선택된 시험범위가 저장되지 않아 오류가 발생 할 수 있습니다.")
+                .setPositiveButton("종료합니다", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNeutralButton("취소합니다", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(EnrolmentActivity.this, "취소했습니다. 저장 버튼을 눌러 선택된 시험범위를 저장해 주십시오.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(EnrolmentActivity.this, "종료하지 않습니다. 저장 버튼을 눌러 선택된 시험범위를 저장해 주십시오", Toast.LENGTH_SHORT).show();
+                    }
+                }).create().show();
+        }
+    }
+    private void init(){
+        langroup  = new ArrayList<>();
+        scgroup = new ArrayList<>();
+        sport = new ArrayList<>();
+        lan = new ArrayList<>();
+        sc = new ArrayList<>();
+        social = new ArrayList<>();
+        it = new ArrayList<>();
+        langroupN = new ArrayList<>();
+        scgroupN = new ArrayList<>();
+        sportN = new ArrayList<>();
+        lanN = new ArrayList<>();
+        scN = new ArrayList<>();
+        socialN = new ArrayList<>();
+        itN = new ArrayList<>();
+        Global.subjectIndex = -1;
+        Global.categoryNo = -1;
+        Global.a = 0;
+    }
 }

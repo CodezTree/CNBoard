@@ -9,11 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import static com.teammgh.cnboard.Global.arrData;
 import static com.teammgh.cnboard.Global.arrKey;
 import static com.teammgh.cnboard.Global.categoryNo;
@@ -86,7 +83,6 @@ public class InputSubject extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"1학년",Toast.LENGTH_SHORT).show();
                 setCategory();
 
-
             }
 
         });
@@ -151,8 +147,6 @@ public class InputSubject extends AppCompatActivity {
                     }
                     });
 
-
-
             }
 
             @Override
@@ -198,7 +192,7 @@ public class InputSubject extends AppCompatActivity {
 
     }
 
-    public void setCategory(){
+    private void setCategory(){
         String[]arrItem = arrCate[grade].split(",");// 특정 학년의 카테고리 목록
 
 
@@ -206,7 +200,7 @@ public class InputSubject extends AppCompatActivity {
         Categpry = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrItem);
         Category_spin.setAdapter(Categpry);
     }
-    public void setSubject(){
+    private void setSubject(){
 
         String[] arrItem1 = arrSubject[grade].split(",");	 // A001 특정학년의 과목 목록    - [0]01:01:국어,[1]01:02:영어....[11]03:11:체욱
 
