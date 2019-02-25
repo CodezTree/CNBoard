@@ -539,7 +539,7 @@ public class EnrolmentActivity extends AppCompatActivity {
         Gson gson = new Gson();
         // JSON 으로 변환
         String strmySub = gson.toJson(mySubject, EnrolmentActivity.class);
-        editor.putString("mySubject1", strmySub); // JSON으로 변환한 객체를 저장한다.
+        editor.putString("mySubData", strmySub); // JSON으로 변환한 객체를 저장한다.
         editor.commit(); //완료한다.
         init();
         Global.grade = -1;
