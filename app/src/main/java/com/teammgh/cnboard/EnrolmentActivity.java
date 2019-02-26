@@ -33,7 +33,7 @@ public class EnrolmentActivity extends AppCompatActivity {
     Spinner sc_spin,scgroup_spin,lan_spin,social_spin,it_spin,sport_spin,langroup_spin;
     LinearLayout entire_lin,sc_lin,scgroup_lin,lan_lin,social_lin,it_lin,sport_lin,langroup_lin,Linear;
     public ArrayAdapter<String> Ap_langroup,Ap_scgroup,Ap_sport,Ap_lan,Ap_sc,Ap_it,Ap_social; //과목 어뎁터
-    ArrayAdapter<String> adapter = null;
+    ArrayAdapter<String> adapter;
     private ListView listView;
     private Gson gson;
 
@@ -81,6 +81,8 @@ public class EnrolmentActivity extends AppCompatActivity {
         GetDataFromServer();
         First();
         init();
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mySubject);
 
         entire_lin.setVisibility(INVISIBLE);
         sc_lin.setVisibility(INVISIBLE);
@@ -307,7 +309,7 @@ public class EnrolmentActivity extends AppCompatActivity {
                 String retValsport = sport.get(position);
                 String SubjectN = sportN.get(position);
                 mySubject.add(SubjectN+" : " +retValsport);
-                mySubjectList.get(grade).add(retValsport);
+                mySubjectList.get(grade).add(retValsport);          //인풋서브젝트 코딩할때 참고 지워도댐
                 adapter.notifyDataSetChanged();
                 listView.setVisibility(VISIBLE);
                 del_btn.setVisibility(VISIBLE);
@@ -540,7 +542,7 @@ public class EnrolmentActivity extends AppCompatActivity {
         // JSON 으로 변환
         String strmySub = gson.toJson(mySubject, EnrolmentActivity.class);
         editor.putString("mySubData", strmySub); // JSON으로 변환한 객체를 저장한다.
-        editor.commit(); //완료한다.
+        editor.apply(); //완료한다.
         init();
         Global.grade = -1;
     }

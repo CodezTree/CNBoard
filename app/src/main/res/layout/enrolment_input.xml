@@ -117,12 +117,12 @@
             android:id="@+id/SubRange_edtxt"/>
 
         <Button
+            android:id="@+id/SubRangeSave_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="75"
             android:layout_marginLeft="5dp"
-            android:text="입력"
-            android:id="@+id/SubRange_btn"/>
+            android:layout_weight="75"
+            android:text="입력" />
 
     </LinearLayout>
 </LinearLayout>

@@ -1,6 +1,6 @@
 package com.teammgh.cnboard;
-//내일 할 일 switch문에서 arrSubjectMemo1[subjectMemoIndex]이거 가능한지 보기, 입력 버튼 누르면 2차원 배열 하나로 서버로 넘겨줄 수 있도록 수정하기
 
+//내일 할 일 일단 메모장 보고 주석처리해놓은 오류 고치기!!
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,21 +16,18 @@ import static com.teammgh.cnboard.Global.arrKey;
 import static com.teammgh.cnboard.Global.categoryNo;
 import static com.teammgh.cnboard.Global.grade;
 import static com.teammgh.cnboard.Global.subjectIndex;
+import static com.teammgh.cnboard.Global.arrSubjectMemo;
 
 
 public class InputSubject extends AppCompatActivity {
 
-    Button igrade1_btn, igrade2_btn, igrade3_btn, SubAdd_btn, SubDel_btn,Subrange_btn;
-    EditText AddEditDel_edtxt, Subrange_edtxt;
+    Button igrade1_btn, igrade2_btn, igrade3_btn, SubAdd_btn, SubDel_btn,SubrangeSave_btn;
+    EditText Subrange_edtxt;
     Spinner Category_spin, Subject_spin;
     public ArrayAdapter<String> Categpry, Subject;
 
     String [] arrCate = new String[3];
-
     String [] arrSubject = new String[3];
-    String [] arrSubjectMemo1 = new String[11];	// 1학년 과목별 시험범위
-    String [] arrSubjectMemo2 = new String[28];	// 2학년 과목별 시험범위
-    String [] arrSubjectMemo3 = new String[41];	// 3학년 과목별 시험범위
 
     int subjectMemoIndex=0;
     String subjectIndex1;
@@ -50,7 +47,7 @@ public class InputSubject extends AppCompatActivity {
         Subrange_edtxt= findViewById(R.id.SubRange_edtxt);
         Category_spin = findViewById(R.id.Category_spin);
         Subject_spin = findViewById(R.id.Subject_spin);
-        Subrange_btn = findViewById(R.id.SubRange_btn);
+        SubrangeSave_btn = findViewById(R.id.SubRangeSave_btn);
 
         Subrange_edtxt.setVisibility(View.INVISIBLE);
 
@@ -155,7 +152,7 @@ public class InputSubject extends AppCompatActivity {
         });
 
         // 저장
-        Subrange_btn.setOnClickListener(new View.OnClickListener() {
+        SubrangeSave_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -167,29 +164,28 @@ public class InputSubject extends AppCompatActivity {
 
                     case 0:
                         String Subrange1 = Subrange_edtxt.getText().toString();
-                        arrSubjectMemo1[subjectMemoIndex] =  subjectIndex1+":"+Subrange1;
+                        //arrSubjectMemo.get(grade).get(subjectMemoIndex) =  Subrange1;         //>>만약 1학년에 6번째 과목에 저장하는거면  arrSubject[0][6]되야함
                         uploadToServer();
 
                         break;
 
                     case 1:
                         String Subrange2 = Subrange_edtxt.getText().toString();
-                        arrSubjectMemo2[subjectMemoIndex] =  subjectIndex1+":"+Subrange2;
+                        //arrSubjectMemo.get(grade).get(subjectMemoIndex) = Subrange2;
                         uploadToServer();
 
                         break;
                     case 2:
                         String Subrange3 = Subrange_edtxt.getText().toString();
-                         arrSubjectMemo3[subjectMemoIndex] = subjectIndex1+":"+Subrange3;
-                        //arrSubjectMemo3[subjectMemoIndex].uploadToServer();
+                         //arrSubjectMemo.get(grade).get(subjectMemoIndex) = Subrange3;
+                        uploadToServer();
+                        break;
 
                 }
 
                 Toast.makeText(getApplicationContext(),subjectIndex1+"과목의 시험범위가 저장되었습니다.",Toast.LENGTH_SHORT).show();
             }
-
         });
-
     }
 
     private void setCategory(){
@@ -225,20 +221,19 @@ public class InputSubject extends AppCompatActivity {
 
     private void uploadToServer() {
 
+        //arrSubjectMemo 서버에 올림
+
 
      switch(grade){
          case 0 :
-             //arrSubjectMemo1[subjectMemoIndex]을 서버에 올림
              Toast.makeText(getApplicationContext(),"1학년 서버에 올림",Toast.LENGTH_SHORT).show();
              break;
 
          case 1 :
-             //arrSubjectMemo2[subjectMemoIndex]을 서버에 올림
              Toast.makeText(getApplicationContext(),"2학년 서버에 올림",Toast.LENGTH_SHORT).show();
              break;
 
          case 2 :
-             //arrSubjectMemo3[subjectMemoIndex]을 서버에 올림
              Toast.makeText(getApplicationContext(),"3학년 서버ㅔ 올림",Toast.LENGTH_SHORT).show();
              break;
 
