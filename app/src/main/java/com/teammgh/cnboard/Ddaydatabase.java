@@ -1,11 +1,21 @@
 package com.teammgh.cnboard;
 
-public class ListViewItem {
+public class Ddaydatabase {
+    private int _id;
+
     private String title;
     private int year;
     private int month;
     private int day;
     private int dday;
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
 
     public String getTitle() {
         return title;
