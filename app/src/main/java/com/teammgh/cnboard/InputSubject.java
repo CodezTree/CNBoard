@@ -1,6 +1,5 @@
 package com.teammgh.cnboard;
 
-//내일 할 일 일단 메모장 보고 주석처리해놓은 오류 고치기!!
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import java.util.ArrayList;
 import androidx.appcompat.app.AppCompatActivity;
 import static com.teammgh.cnboard.Global.arrData;
 import static com.teammgh.cnboard.Global.arrKey;
@@ -50,6 +48,7 @@ public class InputSubject extends AppCompatActivity {
         SubrangeSave_btn = findViewById(R.id.SubRangeSave_btn);
 
         Subrange_edtxt.setVisibility(View.INVISIBLE);
+
 
 
         arrSubject [0] = "01:01:국어,01:02:영어,01:03:일본어1,01:04:중국어1,01:05:통합사회,01:06:한국사,02:07:수학,02:08:통합과학,02:09:기술가정,03:10:음악연주,03:11:체육";	// 1학년 과목
@@ -164,20 +163,20 @@ public class InputSubject extends AppCompatActivity {
 
                     case 0:
                         String Subrange1 = Subrange_edtxt.getText().toString();
-                        //arrSubjectMemo.get(grade).get(subjectMemoIndex) =  Subrange1;         //>>만약 1학년에 6번째 과목에 저장하는거면  arrSubject[0][6]되야함
+                        arrSubjectMemo.get(grade).set(subjectMemoIndex,Subrange1);         //>>만약 1학년에 6번째 과목에 저장하는거면  arrSubject[0][6]되야함
                         uploadToServer();
 
                         break;
 
                     case 1:
                         String Subrange2 = Subrange_edtxt.getText().toString();
-                        //arrSubjectMemo.get(grade).get(subjectMemoIndex) = Subrange2;
+                        arrSubjectMemo.get(grade).set(subjectMemoIndex, Subrange2) ;
                         uploadToServer();
 
                         break;
                     case 2:
                         String Subrange3 = Subrange_edtxt.getText().toString();
-                         //arrSubjectMemo.get(grade).get(subjectMemoIndex) = Subrange3;
+                         arrSubjectMemo.get(grade).set(subjectMemoIndex,Subrange3);
                         uploadToServer();
                         break;
 
@@ -234,7 +233,7 @@ public class InputSubject extends AppCompatActivity {
              break;
 
          case 2 :
-             Toast.makeText(getApplicationContext(),"3학년 서버ㅔ 올림",Toast.LENGTH_SHORT).show();
+             Toast.makeText(getApplicationContext(),"3학년 서버에 올림",Toast.LENGTH_SHORT).show();
              break;
 
      }

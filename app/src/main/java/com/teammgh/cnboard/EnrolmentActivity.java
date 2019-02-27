@@ -523,7 +523,6 @@ public class EnrolmentActivity extends AppCompatActivity {
                 sc_spin.setAdapter(Ap_sc);
                 sport_spin.setAdapter(Ap_sport);
                 break;
-
         }
 
 
