@@ -1,5 +1,6 @@
 package com.teammgh.cnboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -37,10 +38,15 @@ public class LakeViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lakeview);
 
         txt_mon1 = findViewById(R.id.mon1);
+        txt_mon1.setText("mon1");
+
         txt_mon1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(LakeViewActivity.this, FoodDetail.class);
+                intent.putExtra("menu_data","mon1");
+                startActivity(intent);
             }
         });
 
