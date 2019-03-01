@@ -2,6 +2,7 @@ package com.teammgh.cnboard;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -39,19 +41,17 @@ import static com.teammgh.cnboard.Global.grade;
 import static com.teammgh.cnboard.Global.intMySubject;
 import static com.teammgh.cnboard.Global.myGradeNCode;
 import static com.teammgh.cnboard.Global.mySubData1;
-import static com.teammgh.cnboard.Global.mySubject;
-import static com.teammgh.cnboard.Global.mySubjectList;
-import static com.teammgh.cnboard.Global.mySubjectListR;
 import static com.teammgh.cnboard.Global.subjectIndexL;
 import static com.teammgh.cnboard.Global.subjectIndexS;
 
 //Edittext, SubRangeSave_btn 필요 없음
-public class EnrolmentSubject extends AppCompatActivity {
+public class EnrolmentSubject extends AppCompatActivity  {
 
     Button grade1_btn, grade2_btn, grade3_btn, Save_btn, Del_btn;
     Spinner Category_spin, Subject_spin;
     public ArrayAdapter<String> Categpry, Subject, adapter;
     private ListView listview;
+    LinearLayout Linear;
 
     String[] arrCate = new String[3];
     String[] arrSubject = new String[3];
@@ -79,13 +79,13 @@ public class EnrolmentSubject extends AppCompatActivity {
         Subject_spin = findViewById(R.id.Subject_spin);
         listview = findViewById(R.id.listview);
         Save_btn = findViewById(R.id.save_btn);
+        Linear = findViewById(R.id.LInear);
 
         listview.setVisibility(View.INVISIBLE);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, examRangeList);
+        adapter = new SpinnerAdapter(this, android.R.layout.simple_list_item_1, examRangeList);
 
         Examlist = getDataOnServer();
         First();
-        Warning();
 
         arrSubject[0] = "01:01:국어,01:02:영어,01:03:일본어1,01:04:중국어1,01:05:통합사회,01:06:한국사,02:07:수학,02:08:통합과학,02:09:기술가정,03:10:음악연주,03:11:체육";    // 1학년 과목
         arrSubject[1] = "01:01:철학,01:02:언어와 매체,01:03:문예 창작 입문,01:04:문학 개론,01:05:영어1,01:06:실용영어,01:07:심화 영어 회화1,01:08:영어권 문화,01:09:중국어2,02:10:사회 탐구 방법,02:11:사회 문제 탐구,02:12:사회문화,02:13:세계사,02:14:윤리와 사상,02:15:정치와 법,02:16:한국지리,02:17:경제,03:18:수학1,03:19:수학2,03:20:화학1,03:21:물리학1,03:22:생명과학1,04:23:정보과학,04:24:공학일반,05:25:미술,05:26:운동과 건강,05:27:음악 이론,05:28:체육과 진로탐구";        // 2학년 카테고리
@@ -104,6 +104,14 @@ public class EnrolmentSubject extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "1학년", Toast.LENGTH_SHORT).show();
                 setCategory();
+                Warning();
+                ++Global.a;
+                grade1_btn.setBackgroundResource(R.drawable.grade1btn_rectangle);
+                grade2_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                grade3_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                grade1_btn.setTextColor(Color.rgb(255,255,255));
+
+                Linear.setBackgroundColor(Color.rgb(255, 248, 248));
             }
         });
 
@@ -113,6 +121,15 @@ public class EnrolmentSubject extends AppCompatActivity {
                 grade = 1;
                 Toast.makeText(getApplicationContext(), "2학년", Toast.LENGTH_SHORT).show();
                 setCategory();
+                Warning();
+                ++Global.a;
+
+                Linear.setBackgroundColor(Color.rgb(241, 255, 241));
+                grade2_btn.setTextColor(Color.rgb(255,255,255));
+
+                grade2_btn.setBackgroundResource(R.drawable.grade2btn_rectangle);
+                grade3_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                grade1_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
             }
         });
 
@@ -122,6 +139,16 @@ public class EnrolmentSubject extends AppCompatActivity {
                 grade = 2;
                 Toast.makeText(getApplicationContext(), "1학년", Toast.LENGTH_SHORT).show();
                 setCategory();
+                Warning();
+                ++Global.a;
+
+                Linear.setBackgroundColor(Color.rgb(241, 242, 252));
+                grade3_btn.setTextColor(Color.rgb(255,255,255));
+
+                grade3_btn.setBackgroundResource(R.drawable.grade3btn_rectangle);
+                grade1_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                grade2_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+
             }
         });
 
@@ -197,6 +224,7 @@ public class EnrolmentSubject extends AppCompatActivity {
 
                 //getSharedPreferences 로 mySubject 저장
                 saveData();
+                getData();
 
                 Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
@@ -245,6 +273,8 @@ public class EnrolmentSubject extends AppCompatActivity {
 
             }
         }
+
+        arrDataS.add("과목");
         // arrDataS를 과목 스피너에 추가 : 컴퓨터, 수학, 기계
 
         Subject = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrDataS);
@@ -313,7 +343,7 @@ public class EnrolmentSubject extends AppCompatActivity {
         SharedPreferences.Editor editor = mySubData.edit();
         Gson gson = new Gson();
         // JSON 으로 변환
-        String strmySub = gson.toJson(myGradeNCode, EnrolmentActivity.class);
+        String strmySub = gson.toJson(myGradeNCode, EnrolmentSubject.class);
         editor.putString("mySubData", strmySub); // JSON으로 변환한 객체를 저장한다.
         editor.apply(); //완료한다.
         init();
@@ -324,7 +354,7 @@ public class EnrolmentSubject extends AppCompatActivity {
         Gson gson = new Gson();
         String strmySub = mySubData1.getString("mySubData", "");
         // 변환
-        Type type = new TypeToken<ArrayList<EnrolmentActivity>>() {}.getType();
+        Type type = new TypeToken<ArrayList<EnrolmentSubject>>() {}.getType();
         mySubject = gson.fromJson(strmySub,type); //String 배열로 변환해야함 ArrayList<ExamData>
 
         for (int i =0; i<= mySubject.size();i++){
@@ -400,6 +430,7 @@ public class EnrolmentSubject extends AppCompatActivity {
     private void Delete(){
         myGradeNCode.remove(subjectIndexL);
         Toast.makeText(getApplicationContext(),"삭제되었습니다.",Toast.LENGTH_SHORT).show();
+        adapter.notifyDataSetChanged();
     }
 }
 
