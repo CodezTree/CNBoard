@@ -27,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import static com.teammgh.cnboard.Global.arrDataS;
@@ -42,7 +41,6 @@ import static com.teammgh.cnboard.Global.mySubData1;
 import static com.teammgh.cnboard.Global.subjectIndexL;
 import static com.teammgh.cnboard.Global.subjectIndexS;
 
-//Edittext, SubRangeSave_btn 필요 없음
 public class EnrolmentSubject extends AppCompatActivity  {
 
     Button grade1_btn, grade2_btn, grade3_btn, Save_btn, Del_btn,Init_btn;
@@ -55,8 +53,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
     String[] arrSubject = new String[3];
     public static ArrayList<MyGradeNcode> mySubject;
     Integer arrKey1;
-    Context context;
-
+//jkjhjhkj
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +74,9 @@ public class EnrolmentSubject extends AppCompatActivity  {
         Linear = findViewById(R.id.LInear);
         Init_btn = findViewById(R.id.init_btn);
 
-        context = getApplicationContext();
-
         serverDataReceive();
 
         listview.setVisibility(View.INVISIBLE);
-        adapter = new SpinnerAdapter(this, android.R.layout.simple_list_item_1, examRangeList);
 
         arrSubject[0] = "01:01:국어,01:02:영어,01:03:일본어1,01:04:중국어1,01:05:통합사회,01:06:한국사,02:07:수학,02:08:통합과학,02:09:기술가정,03:10:음악연주,03:11:체육";    // 1학년 과목
         arrSubject[1] = "01:01:철학,01:02:언어와 매체,01:03:문예 창작 입문,01:04:문학 개론,01:05:영어1,01:06:실용영어,01:07:심화 영어 회화1,01:08:영어권 문화,01:09:중국어2,02:10:사회 탐구 방법,02:11:사회 문제 탐구,02:12:사회문화,02:13:세계사,02:14:윤리와 사상,02:15:정치와 법,02:16:한국지리,02:17:경제,03:18:수학1,03:19:수학2,03:20:화학1,03:21:물리학1,03:22:생명과학1,04:23:정보과학,04:24:공학일반,05:25:미술,05:26:운동과 건강,05:27:음악 이론,05:28:체육과 진로탐구";        // 2학년 카테고리
@@ -226,7 +220,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
             }
         });
 
-        // 저장//TODO
+        //TODO
         Save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -301,8 +295,6 @@ public class EnrolmentSubject extends AppCompatActivity  {
     public Context getApplicationContext() {
         return super.getApplicationContext();
 
-
-
     }
 
     public void serverDataReceive() {
@@ -312,14 +304,13 @@ public class EnrolmentSubject extends AppCompatActivity  {
             public void onResponse(String response) {
                 try {
                     ParseExamJson(response);
-                    //어뎁터 적용
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         };
         RefreshExam refreshExam = new RefreshExam(responseListener);
-        RequestQueue queue = Volley.newRequestQueue(context);
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(refreshExam);
     }
 
@@ -371,6 +362,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
             }
 
         }
+        adapter = new SpinnerAdapter(this, android.R.layout.simple_list_item_1, examRangeList);
         adapter.notifyDataSetChanged();
     }
 
