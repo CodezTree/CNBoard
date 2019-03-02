@@ -22,7 +22,6 @@ public class Global {
     public static ArrayList<Map<String,String>> mySubject = new ArrayList<>(); //학생별 시험범위 리스트 > listview용 SharedPreferneces 저장도 이걸로.. "과목:시험범위"
     public static ArrayList<MyGradeNcode> myGradeNCode = new ArrayList<>();
     public static ArrayList<String> examRangeList = new ArrayList<>();
-    public static ArrayList<Integer> intMySubject = new ArrayList<>();
     public static ArrayList<ExamData> tempExamArr;
 
 

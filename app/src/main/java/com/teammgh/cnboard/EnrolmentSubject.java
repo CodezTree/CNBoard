@@ -10,12 +10,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -24,15 +22,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,7 +45,7 @@ import static com.teammgh.cnboard.Global.subjectIndexS;
 //Edittext, SubRangeSave_btn 필요 없음
 public class EnrolmentSubject extends AppCompatActivity  {
 
-    Button grade1_btn, grade2_btn, grade3_btn, Save_btn, Del_btn;
+    Button grade1_btn, grade2_btn, grade3_btn, Save_btn, Del_btn,Init_btn;
     Spinner Category_spin, Subject_spin;
     public ArrayAdapter<String> Categpry, Subject, adapter;
     private ListView listview;
@@ -61,9 +55,6 @@ public class EnrolmentSubject extends AppCompatActivity  {
     String[] arrSubject = new String[3];
     public static ArrayList<MyGradeNcode> mySubject;
     Integer arrKey1;
-
-    int subjectMemoIndex = 0;
-    String subjectIndex1;
     Context context;
 
 
@@ -84,6 +75,11 @@ public class EnrolmentSubject extends AppCompatActivity  {
         listview = findViewById(R.id.listview);
         Save_btn = findViewById(R.id.save_btn);
         Linear = findViewById(R.id.LInear);
+        Init_btn = findViewById(R.id.init_btn);
+
+        context = getApplicationContext();
+
+        serverDataReceive();
 
         listview.setVisibility(View.INVISIBLE);
         adapter = new SpinnerAdapter(this, android.R.layout.simple_list_item_1, examRangeList);
@@ -105,12 +101,10 @@ public class EnrolmentSubject extends AppCompatActivity  {
 
                 Toast.makeText(getApplicationContext(), "1학년", Toast.LENGTH_SHORT).show();
                 setCategory();
-                Warning();
-                ++Global.a;
                 grade1_btn.setBackgroundResource(R.drawable.grade1btn_rectangle);
                 grade2_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
                 grade3_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
-                grade1_btn.setTextColor(Color.rgb(255,255,255));
+                grade1_btn.setTextColor(Color.rgb(255, 255, 255));
 
                 Linear.setBackgroundColor(Color.rgb(255, 248, 248));
             }
@@ -122,11 +116,8 @@ public class EnrolmentSubject extends AppCompatActivity  {
                 grade = 1;
                 Toast.makeText(getApplicationContext(), "2학년", Toast.LENGTH_SHORT).show();
                 setCategory();
-                Warning();
-                ++Global.a;
-
                 Linear.setBackgroundColor(Color.rgb(241, 255, 241));
-                grade2_btn.setTextColor(Color.rgb(255,255,255));
+                grade2_btn.setTextColor(Color.rgb(255, 255, 255));
 
                 grade2_btn.setBackgroundResource(R.drawable.grade2btn_rectangle);
                 grade3_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
@@ -140,11 +131,8 @@ public class EnrolmentSubject extends AppCompatActivity  {
                 grade = 2;
                 Toast.makeText(getApplicationContext(), "1학년", Toast.LENGTH_SHORT).show();
                 setCategory();
-                Warning();
-                ++Global.a;
-
                 Linear.setBackgroundColor(Color.rgb(241, 242, 252));
-                grade3_btn.setTextColor(Color.rgb(255,255,255));
+                grade3_btn.setTextColor(Color.rgb(255, 255, 255));
 
                 grade3_btn.setBackgroundResource(R.drawable.grade3btn_rectangle);
                 grade1_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
@@ -204,18 +192,38 @@ public class EnrolmentSubject extends AppCompatActivity  {
                         jArray.put(sObject);
                     }
 
-
                 } catch (JSONException e) {
                     e.printStackTrace();
-
                 }
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
 
+        });
+        Init_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(EnrolmentSubject.this);
+                dialog.setTitle("초기화")
+                        .setMessage("현재까지 선택된 모든 시험범위 목록이 삭제됩니다. 정말 초기화 하시겠습니까?")
+                        .setPositiveButton("초기화", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(EnrolmentSubject.this, "초기화 되었습니다", Toast.LENGTH_SHORT).show();
+                                init();
+                                myGradeNCode = new ArrayList<>();
+                            }
+                        })
+                        .setNeutralButton("취소합니다", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(EnrolmentSubject.this, "취소했습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
         });
 
         // 저장//TODO
@@ -234,6 +242,13 @@ public class EnrolmentSubject extends AppCompatActivity  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 subjectIndexL = position;
+                Del_btn.setVisibility(View.VISIBLE);
+                Del_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Delete();
+                    }
+                });
             }
         });
     }
@@ -282,8 +297,13 @@ public class EnrolmentSubject extends AppCompatActivity  {
         Subject_spin.setAdapter(Subject);
 
     }
+    @Override
+    public Context getApplicationContext() {
+        return super.getApplicationContext();
 
-    //TODO
+
+
+    }
 
     public void serverDataReceive() {
         //String serverData = 서버에서 가져온 데이터 (json 형)
@@ -319,7 +339,13 @@ public class EnrolmentSubject extends AppCompatActivity  {
             String name = object.get("exam_name").getAsString();
             String range = object.get("exam_range").getAsString();
 
+            Log.d("학년",String.valueOf(grade));
+            Log.d("코드",String.valueOf(code));
+            Log.d("이름",name);
+            Log.d("범위",range);
+
             tempExamArr.add(new ExamData(grade, code, name, range));
+
         }
         return tempExamArr;
     }
@@ -381,34 +407,8 @@ public class EnrolmentSubject extends AppCompatActivity  {
     }
 
     private void First(){
-        if(mySubData1.contains("mySubData")){
+        if(myGradeNCode.size()>=1){
             getData();
-        }
-    }
-    private void Warning(){
-
-        if( Global.a >= 2) {
-            if (!mySubData1.contains("mySubData")) {
-                init();
-                AlertDialog.Builder dialog = new AlertDialog.Builder(EnrolmentSubject.this);
-                dialog.setTitle("초기화 경고")
-                        .setMessage("시험범위가 저장되지 않았습니다. 시험범위를 저장하지 않은 채 학년 버튼을 다시 누르면 선택한 것이 모두 초기화 됩니다. 그래도 계속 진행하시겠습니까?")
-                        .setPositiveButton("계속 진행합니다", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(EnrolmentSubject.this, "현재까지의 선택이 모두 초기화 되었습니다. 처음부터 다시 진행해주십시요", Toast.LENGTH_SHORT).show();
-                                //OnClick 리스너 실행, 초기화
-                                init();
-                            }
-                        })
-                        .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(EnrolmentSubject.this, "계속 진행하지 않습니다.", Toast.LENGTH_SHORT).show();
-                                //OnClick 리스너 실행하지 않음, 초기화 하지 않음
-                            }
-                        }).create().show();
-            }
         }
     }
     public void onBackPressed() {
@@ -421,6 +421,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
                     .setPositiveButton("종료합니다", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
                             finish();
                         }
                     })
@@ -436,6 +437,10 @@ public class EnrolmentSubject extends AppCompatActivity  {
                             Toast.makeText(EnrolmentSubject.this, "종료하지 않습니다. 저장 버튼을 눌러 선택된 시험범위를 저장해 주십시오", Toast.LENGTH_SHORT).show();
                         }
                     }).create().show();
+        }
+        else {
+            Toast.makeText(EnrolmentSubject.this, "선택한 시험범위 목록을 저장하고 종료합니다.", Toast.LENGTH_SHORT).show();
+            saveData();
         }
     }
     private void Delete(){
