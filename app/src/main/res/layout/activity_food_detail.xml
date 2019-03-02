@@ -6,20 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".FoodDetail">
 
-    <TextView
-        android:id="@+id/food_date"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:text="0000년 00월 00일 - 0식"
-        android:textColor="#707070"
-        android:textSize="60px"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.123"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <TextView
+            android:id="@+id/food_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="0000년 00월 00일"
+            android:textColor="#707070"
+            android:textSize="60px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.123"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:text="-"
+            android:textColor="#707070"
+            android:textSize="60px"
+            app:layout_constraintStart_toEndOf="@+id/food_date"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/food_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:text="0식"
+            android:textColor="#707070"
+            android:textSize="60px"
+            app:layout_constraintStart_toEndOf="@+id/bar"
+            tools:layout_editor_absoluteY="16dp" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/food_menu"
@@ -36,5 +72,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.153" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

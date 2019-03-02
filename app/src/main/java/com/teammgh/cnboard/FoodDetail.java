@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 public class FoodDetail extends AppCompatActivity {
-    TextView txt_menu;
+    TextView date;
+    TextView menu;
+    TextView time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,8 +17,22 @@ public class FoodDetail extends AppCompatActivity {
         setContentView(R.layout.activity_food);
 
         Intent intent = getIntent();
-        txt_menu = findViewById(R.id.food_menu);
-        txt_menu.setText(intent.getExtras().getString("mon1_data"));
+        menu = findViewById(R.id.food_menu);
+        menu.setText(intent.getExtras().getString("menu"));
+        date = findViewById(R.id.food_date);
+        date.setText(intent.getExtras().getString("date"));
+        time = findViewById(R.id.food_time);
 
+        switch (intent.getExtras().getInt("time")){
+            case 0:
+                time.setText("조식");
+                break;
+            case 1:
+                time.setText("중식");
+                break;
+            case 2:
+                time.setText("조식");
+                break;
+        }
     }
 }
