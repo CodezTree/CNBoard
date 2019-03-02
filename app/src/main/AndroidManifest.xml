@@ -7,32 +7,31 @@
 
     <application
         android:allowBackup="true"
+        android:appComponentFactory="whateverString"
         android:icon="@mipmap/ic_launcher_cnboard"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:appComponentFactory="whateverString"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:appComponentFactory"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity"/>
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:appComponentFactory">
+        <activity android:name=".FoodDetail"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".NoticeDetailActivity" />
         <activity android:name=".FoodActivity" />
-        <activity android:name=".SplashActivity">
-        </activity>
+        <activity android:name=".SplashActivity"></activity>
         <activity android:name=".EnrolmentSubject">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
-        <activity android:name=".LakeViewActivity"/>
-        <activity android:name=".InputSubject" >
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".DdayActivity">
-</activity>
-        <activity android:name=".DdaySettingActivity"/>
+        <activity android:name=".LakeViewActivity" />
+        <activity android:name=".InputSubject"></activity>
+        <activity android:name=".DdayActivity"></activity>
+        <activity android:name=".DdaySettingActivity" />
     </application>
 
 </manifest>
