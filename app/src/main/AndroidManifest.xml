@@ -33,7 +33,7 @@
         </intent-filter>
         </activity>
         <activity android:name=".DdayActivity"/>
-        <activity android:name=".MainActivity_Dday"/>
+        <activity android:name=".DdaySettingActivity"/>
     </application>
 
 </manifest>
