@@ -3,8 +3,10 @@ package com.teammgh.cnboard;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +28,7 @@ public class DdayActivity extends AppCompatActivity {
     boolean checking;
     final int NEW_DDAY = 21;
     private DBHelper_dday dbHelper;
+    private BroadcastReceiver mReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,38 +90,47 @@ public class DdayActivity extends AppCompatActivity {
                     int month = data.getExtras().getInt("month");
                     String title = data.getExtras().getString("Title");
                     int dday = data.getExtras().getInt("Dday");
-                    checking = data.getExtras().getBoolean("check");
+                    int checking = data.getExtras().getInt("check");
 
-                    pushdata(title, year, month, day, dday);
+                    pushdata(title, year, month, day, dday, checking);
 
                     List tempdata = dbHelper.getAllData();
-                    listView.setAdapter(new DdayListViewAdapter(tempdata, DdayActivity.this));
+                    adapter = new DdayListViewAdapter(tempdata,DdayActivity.this);
+                    listView.setAdapter(adapter);
 
-                    if(checking == true) {
-                        notificationshow(title,dday);
+                    int count = adapter.getCount();
+                    for (int i = 0; i < count ; i++) {
+                        Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
+
+                        if(database.getChecking() == 1) {
+                            Intent intent = new Intent(this, DdayService.class);
+                            intent.setAction("startForeground");
+                            intent.putExtra("title",title);
+                            intent.putExtra("id",database.get_id());
+                            intent.putExtra("dday",DdayUpdate(dday));
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                startForegroundService(intent);
+                            }
+                            else {
+                                startService(intent);
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-    public void notificationshow(String title, int dday) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"default");
-
-        builder.setContentTitle(title);
-        builder.setContentText("D - " + dday);
-        builder.setAutoCancel(false);
-        builder.setSmallIcon(R.drawable.icon);
-
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            manager.createNotificationChannel(new NotificationChannel("default", "d-day" ,
-                    NotificationManager.IMPORTANCE_DEFAULT));
-        }
-        manager.notify(1,builder.build());
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_DATE_CHANGED);
+        registerReceiver(mReceiver,intentFilter);
     }
 
-    public void pushdata(String title, int year, int month, int day, int dday) {
+    public void pushdata(String title, int year, int month, int day, int dday, int checking) {
         if(dbHelper == null) {
             dbHelper = new DBHelper_dday(DdayActivity.this,"TEST", null,1);
         }
@@ -129,7 +141,21 @@ public class DdayActivity extends AppCompatActivity {
         ddaydatabase.setMonth(month);
         ddaydatabase.setDay(day);
         ddaydatabase.setDday(dday);
+        ddaydatabase.setChecking(checking);
 
         dbHelper.addData(ddaydatabase);
+    }
+
+    public String DdayUpdate(int r) {
+
+        if(r > 0) {
+            return "D - " + r ;
+        }
+        else if(r == 0) {
+            return "D - DAY" ;
+        }
+        else{
+            return "D + " + ( r * -1) ;
+        }
     }
 }

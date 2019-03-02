@@ -26,7 +26,8 @@ public class DBHelper_dday extends SQLiteOpenHelper {
         sb.append(" YEAR, ");
         sb.append(" MONTH, ");
         sb.append(" DAY, ");
-        sb.append(" DDAY ) ");
+        sb.append(" DDAY, ");
+        sb.append(" CHECKING ) ");
 
         db.execSQL(sb.toString());
     }
@@ -40,8 +41,8 @@ public class DBHelper_dday extends SQLiteOpenHelper {
 
         StringBuffer sb = new StringBuffer();
         sb.append(" INSERT INTO TEST_TABLE ( ");
-        sb.append(" TITLE, YEAR, MONTH, DAY, DDAY ) ");
-        sb.append(" VALUES (?, ?, ?, ?, ? ) ");
+        sb.append(" TITLE, YEAR, MONTH, DAY, DDAY, CHECKING ) ");
+        sb.append(" VALUES (?, ?, ?, ?, ?, ? ) ");
 
         db.execSQL(sb.toString(),
                 new Object[] {
@@ -49,12 +50,13 @@ public class DBHelper_dday extends SQLiteOpenHelper {
                         ddaydatabase.getYear(),
                         ddaydatabase.getMonth(),
                         ddaydatabase.getDay(),
-                        ddaydatabase.getDday()});
+                        ddaydatabase.getDday(),
+                        ddaydatabase.getChecking()});
     }
 
     public List getAllData() {
         StringBuffer sb = new StringBuffer();
-        sb.append(" SELECT _ID, TITLE, YEAR, MONTH, DAY, DDAY FROM TEST_TABLE ");
+        sb.append(" SELECT _ID, TITLE, YEAR, MONTH, DAY, DDAY, CHECKING FROM TEST_TABLE ");
 
         SQLiteDatabase db= getReadableDatabase();
 
@@ -72,6 +74,7 @@ public class DBHelper_dday extends SQLiteOpenHelper {
             ddaydatabase.setMonth(cursor.getInt(3));
             ddaydatabase.setDay(cursor.getInt(4));
             ddaydatabase.setDday(cursor.getInt(5));
+            ddaydatabase.setChecking(cursor.getInt(6));
 
             data.add(ddaydatabase);
         }

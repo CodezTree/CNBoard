@@ -8,6 +8,15 @@ public class Ddaydatabase {
     private int month;
     private int day;
     private int dday;
+    private int checking;
+
+    public int getChecking() {
+        return checking;
+    }
+
+    public void setChecking(int checking) {
+        this.checking = checking;
+    }
 
     public int get_id() {
         return _id;
