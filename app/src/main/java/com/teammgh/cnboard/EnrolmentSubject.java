@@ -1,5 +1,6 @@
 package com.teammgh.cnboard;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -15,6 +16,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -38,7 +42,7 @@ import static com.teammgh.cnboard.Global.arrSubjectMemo;
 import static com.teammgh.cnboard.Global.categoryNoS;
 import static com.teammgh.cnboard.Global.examRangeList;
 import static com.teammgh.cnboard.Global.grade;
-import static com.teammgh.cnboard.Global.intMySubject;
+import static com.teammgh.cnboard.Global.tempExamArr;
 import static com.teammgh.cnboard.Global.myGradeNCode;
 import static com.teammgh.cnboard.Global.mySubData1;
 import static com.teammgh.cnboard.Global.subjectIndexL;
@@ -56,11 +60,11 @@ public class EnrolmentSubject extends AppCompatActivity  {
     String[] arrCate = new String[3];
     String[] arrSubject = new String[3];
     public static ArrayList<MyGradeNcode> mySubject;
-    public static ArrayList<ExamData> Examlist;
     Integer arrKey1;
 
     int subjectMemoIndex = 0;
     String subjectIndex1;
+    Context context;
 
 
     @Override
@@ -83,9 +87,6 @@ public class EnrolmentSubject extends AppCompatActivity  {
 
         listview.setVisibility(View.INVISIBLE);
         adapter = new SpinnerAdapter(this, android.R.layout.simple_list_item_1, examRangeList);
-
-        Examlist = getDataOnServer();
-        First();
 
         arrSubject[0] = "01:01:국어,01:02:영어,01:03:일본어1,01:04:중국어1,01:05:통합사회,01:06:한국사,02:07:수학,02:08:통합과학,02:09:기술가정,03:10:음악연주,03:11:체육";    // 1학년 과목
         arrSubject[1] = "01:01:철학,01:02:언어와 매체,01:03:문예 창작 입문,01:04:문학 개론,01:05:영어1,01:06:실용영어,01:07:심화 영어 회화1,01:08:영어권 문화,01:09:중국어2,02:10:사회 탐구 방법,02:11:사회 문제 탐구,02:12:사회문화,02:13:세계사,02:14:윤리와 사상,02:15:정치와 법,02:16:한국지리,02:17:경제,03:18:수학1,03:19:수학2,03:20:화학1,03:21:물리학1,03:22:생명과학1,04:23:정보과학,04:24:공학일반,05:25:미술,05:26:운동과 건강,05:27:음악 이론,05:28:체육과 진로탐구";        // 2학년 카테고리
@@ -283,19 +284,53 @@ public class EnrolmentSubject extends AppCompatActivity  {
     }
 
     //TODO
-    private String serverDataReceive() {
 
+    public void serverDataReceive() {
         //String serverData = 서버에서 가져온 데이터 (json 형)
-        return "a";
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    ParseExamJson(response);
+                    //어뎁터 적용
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        RefreshExam refreshExam = new RefreshExam(responseListener);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(refreshExam);
+    }
+
+    private ArrayList<ExamData> ParseExamJson(String response) {
+
+        ArrayList<ExamData> tempExamArr = new ArrayList<>();
+
+        JsonParser jsonParser = new JsonParser();
+        JsonArray jsonArray = (JsonArray) jsonParser.parse(response);
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+
+            JsonObject object = (JsonObject) jsonArray.get(i);
+
+            int grade = object.get("target_grade").getAsInt();
+            int code = object.get("exam_code").getAsInt();
+            String name = object.get("exam_name").getAsString();
+            String range = object.get("exam_range").getAsString();
+
+            tempExamArr.add(new ExamData(grade, code, name, range));
+        }
+        return tempExamArr;
     }
 
     private void onListItemAdd(int grade, int code) {
 
         String range, name;
 
-        for (int i = 0; i < Examlist.size(); i++) {
+        for (int i = 0; i < tempExamArr.size(); i++) {
 
-            ExamData tempExam = Examlist.get(i);
+            ExamData tempExam = tempExamArr.get(i);
 
             if ((code == tempExam.exam_code) && (grade == tempExam.target_grade)) {
 
@@ -313,30 +348,6 @@ public class EnrolmentSubject extends AppCompatActivity  {
         adapter.notifyDataSetChanged();
     }
 
-    private ArrayList<ExamData> getDataOnServer() {
-
-
-        ArrayList<ExamData> tempExamArr = new ArrayList<>();
-        String response;
-
-        response = serverDataReceive(); //string반환
-        JsonParser jsonParser = new JsonParser();
-        JsonArray jsonArray = (JsonArray) jsonParser.parse(response);
-
-
-        for (int i = 0; i < jsonArray.size(); i++) {
-
-            JsonObject object = (JsonObject) jsonArray.get(i);
-
-            int grade = object.get("target_grade").getAsInt();
-            int code = object.get("exam_code").getAsInt();
-            String name = object.get("exam_name").getAsString();
-            String range = object.get("exam_range").getAsString();
-
-            tempExamArr.add(new ExamData(grade, code, name, range));
-        }
-        return tempExamArr;
-    }
     private void saveData() {
 
         SharedPreferences mySubData = getSharedPreferences("mySubData", MODE_PRIVATE);

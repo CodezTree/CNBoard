@@ -1,6 +1,7 @@
 package com.teammgh.cnboard;
 
 public class ExamData {
+
     int target_grade;
     String exam_name;
     String exam_range;
