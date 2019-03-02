@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import java.util.ArrayList;
 import androidx.appcompat.app.AppCompatActivity;
+import static com.teammgh.cnboard.Global.a;
 import static com.teammgh.cnboard.Global.arrData;
 import static com.teammgh.cnboard.Global.arrKey;
 import static com.teammgh.cnboard.Global.categoryNo;
@@ -19,7 +21,7 @@ import static com.teammgh.cnboard.Global.arrSubjectMemo;
 
 public class InputSubject extends AppCompatActivity {
 
-    Button igrade1_btn, igrade2_btn, igrade3_btn, SubAdd_btn, SubDel_btn,SubrangeSave_btn;
+    Button igrade1_btn, igrade2_btn, igrade3_btn,SubrangeSave_btn;
     EditText Subrange_edtxt;
     Spinner Category_spin, Subject_spin;
     public ArrayAdapter<String> Categpry, Subject;
@@ -36,12 +38,15 @@ public class InputSubject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enrolment_input);
 
+        arrSubjectMemo.add(new ArrayList<String>());
+        arrSubjectMemo.add(new ArrayList<String>());
+        arrSubjectMemo.add(new ArrayList<String>());
+
 
         igrade1_btn = findViewById(R.id.igrade1_btn);
         igrade2_btn= findViewById(R.id.igrade2_btn) ;
         igrade3_btn= findViewById(R.id.igrade3_btn);
-        SubAdd_btn= findViewById(R.id.SubAdd_btn);
-        SubDel_btn = findViewById(R.id.SubDel_btn);
+
         Subrange_edtxt= findViewById(R.id.SubRange_edtxt);
         Category_spin = findViewById(R.id.Category_spin);
         Subject_spin = findViewById(R.id.Subject_spin);
@@ -108,7 +113,7 @@ public class InputSubject extends AppCompatActivity {
         //    - 사용자가 카테고리를 선택했을때 카테고리 번호를 설정한다.
         //=====================================================================================
 
-             Category_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Category_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 categoryNo = position;
@@ -128,20 +133,10 @@ public class InputSubject extends AppCompatActivity {
         //=====================================================================================
 
         Subject_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 subjectIndex = position;   //subjectIndex = spinnerSubject.SelectedIndex;
                 Subrange_edtxt.setVisibility(View.VISIBLE);
-                SubDel_btn.setVisibility(View.VISIBLE);
-
-                SubDel_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        arrData.remove(subjectIndex);
-                        Subject.notifyDataSetChanged();
-                    }
-                    });
 
             }
 
@@ -196,16 +191,17 @@ public class InputSubject extends AppCompatActivity {
         Category_spin.setAdapter(Categpry);
     }
     private void setSubject(){
+        arrData = new ArrayList<>();
 
         String[] arrItem1 = arrSubject[grade].split(",");	 // A001 특정학년의 과목 목록    - [0]01:01:국어,[1]01:02:영어....[11]03:11:체욱
 
         // 사용자가 선택한 학년의 과목배열 전체를 루프 실행
         for (int i=0; i< arrItem1.length;i++)
         {
-            String[]arrItem2 = arrItem1[i].split(":");	// [0]01, [1]01, [2]국어, [3]01, [4]01, [5]영어
+            String[]arrItem2 = arrItem1[i].split(":");	// [0]01, [1]01, [2]국어
 
             // 과목의 카테고리가 학생이 선택한 카테고리와 같으면 배열에 추가
-            if (Integer.parseInt(arrItem2[0]) == categoryNo) 				// A003  index는 스피너에 들어있는 원소의 번호
+            if (Integer.parseInt(arrItem2[0]) - 1 == categoryNo) 				// A003  index는 스피너에 들어있는 원소의 번호
             {
                 arrKey.add(Integer.parseInt(arrItem2[1]));	// 04, 05, 06
                 arrData.add(arrItem2[2]);	// 컴퓨터, 수학, 기계
@@ -221,22 +217,7 @@ public class InputSubject extends AppCompatActivity {
     private void uploadToServer() {
 
         //arrSubjectMemo 서버에 올림
-
-
-     switch(grade){
-         case 0 :
-             Toast.makeText(getApplicationContext(),"1학년 서버에 올림",Toast.LENGTH_SHORT).show();
-             break;
-
-         case 1 :
-             Toast.makeText(getApplicationContext(),"2학년 서버에 올림",Toast.LENGTH_SHORT).show();
-             break;
-
-         case 2 :
-             Toast.makeText(getApplicationContext(),"3학년 서버에 올림",Toast.LENGTH_SHORT).show();
-             break;
-
-     }
+        Toast.makeText(getApplicationContext(),grade+1 +"학년 서버에 올림",Toast.LENGTH_SHORT).show();
 
     }
 }
