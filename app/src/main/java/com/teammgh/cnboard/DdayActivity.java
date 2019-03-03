@@ -38,11 +38,52 @@ public class DdayActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.button_add_dday);
         listView = (ListView) findViewById(R.id.ddaylistview);
 
+        Calendar calendar = Calendar.getInstance();
+        mday = calendar.getTimeInMillis();
+
         if(dbHelper == null) {
             dbHelper = new DBHelper_dday(DdayActivity.this,"TEST",null,1);
         }
         List data = dbHelper.getAllData();
         listView.setAdapter(new DdayListViewAdapter(data, DdayActivity.this));
+
+        thread = new Thread() {
+            public void run() {
+                while(true) {
+                    try {
+                        thread.sleep(300000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    mday = mday + 300000;     // mday = calendar.getTimeInMillis();
+
+                    if(mday >= DAY_MILLIS) {       //DAY_MILLIS = 86400000 (하루)
+                        int count = adapter.getCount();
+
+                        for (int i = 0; i < count ; i++) {
+                            Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
+
+                            if(database.getChecking() == 1) {  //알림 재설정
+                                Intent intent = new Intent(DdayActivity.this, DdayService.class);
+                                intent.setAction("startForeground");
+                                intent.putExtra("title",database.getTitle());
+                                intent.putExtra("id",database.get_id());
+                                intent.putExtra("dday",setDday(i));
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    startForegroundService(intent);
+                                }
+                                else {
+                                    startService(intent);
+                                }
+                            }
+                        }
+                        mday = 0;
+                    }
+                }
+            }
+        };
+        thread.start();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,14 +163,6 @@ public class DdayActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_DATE_CHANGED);
-        registerReceiver(mReceiver,intentFilter);
-    }
-
     public void pushdata(String title, int year, int month, int day, int dday, int checking) {
         if(dbHelper == null) {
             dbHelper = new DBHelper_dday(DdayActivity.this,"TEST", null,1);
@@ -157,5 +190,23 @@ public class DdayActivity extends AppCompatActivity {
         else{
             return "D + " + ( r * -1) ;
         }
+    }
+
+    public String setDday(int i) {
+        long m_day = System.currentTimeMillis();
+
+        Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
+        int year = database.getYear();
+        int month = database.getMonth();
+        int day = database.getDay();
+
+        Calendar dcalendar = Calendar.getInstance();
+        dcalendar.set(year,month-1,day);
+
+        long d_day = dcalendar.getTimeInMillis();
+
+        int result = (int)((d_day - m_day) / (24*60*60*1000));
+        String dday = DdayUpdate(result);
+        return  dday;
     }
 }
