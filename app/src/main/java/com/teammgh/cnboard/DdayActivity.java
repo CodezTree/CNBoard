@@ -112,7 +112,27 @@ public class DdayActivity extends AppCompatActivity {
                         int ID = database.get_id();
                         dbHelper.removeData(ID);
                         List tempdata = dbHelper.getAllData();
-                        listView.setAdapter(new DdayListViewAdapter(tempdata, DdayActivity.this));
+                        adapter = new DdayActivity(tempdata,DdayActivity.this);
+                        listView.setAdapter(adapter);
+
+                        int count = adapter.getCount();
+                        for (int i = 0; i < count ; i++) {
+                            Ddaydatabase mdatabase = (Ddaydatabase) adapter.getItem(i);
+
+                            if (mdatabase.getChecking() == 1) {  //알림 재설정
+                                Intent intent = new Intent(DdayActivity.this, DdayService.class);
+                                intent.setAction("startForeground");
+                                intent.putExtra("title", mdatabase.getTitle());
+                                intent.putExtra("id", mdatabase.get_id());
+                                intent.putExtra("dday", setDday(i));
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    startForegroundService(intent);
+                                } else {
+                                    startService(intent);
+                                }
+                            }
+                        }
                     }
                 });
                 dlg.show();
