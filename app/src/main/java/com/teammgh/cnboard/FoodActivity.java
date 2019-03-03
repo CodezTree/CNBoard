@@ -36,6 +36,7 @@ public class FoodActivity extends AppCompatActivity {
                     tv_time.setText(temp[0]);
                     tv_when.setText(temp[1]);
                     tv_food.setText(URLDecoder.decode(temp[2], "UTF-8"));
+                    Log.d("test","time : "+temp[0] + "   time_part : "+temp[1] + "food:"+ temp[2]);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

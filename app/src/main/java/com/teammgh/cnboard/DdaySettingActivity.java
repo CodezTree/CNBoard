@@ -73,7 +73,7 @@ public class DdaySettingActivity extends AppCompatActivity {
         switch_alert.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked == true) {
+                if(isChecked) {
                     Toast.makeText(getApplicationContext(), "알림이 설정되었습니다.",Toast.LENGTH_SHORT).show();
                     checking = true;
                 }
@@ -99,7 +99,7 @@ public class DdaySettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String title = edittext_title.getText().toString();
 
-                if(title.isEmpty() == true) {
+                if(title.isEmpty()) {
                     Toast.makeText(getApplicationContext(),"제목을 설정해주세요." ,Toast.LENGTH_SHORT).show();
                 }
 
@@ -143,12 +143,12 @@ public class DdaySettingActivity extends AppCompatActivity {
             textview_mday.setText(dYear + "년 " + dMonth + "월 " + dDay + "일 ");
         }
     };
-    protected Dialog onCreateDialog (int id) {
+    /*protected Dialog onCreateDialog (int id) {
         switch (id) {
             case DIALOG_DATE :
                 return new DatePickerDialog(this,dDateSstListener,mYear,mMonth,mDay);
             default:
                 return null;
         }
-    }
+    }*/
 }

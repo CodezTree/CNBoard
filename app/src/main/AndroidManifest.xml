@@ -23,20 +23,15 @@
         <activity android:name=".SplashActivity"></activity>
         <activity android:name=".EnrolmentSubject">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
-<<<<<<< HEAD
         <activity android:name=".DdayActivity"/>
         <activity android:name=".DdaySettingActivity"/>
-=======
         <activity android:name=".LakeViewActivity" />
         <activity android:name=".InputSubject"></activity>
-        <activity android:name=".DdayActivity"></activity>
-        <activity android:name=".DdaySettingActivity" />
->>>>>>> ab0e52aa32df6c69e88aa18fb4688885ef8ba7ab
     </application>
 
 </manifest>
