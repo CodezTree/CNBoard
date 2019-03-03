@@ -148,7 +148,7 @@ public class DdayActivity extends AppCompatActivity {
                             intent.setAction("startForeground");
                             intent.putExtra("title",title);
                             intent.putExtra("id",database.get_id());
-                            intent.putExtra("dday",DdayUpdate(dday));
+                            intent.putExtra("dday",setDday(i));
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 startForegroundService(intent);
