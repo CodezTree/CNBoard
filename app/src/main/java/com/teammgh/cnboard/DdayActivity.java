@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ public class DdayActivity extends AppCompatActivity {
     final int NEW_DDAY = 21;
     private DBHelper_dday dbHelper;
     private BroadcastReceiver mReceiver;
+    long mday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,45 +48,6 @@ public class DdayActivity extends AppCompatActivity {
         }
         List data = dbHelper.getAllData();
         listView.setAdapter(new DdayListViewAdapter(data, DdayActivity.this));
-
-        thread = new Thread() {
-            public void run() {
-                while(true) {
-                    try {
-                        thread.sleep(300000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    mday = mday + 300000;     // mday = calendar.getTimeInMillis();
-
-                    if(mday >= DAY_MILLIS) {       //DAY_MILLIS = 86400000 (하루)
-                        int count = adapter.getCount();
-
-                        for (int i = 0; i < count ; i++) {
-                            Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
-
-                            if(database.getChecking() == 1) {  //알림 재설정
-                                Intent intent = new Intent(DdayActivity.this, DdayService.class);
-                                intent.setAction("startForeground");
-                                intent.putExtra("title",database.getTitle());
-                                intent.putExtra("id",database.get_id());
-                                intent.putExtra("dday",setDday(i));
-
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    startForegroundService(intent);
-                                }
-                                else {
-                                    startService(intent);
-                                }
-                            }
-                        }
-                        mday = 0;
-                    }
-                }
-            }
-        };
-        thread.start();
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +75,7 @@ public class DdayActivity extends AppCompatActivity {
                         int ID = database.get_id();
                         dbHelper.removeData(ID);
                         List tempdata = dbHelper.getAllData();
-                        adapter = new DdayActivity(tempdata,DdayActivity.this);
+                        adapter = new DdayListViewAdapter(tempdata,DdayActivity.this);
                         listView.setAdapter(adapter);
 
                         int count = adapter.getCount();
