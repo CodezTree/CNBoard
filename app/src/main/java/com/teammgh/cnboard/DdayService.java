@@ -25,14 +25,14 @@ public class DdayService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mday = calendar.getTimeInMillis();
-        thread = new Thread() {
+        thread = new Thread(new Runnable() {
+            @Override
             public void run() {
                 while (true) {
                     try {
@@ -49,13 +49,14 @@ public class DdayService extends Service {
                             Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
 
                             if (database.getChecking() == 1) {  //알림 재설정
-                               createNotification(database.getTitle(),setDday(i),database.get_id());
+                                createNotification(database.getTitle(),setDday(i),database.get_id());
                             }
                         }
                     }
                 }
             }
-        }.start();
+        });
+        thread.start();
 
         return START_STICKY;
     }
