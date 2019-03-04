@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,8 +28,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import static com.teammgh.cnboard.Global.arrDataS;
 import static com.teammgh.cnboard.Global.arrKeyS;
 import static com.teammgh.cnboard.Global.arrSubjectMemo;
@@ -56,10 +61,24 @@ public class EnrolmentSubject extends AppCompatActivity  {
 
     boolean isSaved = false;
 
+    Toolbar myToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enrolment_studentt);
+
+        // 툴바입니다 건들 ㄴㄴ
+
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true); // 커스터마이징
+        actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+
+        // 툴바입니다 건들 ㄴㄴ
 
         arrSubjectMemo.add(new ArrayList<String>());
         arrSubjectMemo.add(new ArrayList<String>());
@@ -72,7 +91,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
         Subject_spin = findViewById(R.id.Subject_spin);
         listview = findViewById(R.id.listview);
         Save_btn = findViewById(R.id.save_btn);
-        Linear = findViewById(R.id.LInear);
+        Linear = findViewById(R.id.Linear);
         Init_btn = findViewById(R.id.init_btn);
 
         //serverDataReceive();
@@ -354,10 +373,10 @@ public class EnrolmentSubject extends AppCompatActivity  {
             String name = object.get("exam_name").getAsString();
             String range = object.get("exam_range").getAsString();
 
-            Log.d("학년",String.valueOf(grade));
-            Log.d("코드",String.valueOf(code));
-            Log.d("이름",name);
-            Log.d("범위",range);
+            Log.d("학년", String.valueOf(grade));
+            Log.d("코드", String.valueOf(code));
+            Log.d("이름", name);
+            Log.d("범위", range);
 
             tempExamArr.add(new ExamData(grade, code, name, range));
 
@@ -483,6 +502,17 @@ public class EnrolmentSubject extends AppCompatActivity  {
         myGradeNCode.remove(subjectIndexL);
         Toast.makeText(getApplicationContext(),"삭제되었습니다.",Toast.LENGTH_SHORT).show();
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

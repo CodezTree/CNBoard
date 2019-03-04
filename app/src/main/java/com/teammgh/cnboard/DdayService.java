@@ -55,7 +55,9 @@ public class DdayService extends Service {
                     }
                 }
             }
-        }.start();
+        };
+
+        thread.start();
 
         return START_STICKY;
     }

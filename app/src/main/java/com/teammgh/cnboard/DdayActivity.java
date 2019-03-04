@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,7 +20,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -33,11 +36,24 @@ public class DdayActivity extends AppCompatActivity {
     private DBHelper_dday dbHelper;
     private BroadcastReceiver mReceiver;
     long mday;
+    Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ddaymain);
+
+        // 툴바입니다 건들 ㄴㄴ
+
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true); // 커스터마이징
+        actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+
+        // 툴바입니다 건들 ㄴㄴ
 
         button = (Button) findViewById(R.id.button_add_dday);
         listView = (ListView) findViewById(R.id.ddaylistview);
@@ -187,5 +203,16 @@ public class DdayActivity extends AppCompatActivity {
     private void removeNotification(int id) {
 
         NotificationManagerCompat.from(this).cancel(id);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

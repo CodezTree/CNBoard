@@ -2,12 +2,15 @@ package com.teammgh.cnboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class LakeViewActivity extends AppCompatActivity {
     TextView txt_mon1;
@@ -32,6 +35,8 @@ public class LakeViewActivity extends AppCompatActivity {
     TextView txt_sun2;
     TextView txt_sun3;
 
+    Toolbar myToolbar;
+
     public static ArrayList<Meal> MealList;
 
     @Override
@@ -39,6 +44,17 @@ public class LakeViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lakeview);
 
+        // 툴바입니다 건들 ㄴㄴ
+
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true); // 커스터마이징
+        actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+
+        // 툴바입니다 건들 ㄴㄴ
 
         MealList = new ArrayList<Meal>();
         MealList.add(new Meal("2019년 03월 04일", "월요일 조식 메뉴", 0));
@@ -358,5 +374,16 @@ public class LakeViewActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
