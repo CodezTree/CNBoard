@@ -1,5 +1,6 @@
 package com.teammgh.cnboard;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -12,8 +13,6 @@ import java.util.Calendar;
 import androidx.core.app.NotificationCompat;
 
 public class DdayService extends Service {
-    public DdayService() {
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -28,24 +27,27 @@ public class DdayService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+       return null;
     }
 
     private void startForegroudService (String title, String dday, int id) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"default");
 
-        builder.setContentTitle(title);
-        builder.setContentText(dday);
-        builder.setAutoCancel(false);
-        builder.setSmallIcon(R.drawable.icon);
+        builder.setContentTitle(title)
+                .setContentText(dday)
+                .setAutoCancel(false)
+                .setSmallIcon(R.drawable.icon)
+                .setOngoing(true);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-            manager.createNotificationChannel(new NotificationChannel("default", "디데이" , NotificationManager.IMPORTANCE_DEFAULT));
-        }
+        NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(id, builder.build());
 
-        startForeground(1, builder.build());
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//
+//            //manager.createNotificationChannel(new NotificationChannel("default", "디데이" , NotificationManager.IMPORTANCE_DEFAULT));
+//        }
+
+        //startForeground(id, builder.build());
     }
 
     public String DdayUpdate(int r) {

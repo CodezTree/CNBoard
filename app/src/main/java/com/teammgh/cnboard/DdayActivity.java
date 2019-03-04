@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -29,6 +31,7 @@ public class DdayActivity extends AppCompatActivity {
     final int NEW_DDAY = 21;
     private DBHelper_dday dbHelper;
     private BroadcastReceiver mReceiver;
+    long mday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,44 +49,6 @@ public class DdayActivity extends AppCompatActivity {
         }
         List data = dbHelper.getAllData();
         listView.setAdapter(new DdayListViewAdapter(data, DdayActivity.this));
-
-        thread = new Thread() {
-            public void run() {
-                while(true) {
-                    try {
-                        thread.sleep(300000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    mday = mday + 300000;     // mday = calendar.getTimeInMillis();
-
-                    if(mday >= DAY_MILLIS) {       //DAY_MILLIS = 86400000 (하루)
-                        int count = adapter.getCount();
-
-                        for (int i = 0; i < count ; i++) {
-                            Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
-
-                            if(database.getChecking() == 1) {  //알림 재설정
-                                Intent intent = new Intent(DdayActivity.this, DdayService.class);
-                                intent.setAction("startForeground");
-                                intent.putExtra("title",database.getTitle());
-                                intent.putExtra("id",database.get_id());
-                                intent.putExtra("dday",setDday(i));
-
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    startForegroundService(intent);
-                                }
-                                else {
-                                    startService(intent);
-                                }
-                            }
-                        }
-                        mday = 0;
-                    }
-                }
-            }
-        };
-        thread.start();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +77,7 @@ public class DdayActivity extends AppCompatActivity {
                         int ID = database.get_id();
                         dbHelper.removeData(ID);
                         List tempdata = dbHelper.getAllData();
-                        adapter = new DdayActivity(tempdata,DdayActivity.this);
+                        adapter = new DdayListViewAdapter(tempdata,DdayActivity.this);
                         listView.setAdapter(adapter);
 
                         int count = adapter.getCount();
@@ -164,18 +129,19 @@ public class DdayActivity extends AppCompatActivity {
                         Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
 
                         if(database.getChecking() == 1) {
-                            Intent intent = new Intent(this, DdayService.class);
-                            intent.setAction("startForeground");
-                            intent.putExtra("title",title);
-                            intent.putExtra("id",database.get_id());
-                            intent.putExtra("dday",setDday(i));
-
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                startForegroundService(intent);
-                            }
-                            else {
-                                startService(intent);
-                            }
+//                            Intent intent = new Intent(this, DdayService.class);
+//                            intent.setAction("startForeground");
+//                            intent.putExtra("title",title);
+//                            intent.putExtra("id",database.get_id());
+//                            intent.putExtra("dday",setDday(i));
+//
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                                startForegroundService(intent);
+//                            }
+//                            else {
+//                                startService(intent);
+//                            }
+                            createNotification(database.getTitle(),setDday(i),database.get_id());
                         }
                     }
                 }
@@ -228,5 +194,21 @@ public class DdayActivity extends AppCompatActivity {
         int result = (int)((d_day - m_day) / (24*60*60*1000));
         String dday = DdayUpdate(result);
         return  dday;
+    }
+
+    private void createNotification(String title, String dday, int id) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"default");
+
+        builder.setContentTitle(title)
+                .setContentText(dday)
+                .setAutoCancel(false)
+                .setSmallIcon(R.drawable.icon)
+                .setOngoing(true);
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
+        }
+        notificationManager.notify(id,builder.build());
     }
 }
