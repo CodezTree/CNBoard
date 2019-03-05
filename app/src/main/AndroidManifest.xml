@@ -16,22 +16,27 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".FoodDetail"></activity>
+        <activity android:name=".FoodDetail" />
         <activity android:name=".MainActivity" />
         <activity android:name=".NoticeDetailActivity" />
         <activity android:name=".FoodActivity" />
-        <activity android:name=".SplashActivity"></activity>
-        <activity android:name=".EnrolmentSubject">
+        <activity android:name=".SplashActivity" />
+        <activity android:name=".EnrolmentSubject"></activity>
+        <activity android:name=".DdayActivity">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".DdayActivity"/>
-        <activity android:name=".DdaySettingActivity"/>
+        <activity android:name=".DdaySettingActivity" />
         <activity android:name=".LakeViewActivity" />
-        <activity android:name=".InputSubject"></activity>
+        <activity android:name=".InputSubject" />
+
+        <service
+            android:name=".DdayService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

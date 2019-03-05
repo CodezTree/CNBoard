@@ -3,6 +3,7 @@ package com.teammgh.cnboard;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
@@ -12,18 +13,14 @@ import java.util.Calendar;
 import androidx.core.app.NotificationCompat;
 
 public class DdayService extends Service {
-    public DdayService() {
-    }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        String title = intent.getExtras().getString("title");
-        int id = intent.getExtras().getInt("id");
-        String dday = intent.getExtras().getString("dday");
-        if("startForeground".equals(intent.getAction())) {
-            startForegroudService(title,dday,id);
-        }
-        return START_STICKY;
+    long mday;
+    Calendar calendar;
+    Thread thread;
+    int DAY_MILLIS = 86400000;
+    DdayListViewAdapter adapter;
+
+    public DdayService() {
     }
 
     @Override
@@ -32,20 +29,51 @@ public class DdayService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    private void startForegroudService (String title, String dday, int id) {
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        mday = calendar.getTimeInMillis();
+        thread = new Thread() {
+            public void run() {
+                while (true) {
+                    try {
+                        thread.sleep(300000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    mday = mday + 300000;     // mday = calendar.getTimeInMillis();
+
+                    if (mday >= DAY_MILLIS) {       //DAY_MILLIS = 86400000 (하루)
+                        int count = adapter.getCount();
+
+                        for (int i = 0; i < count; i++) {
+                            Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
+
+                            if (database.getChecking() == 1) {  //알림 재설정
+                               createNotification(database.getTitle(),setDday(i),database.get_id());
+                            }
+                        }
+                    }
+                }
+            }
+        }.start();
+
+        return START_STICKY;
+    }
+
+    private void createNotification(String title, String dday, int id) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"default");
 
-        builder.setContentTitle(title);
-        builder.setContentText(dday);
-        builder.setAutoCancel(false);
-        builder.setSmallIcon(R.drawable.icon);
+        builder.setContentTitle(title)
+                .setContentText(dday)
+                .setAutoCancel(false)
+                .setSmallIcon(R.drawable.icon)
+                .setOngoing(true);
 
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-            manager.createNotificationChannel(new NotificationChannel("default", "디데이" , NotificationManager.IMPORTANCE_DEFAULT));
+            notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
         }
-
-        startForeground(1, builder.build());
+        notificationManager.notify(id,builder.build());
     }
 
     public String DdayUpdate(int r) {
@@ -61,17 +89,23 @@ public class DdayService extends Service {
         }
     }
 
-    public String setDday(int year, int month, int day) {
-        Calendar calendar = Calendar.getInstance();
+    public String setDday(int i) {
+        long m_day = System.currentTimeMillis();
+
+        Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
+        int year = database.getYear();
+        int month = database.getMonth();
+        int day = database.getDay();
 
         Calendar dcalendar = Calendar.getInstance();
         dcalendar.set(year,month-1,day);
 
         long d_day = dcalendar.getTimeInMillis();
-        long m_day = calendar.getTimeInMillis();
 
         int result = (int)((d_day - m_day) / (24*60*60*1000));
         String dday = DdayUpdate(result);
         return  dday;
     }
 }
+
+

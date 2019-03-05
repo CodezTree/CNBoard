@@ -26,7 +26,7 @@ public class DdaySettingActivity extends AppCompatActivity {
     Button button_cancel;
     Button button_ok;
     TextView textview_mday;
-    boolean checking = false;
+    int checking = 0;
     final int DIALOG_DATE = 1;
     private int mYear, mMonth, mDay;
     private int dYear = 1 , dMonth = 1 , dDay = 1;
@@ -75,11 +75,11 @@ public class DdaySettingActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     Toast.makeText(getApplicationContext(), "알림이 설정되었습니다.",Toast.LENGTH_SHORT).show();
-                    checking = true;
+                    checking = 1;
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "알림이 해제되었습니다.",Toast.LENGTH_SHORT).show();
-                    checking = false;
+                    checking = 0;
                 }
             }
         });
