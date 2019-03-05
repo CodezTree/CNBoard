@@ -69,6 +69,7 @@ public class DdayActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         mday = calendar.getTimeInMillis();
 
+
         if(dbHelper == null) {
             dbHelper = new DBHelper_dday(DdayActivity.this,"TEST",null,1);
         }
