@@ -1,13 +1,13 @@
 package com.teammgh.cnboard;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -34,7 +34,6 @@ public class DdayActivity extends AppCompatActivity {
     boolean checking;
     final int NEW_DDAY = 21;
     private DBHelper_dday dbHelper;
-    private BroadcastReceiver mReceiver;
     long mday;
     Toolbar myToolbar;
 
@@ -57,6 +56,12 @@ public class DdayActivity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.button_add_dday);
         listView = (ListView) findViewById(R.id.ddaylistview);
+
+        if(isServiceRunningCheck() == false) {
+            Intent intent;
+            intent = new Intent(getApplicationContext(),DdayService.class);
+            startService(intent);
+        }
 
         Calendar calendar = Calendar.getInstance();
         mday = calendar.getTimeInMillis();
@@ -214,5 +219,15 @@ public class DdayActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean isServiceRunningCheck() {
+        ActivityManager manager = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if ("com.temmgh.cnboard.DdayService".equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
