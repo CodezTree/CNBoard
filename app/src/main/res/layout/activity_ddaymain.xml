@@ -1,61 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/my_toolbar"
+        <ListView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginEnd="0dp"
-            android:background="@color/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            android:layout_height="400dp"
+            android:id="@+id/ddaylistview">
 
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="CNBoard"
-                android:textColor="#757575"
-                android:textSize="20sp" />
+        </ListView>
 
-        </androidx.appcompat.widget.Toolbar>
+        <Button
+            android:id="@+id/button_add_dday"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add_dday"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/design_button"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:id="@+id/ddaylistview">
-
-    </ListView>
-
-    <Button
-        android:id="@+id/button_add_dday"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="@string/add_dday"
-        android:textStyle="bold"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/design_button"/>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
