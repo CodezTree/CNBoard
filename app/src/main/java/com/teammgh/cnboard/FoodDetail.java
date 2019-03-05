@@ -14,13 +14,15 @@ public class FoodDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_food_detail);
 
         Intent intent = getIntent();
         menu = findViewById(R.id.food_menu);
         menu.setText(intent.getExtras().getString("menu"));
         date = findViewById(R.id.food_date);
-        date.setText(intent.getExtras().getString("date"));
+        String date_new = intent.getExtras().getString("date");
+        String[] array = date_new.split("-");
+        date.setText("  "+array[0]+"년 "+array[1]+"월 "+array[2]+"일");
         time = findViewById(R.id.food_time);
 
         switch (intent.getExtras().getInt("time")){
@@ -31,7 +33,7 @@ public class FoodDetail extends AppCompatActivity {
                 time.setText("중식");
                 break;
             case 2:
-                time.setText("조식");
+                time.setText("석식");
                 break;
         }
     }
