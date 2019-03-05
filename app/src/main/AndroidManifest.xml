@@ -8,7 +8,7 @@
     <application
         android:allowBackup="true"
         android:appComponentFactory="whateverString"
-        android:icon="@drawable/logo_3"
+        android:icon="@mipmap/ic_launcher_cnboard"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -16,34 +16,27 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".FoodDetail"
-            android:parentActivityName=".LakeViewActivity"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".NoticeDetailActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".FoodActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".SplashActivity" >
+        <activity android:name=".FoodDetail" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".NoticeDetailActivity" />
+        <activity android:name=".FoodActivity" />
+        <activity android:name=".SplashActivity" />
+        <activity android:name=".EnrolmentSubject"></activity>
+        <activity android:name=".DdayActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EnrolmentSubject"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".DdayActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".DdaySettingActivity"
-            android:parentActivityName=".DdayActivity"/>
-        <activity android:name=".LakeViewActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".DdaySettingActivity" />
+        <activity android:name=".LakeViewActivity" />
         <activity android:name=".InputSubject" />
 
         <service
             android:name=".DdayService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true"></service>
     </application>
 
 </manifest>

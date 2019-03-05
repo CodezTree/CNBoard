@@ -29,7 +29,7 @@ public class DdayService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    @Override
+    /*@Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mday = calendar.getTimeInMillis();
         thread = new Thread() {
@@ -49,7 +49,7 @@ public class DdayService extends Service {
                             Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
 
                             if (database.getChecking() == 1) {  //알림 재설정
-                               createNotification(database.getTitle(),setDday(i),database.get_id());
+                               //createNotification(database.getTitle(),setDday(i),database.get_id());
                             }
                         }
                     }
@@ -60,7 +60,7 @@ public class DdayService extends Service {
         thread.start(); // 이거 이렇게 하는 거에요 아님 에러임
 
         return START_STICKY;
-    }
+    }*/
 
     private void createNotification(String title, String dday, int id) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"default");

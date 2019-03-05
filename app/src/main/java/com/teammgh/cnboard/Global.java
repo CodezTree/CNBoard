@@ -18,6 +18,7 @@ public class Global {
     public static ArrayList<Integer> arrKey = new ArrayList<Integer>();       // 특정학년의 과목의 키번호 배얼
     public static ArrayList<String> arrData = new ArrayList<String>();        // 특정학년의 과목이름 배열
     public static ArrayList<Integer> arrKeyS = new ArrayList<Integer>();       // 특정학년의 과목의 키번호 배얼
+    public static ArrayList<String> arrItem3 = new ArrayList<String>();
     public static ArrayList<String> arrDataS = new ArrayList<String>();
     public static ArrayList<Map<String,String>> mySubject = new ArrayList<>(); //학생별 시험범위 리스트 > listview용 SharedPreferneces 저장도 이걸로.. "과목:시험범위"
     public static ArrayList<MyGradeNcode> myGradeNCode = new ArrayList<>();
