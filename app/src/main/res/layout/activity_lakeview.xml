@@ -5,316 +5,379 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".LakeViewActivity">
 
     <TableLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#000000"
+        android:background="#5E5C6C"
         android:padding="1dp"
-        android:stretchColumns="1,2,3,4,5,6,7"
+        android:stretchColumns="1,2,3"
         >
-        <TableRow
-            android:background="#000000">
 
+        <TableRow>
             <TextView
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 android:text="  구분  "
-                android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="24sp"
-                android:text="월"
-                android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="조식"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="24sp"
-                android:text="화"
-                android:background="#ffffff"
-                android:layout_margin="1dp"
-                />
-            <TextView
-                android:gravity="center"
-                android:textSize="24sp"
-                android:text="수"
-                android:background="#ffffff"
-                android:layout_margin="1dp"
-                />
-            <TextView
-                android:gravity="center"
-                android:textSize="24sp"
-                android:text="목"
-                android:background="#ffffff"
-                android:layout_margin="1dp"
-                />
-            <TextView
-                android:gravity="center"
-                android:textSize="24sp"
-                android:text="금"
-                android:background="#ffffff"
-                android:layout_margin="1dp"
-                />
-            <TextView
-                android:gravity="center"
-                android:textSize="24sp"
-                android:text="토"
-                android:background="#ffffff"
-                android:layout_margin="1dp"
-                />
-            <TextView
-                android:gravity="center"
-                android:textSize="24sp"
-                android:text="일"
-                android:background="#ffffff"
-                android:layout_margin="1dp"
-                />
-        </TableRow>
-        <TableRow>
-        <TextView
-            android:gravity="center"
-            android:textSize="24sp"
-            android:text="조식"
-            android:background="#ffffff"
-            android:layout_margin="1dp"
-            />
-        <TextView
-            android:id="@+id/mon1"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:text=""
-            android:background="#ffffff"
-            android:layout_margin="1dp"
-            android:clickable="true"
-            android:focusable="true"
-            />
-        <TextView
-            android:id="@+id/tue1"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:text=""
-            android:background="#ffffff"
-            android:layout_margin="1dp"
-            android:clickable="true"
-            android:focusable="true"
-            />
-        <TextView
-            android:id="@+id/wed1"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:text=""
-            android:background="#ffffff"
-            android:layout_margin="1dp"
-            android:clickable="true"
-            android:focusable="true"
-            />
-        <TextView
-            android:id="@+id/thu1"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:text=""
-            android:background="#ffffff"
-            android:layout_margin="1dp"
-            android:clickable="true"
-            android:focusable="true"
-            />
-        <TextView
-            android:id="@+id/fri1"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:text=""
-            android:background="#ffffff"
-            android:layout_margin="1dp"
-            android:clickable="true"
-            android:focusable="true"
-            />
-        <TextView
-            android:id="@+id/sat1"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:text=""
-            android:background="#ffffff"
-            android:layout_margin="1dp"
-            android:clickable="true"
-            android:focusable="true"
-            />
-        <TextView
-            android:id="@+id/sun1"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:text=""
-            android:background="#ffffff"
-            android:layout_margin="1dp"
-            android:clickable="true"
-            android:focusable="true"
-            />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 android:text="중식"
-                android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="석식"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
+                />
+        </TableRow>
+        <TableRow
+            android:layout_weight = "1" >
+            <TextView
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="월"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
+                />
+            <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/mon1"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+            <TextView
+                android:layout_height="match_parent"
                 android:id="@+id/mon2"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="13sp"
                 android:text=""
                 android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:layout_margin="0.5dp"
                 android:clickable="true"
                 android:focusable="true"
                 />
             <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/mon3"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+        </TableRow>
+        <TableRow
+            android:layout_weight = "1" >
+            <TextView
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="화"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
+                />
+            <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/tue1"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+            <TextView
+                android:layout_height="match_parent"
                 android:id="@+id/tue2"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="13sp"
                 android:text=""
                 android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:layout_margin="0.5dp"
                 android:clickable="true"
                 android:focusable="true"
                 />
             <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/tue3"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+        </TableRow>
+        <TableRow
+            android:layout_weight = "1" >
+            <TextView
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="수"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
+                />
+            <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/wed1"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+            <TextView
+                android:layout_height="match_parent"
                 android:id="@+id/wed2"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="13sp"
                 android:text=""
                 android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:layout_margin="0.5dp"
                 android:clickable="true"
                 android:focusable="true"
                 />
             <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/wed3"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+        </TableRow>
+        <TableRow
+            android:layout_weight = "1" >
+            <TextView
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="목"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
+                />
+            <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/thu1"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+            <TextView
+                android:layout_height="match_parent"
                 android:id="@+id/thu2"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="13sp"
                 android:text=""
                 android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:layout_margin="0.5dp"
                 android:clickable="true"
                 android:focusable="true"
                 />
             <TextView
-                android:id="@+id/fri2"
+                android:layout_height="match_parent"
+                android:id="@+id/thu3"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="13sp"
                 android:text=""
                 android:background="#ffffff"
-                android:layout_margin="1dp"
-                android:clickable="true"
-                android:focusable="true"
-                />
-            <TextView
-                android:id="@+id/sat2"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:text=""
-                android:background="#ffffff"
-                android:layout_margin="1dp"
-                android:clickable="true"
-                android:focusable="true"
-                />
-            <TextView
-                android:id="@+id/sun2"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:text=""
-                android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:layout_margin="0.5dp"
                 android:clickable="true"
                 android:focusable="true"
                 />
         </TableRow>
-        <TableRow>
+        <TableRow
+            android:layout_weight = "1" >
             <TextView
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="24sp"
-                android:text="석식"
-                android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:textSize="18sp"
+                android:text="금"
+                android:textStyle="bold"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
                 />
             <TextView
-                android:id="@+id/mon3"
+                android:layout_height="match_parent"
+                android:id="@+id/fri1"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="13sp"
                 android:text=""
                 android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:layout_margin="0.5dp"
                 android:clickable="true"
                 android:focusable="true"
                 />
             <TextView
-                android:id="@+id/tue3"
+                android:layout_height="match_parent"
+                android:id="@+id/fri2"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="13sp"
                 android:text=""
                 android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:layout_margin="0.5dp"
                 android:clickable="true"
                 android:focusable="true"
                 />
             <TextView
-                android:id="@+id/wed3"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:text=""
-                android:background="#ffffff"
-                android:layout_margin="1dp"
-                android:clickable="true"
-                android:focusable="true"
-                />
-            <TextView
-                android:id="@+id/thu3"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:text=""
-                android:background="#ffffff"
-                android:layout_margin="1dp"
-                android:clickable="true"
-                android:focusable="true"
-                />
-            <TextView
+                android:layout_height="match_parent"
                 android:id="@+id/fri3"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="13sp"
                 android:text=""
                 android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+        </TableRow>
+        <TableRow
+            android:layout_weight = "1" >
+            <TextView
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="토"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
+                />
+            <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/sat1"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
                 android:clickable="true"
                 android:focusable="true"
                 />
             <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/sat2"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+            <TextView
+                android:layout_height="match_parent"
                 android:id="@+id/sat3"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="13sp"
                 android:text=""
                 android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+        </TableRow>
+        <TableRow
+            android:layout_weight = "1" >
+            <TextView
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:text="일"
+                android:textStyle="bold"
+                android:background="#EAECFD"
+                android:layout_margin="0.5dp"
+                />
+            <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/sun1"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
                 android:clickable="true"
                 android:focusable="true"
                 />
             <TextView
-                android:id="@+id/sun3"
+                android:layout_height="match_parent"
+                android:id="@+id/sun2"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="13sp"
                 android:text=""
                 android:background="#ffffff"
-                android:layout_margin="1dp"
+                android:layout_margin="0.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+            <TextView
+                android:layout_height="match_parent"
+                android:id="@+id/sun3"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text=""
+                android:background="#ffffff"
+                android:layout_margin="0.5dp"
                 android:clickable="true"
                 android:focusable="true"
                 />
         </TableRow>
     </TableLayout>
+
 </LinearLayout>
