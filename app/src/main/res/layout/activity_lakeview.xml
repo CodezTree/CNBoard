@@ -31,6 +31,7 @@
                 android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="18sp"
@@ -40,6 +41,7 @@
                 android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="18sp"
@@ -49,6 +51,7 @@
                 android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="18sp"
@@ -70,10 +73,11 @@
                 android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/mon1"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -81,10 +85,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/mon2"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -92,10 +97,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/mon3"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -116,10 +122,11 @@
                 android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/tue1"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -127,10 +134,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/tue2"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -138,10 +146,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/tue3"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -162,10 +171,11 @@
                 android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/wed1"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -173,10 +183,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/wed2"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -184,10 +195,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/wed3"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -208,10 +220,11 @@
                 android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/thu1"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -219,10 +232,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/thu2"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -230,10 +244,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/thu3"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -253,10 +268,11 @@
                 android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/fri1"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -264,10 +280,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/fri2"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -275,10 +292,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/fri3"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -290,6 +308,7 @@
         <TableRow
             android:layout_weight = "1" >
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="18sp"
@@ -299,10 +318,11 @@
                 android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/sat1"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -310,10 +330,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/sat2"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -321,10 +342,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/sat3"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -345,10 +367,11 @@
                 android:layout_margin="0.5dp"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/sun1"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -356,10 +379,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/sun2"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
@@ -367,10 +391,11 @@
                 android:focusable="true"
                 />
             <TextView
+                android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:id="@+id/sun3"
                 android:gravity="center"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:text=""
                 android:background="#ffffff"
                 android:layout_margin="0.5dp"
