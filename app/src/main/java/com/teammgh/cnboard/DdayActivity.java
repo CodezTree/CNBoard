@@ -50,7 +50,6 @@ public class DdayActivity extends AppCompatActivity {
         }
         List data = dbHelper.getAllData();
         listView.setAdapter(new DdayListViewAdapter(data, DdayActivity.this));
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,6 +167,7 @@ public class DdayActivity extends AppCompatActivity {
         return  dday;
     }
 
+
     private void createNotification(String title, String dday, int id) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"default");
 
@@ -189,3 +189,4 @@ public class DdayActivity extends AppCompatActivity {
         NotificationManagerCompat.from(this).cancel(id);
     }
 }
+

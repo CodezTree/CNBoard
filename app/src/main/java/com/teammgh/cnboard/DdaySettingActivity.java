@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -17,9 +16,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 public class DdaySettingActivity extends AppCompatActivity {
 
@@ -38,24 +35,10 @@ public class DdaySettingActivity extends AppCompatActivity {
     private long r;
     private int result;
 
-    Toolbar myToolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dday);
-
-        // 툴바입니다 건들 ㄴㄴ
-
-        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true); // 커스터마이징
-        actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
-
-        // 툴바입니다 건들 ㄴㄴ
 
         edittext_title = findViewById(R.id.edittext_title);
         linear_date = findViewById(R.id.linear_date);
@@ -168,15 +151,4 @@ public class DdaySettingActivity extends AppCompatActivity {
                 return null;
         }
     }*/
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{
-                finish();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

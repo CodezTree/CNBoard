@@ -3,7 +3,6 @@ package com.teammgh.cnboard;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
@@ -22,7 +20,6 @@ import com.google.android.material.navigation.NavigationView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,11 +33,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar myToolbar;
     LinearLayout setting;
 
-    ArrayList<NoticeData> noticeDataList;
-    RecyclerView mRecyclerView;
-    RecyclerView.LayoutManager mLayoutManager;
-    NoticeAdapter noticeAdapter;
-    // For main notice
+    FragmentManager fm;
+    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,45 +83,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });*/ // FOOD BUTTON
 
-        mRecyclerView = findViewById(R.id.notice_recycler);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        //FAKE DATA FAKE DATA --------------- TEST
-        noticeDataList = new ArrayList<NoticeData>();
-        noticeDataList.add(new NoticeData("2018-11-10 월요일", "정보공지"));
-        noticeDataList.add(new NoticeData("2018-11-16 토요일", "테스트공지2"));
-        noticeDataList.add(new NoticeData("2018-11-20 수요일", "테스트공지3"));
-        //http://45.32.49.247/notice/notice2_20181116.png
-
-        requestNoticeList();
-
-        noticeAdapter = new NoticeAdapter(noticeDataList, getApplicationContext());
-
-        mRecyclerView.setAdapter(noticeAdapter);
-
-        // 공지사항
-
-//        pageLayout = findViewById(R.id.fragment_view);
-//        pageLayout.setVisibility(View.INVISIBLE);
-//        // Fragment는 기본 안보임
-//
-//        noticeFragment = new NoticeFragment();
-//        foodFragment = new FoodFragment();
-//        // GENERATE Fragment
-
-        //        Bundle args = new Bundle();
-        //        args.putInt(key, val);
-        //        nf.setArguments(args);
-
-//        fm = getSupportFragmentManager();
-//        fragmentTransaction = fm.beginTransaction();
-//        fragmentTransaction.add(R.id.fragment_view, noticeFragment);
-//        fragmentTransaction.add(R.id.fragment_view, foodFragment);
-//        fragmentTransaction.hide(noticeFragment);
-//        fragmentTransaction.hide(foodFragment);
-//        fragmentTransaction.commit();
+        fm = getSupportFragmentManager();
+        fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_view, new NoticeFragment());
+        fragmentTransaction.commit();
 
 
     }
@@ -139,70 +98,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onCreateOptionsMenu(menu);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//
-//        if (fm.beginTransaction().isEmpty()) {
-//            Log.d("test", "fragment stack empty");
-//
-//            mRecyclerView.setVisibility(View.VISIBLE);
-//        }
-//    }
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_detailed_notice) {
-            Intent intent = new Intent(this, NoticeDetailActivity.class);
-            startActivity(intent);
+        if (id == R.id.nav_notice) {
+            // NOTICE
+            fm = getSupportFragmentManager();
+            fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_view, new NoticeFragment());
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_food_table) {
-            Intent intent = new Intent(this, LakeViewActivity.class);
-            startActivity(intent);
+            // FOOD TABLE
+            fm = getSupportFragmentManager();
+            fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_view, new FoodFragment());
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_d_day) {
             // D-DAY
-            Intent intent = new Intent(this, DdayActivity.class);
-            startActivity(intent);
+            fragmentTransaction.replace(R.id.fragment_view, new NoticeFragment());
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_test) {
-            // TEST
-            Intent intent = new Intent(this, EnrolmentSubject.class);
-            startActivity(intent);
+            // NAV TEST
+            fragmentTransaction.replace(R.id.fragment_view, new NoticeFragment());
+            fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void requestNoticeList() {
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    Log.d("test", "refreshResponse");
-                    Log.d("test", "response : "+response);
-                    String[] items = response.split("\n");
-                    noticeDataList.clear();
-
-                    String[] temp;
-                    for(String tmpString : items) {
-                        temp = tmpString.split("%%");
-
-                        noticeDataList.add(new NoticeData(temp[0], temp[1]));
-                        Log.d("test","time : "+temp[0] + "   URL : "+temp[2]);
-                    }
-
-                    noticeAdapter.notifyDataSetChanged();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        RefreshNotice refreshUserData = new RefreshNotice(responseListener);
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        queue.add(refreshUserData);
-        Log.d("test", "refreshRequest");
     }
 }

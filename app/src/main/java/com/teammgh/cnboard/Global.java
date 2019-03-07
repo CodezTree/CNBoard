@@ -24,10 +24,11 @@ public class Global {
     public static ArrayList<MyGradeNcode> myGradeNCode = new ArrayList<>();
     public static ArrayList<String> examRangeList = new ArrayList<>();
     public static ArrayList<ExamData> tempExamArr;
+    public static SharedPreferences sp;
 
 
     public static SharedPreferences mySubData1;
-    public static int a;
+    public static boolean a;
 
 
     //InputSubject

@@ -55,9 +55,7 @@ public class DdayService extends Service {
                     }
                 }
             }
-        };
-
-        thread.start(); // 이거 이렇게 하는 거에요 아님 에러임
+        }.start();
 
         return START_STICKY;
     }*/
