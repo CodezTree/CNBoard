@@ -29,10 +29,10 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.internal.connection.StreamAllocation;
+
 import static com.teammgh.cnboard.Global.arrDataS;
 import static com.teammgh.cnboard.Global.arrKeyS;
 import static com.teammgh.cnboard.Global.arrSubjectMemo;
@@ -65,6 +65,7 @@ public class EnrolmentSubject extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enrolment_studentt);
+        init();
 
         arrSubjectMemo.add(new ArrayList<String>());
         arrSubjectMemo.add(new ArrayList<String>());
@@ -80,9 +81,11 @@ public class EnrolmentSubject extends AppCompatActivity {
         Linear = findViewById(R.id.LInear);
         Init_btn = findViewById(R.id.init_btn);
 
+        listview.setAdapter(adapter);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, examRangeList);
 
         serverDataReceive();
-        //First();
+        First();
         //getData();
 
         arrSubject[0] = "01:01:국어,01:02:영어,01:03:일본어1,01:04:중국어1,01:05:통합사회,01:06:한국사,02:07:수학,02:08:통합과학,02:09:기술가정,03:10:음악연주,03:11:체육";    // 1학년 과목
@@ -210,7 +213,6 @@ public class EnrolmentSubject extends AppCompatActivity {
                     //Log.d("myGradeNCode2",String.valueOf(myGradeNCode.get(1).myGrade));
 
                     onListItemAdd(grade + 1, arrKey1);
-                    listview.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 /*
                 try {
@@ -281,22 +283,6 @@ public class EnrolmentSubject extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "저장.", Toast.LENGTH_SHORT).show();
 
-            }
-        });
-        //TODO
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                subjectIndexL = position;
-                if (Global.a) {
-                    Del_btn.setVisibility(View.VISIBLE);
-                    Del_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Delete();
-                        }
-                    });
-                }
             }
         });
         listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -489,11 +475,10 @@ public class EnrolmentSubject extends AppCompatActivity {
                 range = tempExam.exam_range;
                 name = tempExam.exam_name;
                 examRangeList.add(name + " : " + range); // examRangeLIst로 리스트뷰 구성
-
                 break;
             }
         }
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, examRangeList);
+
         adapter.notifyDataSetChanged();
     }
 
@@ -514,16 +499,19 @@ public class EnrolmentSubject extends AppCompatActivity {
 
     //DONE
     protected void getData() { // 앱 껏다가 켰을 때 자기가 저장한 시험범위 리스트를 잃어버리지 않도록 저장해주는 역할
-
+        gson = new GsonBuilder().create();
         sp = getSharedPreferences("shared", MODE_PRIVATE);
 
         String strContact = sp.getString("myGradeNCode", null);
 
         Type listType = new TypeToken<ArrayList<MyGradeNcode>>() {
         }.getType();
-        ArrayList<MyGradeNcode> mySubject = gson.fromJson(strContact, listType);
 
-        examRangeList = new ArrayList<>();
+        mySubject = new ArrayList<>();
+        Log.d("debug strContact",strContact);
+        mySubject = gson.fromJson(strContact, listType);
+        Log.d("debug mySubject",String.valueOf(mySubject.get(1).myCode));
+        Log.d("debug mySubject",String.valueOf(mySubject.get(1).myGrade));
 
         for (MyGradeNcode data : mySubject) {
             onListItemAdd(data.myGrade + 1, data.myCode);
@@ -572,7 +560,7 @@ public class EnrolmentSubject extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     }
-}
+
 
 
 
