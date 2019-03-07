@@ -38,8 +38,6 @@ public class DdayActivity extends AppCompatActivity {
     long mday;
     Toolbar myToolbar;
 
-    String test4;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

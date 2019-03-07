@@ -50,7 +50,7 @@ public class LakeViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lake_view);
+        setContentView(R.layout.activity_lakeview);
 
         MealList = new ArrayList<Meal>();
         /*cf>MealList.add(new Meal("2019년 03월 04일", "월요일 조식 메뉴", 0));

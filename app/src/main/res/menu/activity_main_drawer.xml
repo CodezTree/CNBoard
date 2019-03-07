@@ -7,18 +7,18 @@
         <item
             android:id="@+id/nav_notice"
             android:title="공지사항"
-            android:icon="@drawable/ic_notifications_black_24dp"/>
+            android:icon="@drawable/notice_board"/>
         <item
             android:id="@+id/nav_food_table"
             android:title="급식메뉴"
-            android:icon="@drawable/ic_local_dining_black_24dp"/>
+            android:icon="@drawable/fork"/>
         <item
             android:id="@+id/nav_d_day"
             android:title="D-DAY"
-            android:icon="@drawable/ic_event_available_black_24dp"/>
+            android:icon="@drawable/d_day"/>
         <item
             android:id="@+id/nav_test"
             android:title="시험범위 확인"
-            android:icon="@drawable/ic_playlist_add_check_black_24dp"/>
+            android:icon="@drawable/exam_list"/>
     </group>
 </menu>
