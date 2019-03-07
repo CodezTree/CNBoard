@@ -29,6 +29,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import static com.teammgh.cnboard.Global.arrDataS;
@@ -43,9 +45,9 @@ import static com.teammgh.cnboard.Global.myGradeNCode;
 import static com.teammgh.cnboard.Global.subjectIndexL;
 import static com.teammgh.cnboard.Global.subjectIndexS;
 
-public class EnrolmentSubject extends AppCompatActivity  {
+public class EnrolmentSubject extends AppCompatActivity {
 
-    Button grade1_btn, grade2_btn, grade3_btn, Save_btn, Del_btn,Init_btn;
+    Button grade1_btn, grade2_btn, grade3_btn, Save_btn, Del_btn, Init_btn;
     Spinner Category_spin, Subject_spin;
     public ArrayAdapter<String> Categpry, Subject, adapter;
     private ListView listview;
@@ -95,7 +97,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
 
         //DONE
 
-        if(Active) {
+        if (Active) {
             grade1_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -207,7 +209,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
                     //Log.d("myGradeNCode1",String.valueOf(myGradeNCode.get(1).myCode));
                     //Log.d("myGradeNCode2",String.valueOf(myGradeNCode.get(1).myGrade));
 
-                    onListItemAdd(grade +1, arrKey1);
+                    onListItemAdd(grade + 1, arrKey1);
                     listview.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 /*
@@ -248,6 +250,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
                                 Toast.makeText(EnrolmentSubject.this, "초기화 되었습니다", Toast.LENGTH_SHORT).show();
                                 init();
                                 myGradeNCode = new ArrayList<>();
+                                saveData();
                             }
                         })
                         .setNegativeButton("취소합니다", new DialogInterface.OnClickListener() {
@@ -296,7 +299,28 @@ public class EnrolmentSubject extends AppCompatActivity  {
                 }
             }
         });
+        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                android.app.AlertDialog.Builder dlg = new android.app.AlertDialog.Builder(view.getContext());
+                dlg.setTitle("삭제확인");
+                dlg.setMessage("이 시험범위를 삭제하겠습니까>");
+                dlg.setIcon(R.drawable.icon);
+                dlg.setNegativeButton("취소", null);
+                dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        myGradeNCode.remove(position);
 
+                        Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        saveData();
+                        getData();
+                    }
+                });
+                dlg.show();
+                return true;
+            }
+        });
     }
 
 
@@ -317,9 +341,9 @@ public class EnrolmentSubject extends AppCompatActivity  {
     private void setCategory() {
         String[] arrItem = arrCate[grade].split(",");// 특정 학년의 카테고리 목록
 
-       // for (int i = 0; i < arrItem.length -1 ; i++) {
+        // for (int i = 0; i < arrItem.length -1 ; i++) {
 
-           // arrItem3.add(arrItem[i]);}
+        // arrItem3.add(arrItem[i]);}
         Categpry = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrItem) {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View v = super.getView(position, convertView, parent);
@@ -329,6 +353,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
                 }
                 return v;
             }
+
             public int getCount() {
                 return super.getCount() - 1;
             }
@@ -344,7 +369,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
         String[] arrItem1 = arrSubject[grade].split(",");// A001 특정학년의 과목 목록    - [0]01:01:국어,[1]01:02:영어....[11]03:11:체욱
 
         // 사용자가 선택한 학년의 과목배열 전체를 루프 실행
-        for (int i = 0; i < arrItem1.length ; i++) {
+        for (int i = 0; i < arrItem1.length; i++) {
             String[] arrItem2 = arrItem1[i].split(":");    // [0]01, [1]01, [2]국어
 
             // 과목의 카테고리가 학생이 선택한 카테고리와 같으면 배열에 추가
@@ -352,9 +377,9 @@ public class EnrolmentSubject extends AppCompatActivity  {
             {
 
 
-                Log.d("디버그,key",arrItem2[1]);
+                Log.d("디버그,key", arrItem2[1]);
                 arrKeyS.add(Integer.parseInt(arrItem2[1]));    // 04, 05, 06
-                Log.d("디버그,arrKeyS",String.valueOf(Integer.parseInt(arrItem2[1])));
+                Log.d("디버그,arrKeyS", String.valueOf(Integer.parseInt(arrItem2[1])));
                 arrDataS.add(arrItem2[2]);    // 컴퓨터, 수학, 기계
 
             }
@@ -362,11 +387,11 @@ public class EnrolmentSubject extends AppCompatActivity  {
         arrDataS.add("과목 선택");
         // arrDataS를 과목 스피너에 추가 : 컴퓨터, 수학, 기계
 
-        Subject = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrDataS){
+        Subject = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrDataS) {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    Log.d("디버그 포지션",String.valueOf(position));
+                    Log.d("디버그 포지션", String.valueOf(position));
                     ((TextView) v.findViewById(android.R.id.text1)).setText("");
                     ((TextView) v.findViewById(android.R.id.text1)).setHint(getItem(getCount()));
                 }
@@ -381,11 +406,13 @@ public class EnrolmentSubject extends AppCompatActivity  {
         Subject_spin.setSelection(Subject.getCount());
 
     }
+
     @Override
     public Context getApplicationContext() {
         return super.getApplicationContext();
 
     }
+
     //DONE
     public void serverDataReceive() {
         //String serverData = 서버에서 가져온 데이터 (json 형)
@@ -405,6 +432,7 @@ public class EnrolmentSubject extends AppCompatActivity  {
 
         Active = true;
     }
+
     //DONE
     private ArrayList<ExamData> ParseExamJson(String response) {
 
@@ -422,14 +450,14 @@ public class EnrolmentSubject extends AppCompatActivity  {
             String name = object.get("exam_name").getAsString();
             String range = object.get("exam_range").getAsString();
 
-            Log.d("디버그,학년",String.valueOf(grade));
-            Log.d("디버그,코드",String.valueOf(code));
-            Log.d("디버그,이름",name);
-            Log.d("디버그,범위",range);
+            Log.d("디버그,학년", String.valueOf(grade));
+            Log.d("디버그,코드", String.valueOf(code));
+            Log.d("디버그,이름", name);
+            Log.d("디버그,범위", range);
 
             tempExamArr.add(new ExamData(grade, code, name, range));
 
-            Log.d("배열 길이",String.valueOf(tempExamArr.size()));
+            Log.d("배열 길이", String.valueOf(tempExamArr.size()));
 
         }
         return tempExamArr;
@@ -440,21 +468,20 @@ public class EnrolmentSubject extends AppCompatActivity  {
 
         String range, name;
 
-        Log.d("List_grade",String.valueOf(grade));
-        Log.d("List_code",String.valueOf(code));
+        Log.d("List_grade", String.valueOf(grade));
+        Log.d("List_code", String.valueOf(code));
 
-        if (tempExamArr == null)
-        {
+        if (tempExamArr == null) {
             return;
         }
-        Log.d("배열 길이2",String.valueOf(tempExamArr.size()));
+        Log.d("배열 길이2", String.valueOf(tempExamArr.size()));
 
         for (int i = 0; i < Global.tempExamArr.size(); i++) {
 
-            Log.d("tempExamArr",String.valueOf(tempExamArr.get(i).exam_code));
-            Log.d("tempExamArr",String.valueOf(tempExamArr.get(i).target_grade));
-            Log.d("tempExamArr",String.valueOf(tempExamArr.get(i).exam_range));
-            Log.d("tempExamArr",String.valueOf(tempExamArr.get(i).exam_name));
+            Log.d("tempExamArr", String.valueOf(tempExamArr.get(i).exam_code));
+            Log.d("tempExamArr", String.valueOf(tempExamArr.get(i).target_grade));
+            Log.d("tempExamArr", String.valueOf(tempExamArr.get(i).exam_range));
+            Log.d("tempExamArr", String.valueOf(tempExamArr.get(i).exam_name));
 
             ExamData tempExam = tempExamArr.get(i);
             if ((code == tempExam.exam_code) && (grade == tempExam.target_grade)) {
@@ -465,15 +492,16 @@ public class EnrolmentSubject extends AppCompatActivity  {
 
                 break;
             }
-            }
+        }
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, examRangeList);
         adapter.notifyDataSetChanged();
     }
 
-        //DONE
+    //DONE
     private void saveData() {
         gson = new GsonBuilder().create();
-        Type listType = new TypeToken<ArrayList<MyGradeNcode>>() {}.getType();
+        Type listType = new TypeToken<ArrayList<MyGradeNcode>>() {
+        }.getType();
         String json = gson.toJson(myGradeNCode, listType);
         SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -485,65 +513,64 @@ public class EnrolmentSubject extends AppCompatActivity  {
     }
 
     //DONE
-    protected void getData(){ // 앱 껏다가 켰을 때 자기가 저장한 시험범위 리스트를 잃어버리지 않도록 저장해주는 역할
+    protected void getData() { // 앱 껏다가 켰을 때 자기가 저장한 시험범위 리스트를 잃어버리지 않도록 저장해주는 역할
 
-        sp = getSharedPreferences("shared", MODE_PRIVATE);
-
-            String strContact = sp.getString("myGradeNCode", null);
-
-                Type listType = new TypeToken<ArrayList<MyGradeNcode>>() {
-                }.getType();
-                ArrayList<MyGradeNcode> mySubject = gson.fromJson(strContact, listType);
-
-                examRangeList = new ArrayList<>();
-
-                for (MyGradeNcode data : mySubject) {
-                    onListItemAdd(data.myGrade + 1, data.myCode);
-                    Log.d("getData2", String.valueOf(data.myCode));
-                }
-    }
-    public void First(){
         sp = getSharedPreferences("shared", MODE_PRIVATE);
 
         String strContact = sp.getString("myGradeNCode", null);
-        if (strContact == null) {
-            return;
+
+        Type listType = new TypeToken<ArrayList<MyGradeNcode>>() {
+        }.getType();
+        ArrayList<MyGradeNcode> mySubject = gson.fromJson(strContact, listType);
+
+        examRangeList = new ArrayList<>();
+
+        for (MyGradeNcode data : mySubject) {
+            onListItemAdd(data.myGrade + 1, data.myCode);
+            Log.d("getData2", String.valueOf(data.myCode));
         }
-        else{
+    }
+
+    public void First() {
+        sp = getSharedPreferences("shared", MODE_PRIVATE);
+
+        String strContact = sp.getString("myGradeNCode", null);
+        if (strContact != null) {
             getData();
         }
     }
 
-    //DONE
-    public void onBackPressed() {
-        // Alert을 이용해 종료시키기
-        AlertDialog.Builder dialog = new AlertDialog.Builder(EnrolmentSubject.this);
-        dialog .setTitle("종료 경고")
-                .setMessage("작업하신 내용을 저장하셨습니까? /n 저장하지 않은 경우 작업내용이 무시됩니다. 종료하시겠습니까?")
-                .setPositiveButton("종료합니다", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setNeutralButton("취소합니다", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(EnrolmentSubject.this, "취소했습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(EnrolmentSubject.this, "종료하지 않습니다.", Toast.LENGTH_SHORT).show();
-                    }
-        }).create().show();
-    }
-    //TODO
-    private void Delete(){
-        examRangeList.remove(subjectIndexL);
-        Toast.makeText(getApplicationContext(),"삭제되었습니다.",Toast.LENGTH_SHORT).show();
-        adapter.notifyDataSetChanged();
+        //DONE
+        public void onBackPressed () {
+            // Alert을 이용해 종료시키기
+            AlertDialog.Builder dialog = new AlertDialog.Builder(EnrolmentSubject.this);
+            dialog.setTitle("종료 경고")
+                    .setMessage("작업하신 내용을 저장하셨습니까? /n 저장하지 않은 경우 작업내용이 무시됩니다. 종료하시겠습니까?")
+                    .setPositiveButton("종료합니다", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNeutralButton("취소합니다", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(EnrolmentSubject.this, "취소했습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(EnrolmentSubject.this, "종료하지 않습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }).create().show();
+        }
+        //TODO
+        private void Delete () {
+            examRangeList.remove(subjectIndexL);
+            Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+            adapter.notifyDataSetChanged();
+        }
     }
 }
 

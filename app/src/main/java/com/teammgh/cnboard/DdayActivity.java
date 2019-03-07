@@ -1,15 +1,17 @@
 package com.teammgh.cnboard;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,7 +21,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -31,25 +35,47 @@ public class DdayActivity extends AppCompatActivity {
     boolean checking;
     final int NEW_DDAY = 21;
     private DBHelper_dday dbHelper;
-    private BroadcastReceiver mReceiver;
     long mday;
+    Toolbar myToolbar;
+
+    String test4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ddaymain);
 
+        // 툴바입니다 건들 ㄴㄴ
+
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true); // 커스터마이징
+        actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+
+        // 툴바입니다 건들 ㄴㄴ
+
         button = (Button) findViewById(R.id.button_add_dday);
         listView = (ListView) findViewById(R.id.ddaylistview);
 
+        if(isServiceRunningCheck() == false) {
+            Intent intent;
+            intent = new Intent(getApplicationContext(),DdayService.class);
+            startService(intent);
+        }
+
         Calendar calendar = Calendar.getInstance();
         mday = calendar.getTimeInMillis();
+
 
         if(dbHelper == null) {
             dbHelper = new DBHelper_dday(DdayActivity.this,"TEST",null,1);
         }
         List data = dbHelper.getAllData();
         listView.setAdapter(new DdayListViewAdapter(data, DdayActivity.this));
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +110,7 @@ public class DdayActivity extends AppCompatActivity {
                     }
                 });
                 dlg.show();
+                Log.d("test", "HI");
                 return true;
             }
         });
@@ -167,7 +194,6 @@ public class DdayActivity extends AppCompatActivity {
         return  dday;
     }
 
-
     private void createNotification(String title, String dday, int id) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"default");
 
@@ -188,5 +214,25 @@ public class DdayActivity extends AppCompatActivity {
 
         NotificationManagerCompat.from(this).cancel(id);
     }
-}
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean isServiceRunningCheck() {
+        ActivityManager manager = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if ("com.temmgh.cnboard.DdayService".equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
