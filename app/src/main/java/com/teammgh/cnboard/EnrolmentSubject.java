@@ -82,7 +82,7 @@ public class EnrolmentSubject extends AppCompatActivity {
 
 
         serverDataReceive();
-        //First();
+        First();
         //getData();
 
         arrSubject[0] = "01:01:국어,01:02:영어,01:03:일본어1,01:04:중국어1,01:05:통합사회,01:06:한국사,02:07:수학,02:08:통합과학,02:09:기술가정,03:10:음악연주,03:11:체육";    // 1학년 과목
@@ -281,22 +281,6 @@ public class EnrolmentSubject extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "저장.", Toast.LENGTH_SHORT).show();
 
-            }
-        });
-        //TODO
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                subjectIndexL = position;
-                if (Global.a) {
-                    Del_btn.setVisibility(View.VISIBLE);
-                    Del_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Delete();
-                        }
-                    });
-                }
             }
         });
         listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -565,13 +549,13 @@ public class EnrolmentSubject extends AppCompatActivity {
                         }
                     }).create().show();
         }
-        //TODO
+        /*
         private void Delete () {
             examRangeList.remove(subjectIndexL);
             Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
             adapter.notifyDataSetChanged();
         }
-    }
+    }*/
 }
 
 
