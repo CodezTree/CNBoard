@@ -227,7 +227,7 @@ public class DdayActivity extends AppCompatActivity {
     public boolean isServiceRunningCheck() {
         ActivityManager manager = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if ("com.temmgh.cnboard.DdayService".equals(service.service.getClassName())) {
+            if ("com.teammgh.cnboard.DdayService".equals(service.service.getClassName())) {
                 return true;
             }
         }
