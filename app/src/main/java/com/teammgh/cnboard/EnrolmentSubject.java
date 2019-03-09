@@ -57,7 +57,7 @@ public class EnrolmentSubject extends AppCompatActivity {
     private Gson gson;
     boolean Active, GetData = false;
     String serverURL = "http://45.32.49.247:8000/Service/exams/serviceAvailCheck/";
-    String serviceAvailablity;
+    int serviceAvailablity;
     TextView txt1,txt2;
 
     String[] arrCate = new String[3];
@@ -108,7 +108,7 @@ public class EnrolmentSubject extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        serviceAvailablity = response;
+                        serviceAvailablity = Integer.parseInt(response);
                         requestQueue1.stop();
                     }
                 }, new Response.ErrorListener() {
@@ -124,7 +124,7 @@ public class EnrolmentSubject extends AppCompatActivity {
 
         //DONE
 
-        if(serviceAvailablity.equals("true") && Active) {//서비스 가능
+        if(serviceAvailablity == 1 && Active) {//서비스 가능
             layout_serviceAvailable.setVisibility(VISIBLE);
             layout_serviceNotAvailable.setVisibility(View.GONE);
 
@@ -188,7 +188,7 @@ public class EnrolmentSubject extends AppCompatActivity {
 
                 }
             });
-        }else if (serviceAvailablity.equals("false")){//서비스 불가능
+        }else if (serviceAvailablity == 0){//서비스 불가능
         layout_serviceAvailable.setVisibility(View.GONE);
         layout_serviceNotAvailable.setVisibility(View.VISIBLE);
 
