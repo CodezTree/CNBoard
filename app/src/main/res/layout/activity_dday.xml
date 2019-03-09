@@ -14,8 +14,8 @@
             android:layout_height="wrap_content"
             android:text="@string/dday_title"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:textColor="#D358F7"
+            android:layout_marginTop="25dp"
+            android:textColor="#0B0B61"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
@@ -25,6 +25,7 @@
             android:layout_marginLeft="13dp"
             android:layout_marginRight="15dp"
             android:hint="@string/title"
+            android:layout_marginBottom="25dp"
             android:id="@+id/edittext_title"/>
 
         <TextView
@@ -33,13 +34,14 @@
             android:text="@string/dday_date"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:textColor="#D358F7"
+            android:textColor="#0B0B61"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginBottom="25dp"
             android:orientation="horizontal"
             android:background="@drawable/design_edittext"
             android:layout_marginLeft="15dp"
@@ -107,10 +109,11 @@
         </LinearLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="60dp">
+            android:layout_marginTop="90dp">
 
             <Button
                 android:layout_width="match_parent"
