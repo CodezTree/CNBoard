@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 
 import java.util.Calendar;
+import java.util.List;
 
 import androidx.core.app.NotificationCompat;
 
@@ -16,6 +18,7 @@ public class DdayService extends Service {
 
     long mday = 0;
     Thread thread;
+    private DBHelper_dday dbHelper;
     int DAY_MILLIS = 86400000;
     DdayListViewAdapter adapter;
     private Calendar calendar = Calendar.getInstance();
@@ -25,8 +28,7 @@ public class DdayService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
 
     @Override
@@ -36,13 +38,20 @@ public class DdayService extends Service {
             public void run() {
                 while (true) {
                     try {
-                        thread.sleep(300000);
+                        thread.sleep(240000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    mday = mday + 300000;     // mday = calendar.getTimeInMillis();
+                    mday = mday + 240000;     // mday = calendar.getTimeInMillis();
 
                     if (mday >= DAY_MILLIS) {       //DAY_MILLIS = 86400000 (하루)
+
+                        if(dbHelper == null) {
+                            dbHelper = new DBHelper_dday(DdayService.this,"TEST",null,1);
+                        }
+
+                        List data = dbHelper.getAllData();
+                        adapter = new DdayListViewAdapter(data,getApplicationContext());
                         int count = adapter.getCount();
 
                         for (int i = 0; i < count; i++) {
