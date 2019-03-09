@@ -58,10 +58,10 @@ public class NoticeFragment extends Fragment {
 
         //FAKE DATA FAKE DATA --------------- TEST
         noticeDataList = new ArrayList<NoticeData>();
-        noticeDataList.add(new NoticeData("2018-11-10", "notice1_20181110.png"));
-        noticeDataList.add(new NoticeData("2018-11-16", "notice2_20181116.png"));
-        noticeDataList.add(new NoticeData("2018-11-20", "notice3_20181120.jpeg"));
-        //http://45.32.49.247/notice/notice2_20181116.png
+        //noticeDataList.add(new NoticeData("2018-11-10", "notice1_20181110.png"));
+        //noticeDataList.add(new NoticeData("2018-11-16", "notice2_20181116.png"));
+        //noticeDataList.add(new NoticeData("2018-11-20", "notice3_20181120.jpeg"));
+        ////http://45.32.49.247/notice/notice2_20181116.png
 
         requestNoticeList();
 
@@ -86,8 +86,8 @@ public class NoticeFragment extends Fragment {
                     for(String tmpString : items) {
                         temp = tmpString.split("%%");
 
-                        noticeDataList.add(new NoticeData(temp[0], temp[1]));
-                        Log.d("test","time : "+temp[0] + "   URL : "+temp[1]);
+                        //noticeDataList.add(new NoticeData(temp[0], temp[1]));
+                        //Log.d("test","time : "+temp[0] + "   URL : "+temp[1]);
                     }
 
                     noticeAdapter.notifyDataSetChanged();

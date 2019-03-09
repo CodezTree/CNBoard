@@ -14,11 +14,11 @@ import androidx.core.app.NotificationCompat;
 
 public class DdayService extends Service {
 
-    long mday;
-    Calendar calendar;
+    long mday = 0;
     Thread thread;
     int DAY_MILLIS = 86400000;
     DdayListViewAdapter adapter;
+    private Calendar calendar = Calendar.getInstance();
 
     public DdayService() {
     }
@@ -29,7 +29,7 @@ public class DdayService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    /*@Override
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mday = calendar.getTimeInMillis();
         thread = new Thread() {
@@ -49,16 +49,16 @@ public class DdayService extends Service {
                             Ddaydatabase database = (Ddaydatabase) adapter.getItem(i);
 
                             if (database.getChecking() == 1) {  //알림 재설정
-                               //createNotification(database.getTitle(),setDday(i),database.get_id());
+                                createNotification(database.getTitle(),setDday(i),database.get_id());
                             }
                         }
                     }
                 }
             }
-        }.start();
-
+        };
+        thread.start();
         return START_STICKY;
-    }*/
+    }
 
     private void createNotification(String title, String dday, int id) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"default");

@@ -18,7 +18,13 @@
         tools:replace="android:appComponentFactory">
         <activity android:name=".FoodDetail"
             android:parentActivityName=".LakeViewActivity"/>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".NoticeDetailActivity"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".FoodActivity"
@@ -28,11 +34,6 @@
         </activity>
         <activity android:name=".EnrolmentSubject"
             android:parentActivityName=".MainActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity android:name=".DdayActivity"
             android:parentActivityName=".MainActivity"/>

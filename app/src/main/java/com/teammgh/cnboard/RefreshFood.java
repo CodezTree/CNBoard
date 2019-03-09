@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class RefreshFood extends StringRequest{
 
-    final static private String URL = "http://45.32.49.247/notice/foodList.txt";
+    final static private String URL = "http://45.32.49.247:8000/Meal/showMeal/";
     private Map<String, String> parameters;
 
     public RefreshFood(Response.Listener<String> listener) {

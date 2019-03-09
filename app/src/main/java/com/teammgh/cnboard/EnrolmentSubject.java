@@ -29,8 +29,11 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import okhttp3.internal.connection.StreamAllocation;
 
 import static com.teammgh.cnboard.Global.arrDataS;
@@ -60,11 +63,25 @@ public class EnrolmentSubject extends AppCompatActivity {
     String[] arrSubject = new String[3];
     public static ArrayList<MyGradeNcode> mySubject;
     Integer arrKey1;
+    Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enrolment_studentt);
+
+        // 툴바입니다 건들 ㄴㄴ
+
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true); // 커스터마이징
+        actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+
+        // 툴바입니다 건들 ㄴㄴ
+
         init();
 
         arrSubjectMemo.add(new ArrayList<String>());
