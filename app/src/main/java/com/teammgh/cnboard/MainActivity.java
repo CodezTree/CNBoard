@@ -11,13 +11,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
+import org.json.*;
 import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
@@ -28,16 +31,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     Toolbar myToolbar;
     LinearLayout setting;
-
-    FragmentManager fm;
-    FragmentTransaction fragmentTransaction;
-    FrameLayout pageLayout;
 
     ArrayList<NoticeData> noticeDataList;
     RecyclerView mRecyclerView;
@@ -97,11 +97,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        noticeDataList = new ArrayList<>();
+
         //FAKE DATA FAKE DATA --------------- TEST
-        noticeDataList = new ArrayList<NoticeData>();
-        noticeDataList.add(new NoticeData("2018-11-10 월요일", "정보공지"));
-        noticeDataList.add(new NoticeData("2018-11-16 토요일", "테스트공지2"));
-        noticeDataList.add(new NoticeData("2018-11-20 수요일", "테스트공지3"));
+        //noticeDataList.add(new NoticeData("2018-11-10 월요일", "정보공지"));
+        //noticeDataList.add(new NoticeData("2018-11-16 토요일", "테스트공지2"));
+        //noticeDataList.add(new NoticeData("2018-11-20 수요일", "테스트공지3"));
         //http://45.32.49.247/notice/notice2_20181116.png
 
         requestNoticeList();
@@ -117,6 +118,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_refresh:
+                // User chose the "Settings" item, show the app settings UI...
+                requestNoticeList();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -152,15 +166,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 try {
                     Log.d("test", "refreshResponse");
                     Log.d("test", "response : "+response);
-                    String[] items = response.split("\n");
+
                     noticeDataList.clear();
 
-                    String[] temp;
-                    for(String tmpString : items) {
-                        temp = tmpString.split("%%");
+                    JSONArray tempArr = new JSONArray(response);
 
-                        noticeDataList.add(new NoticeData(temp[0], temp[1]));
-                        Log.d("test","time : "+temp[0] + "   URL : "+temp[1]);
+                    String[] temp;
+                    for(int i = 0; i < tempArr.length(); i++) {
+                        JSONObject obj = tempArr.getJSONObject(i);
+                        noticeDataList.add(new NoticeData(obj.getString("notice_title"), obj.getString("notice_date"), obj.getString("notice_image"), obj.getInt("id"), obj.getInt("notice_kind"), obj.getInt("target_grade")));
+                        Log.d("test","time : "+obj.getString("notice_date") + "   URL : "+obj.getString("notice_image") + " title : "+obj.getString("notice_title"));
+
+                        // {"id": 1, "notice_kind": 1, "notice_title": "Test", "notice_date": "2019-03-06", "notice_image": "notice/logo_3.png", "target_grade": 2
                     }
 
                     noticeAdapter.notifyDataSetChanged();

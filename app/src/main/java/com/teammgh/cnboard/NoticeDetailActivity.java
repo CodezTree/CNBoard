@@ -54,7 +54,7 @@ public class NoticeDetailActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Log.d("test", Integer.toString(linearLayout.getWidth()));
-                Picasso.get().load("http://45.32.49.247/notice/" + intent.getStringExtra("URL")).fit().centerInside().into(detailImage, imageLoadedCallback);
+                Picasso.get().load("http://45.32.49.247:8000/notice/" + intent.getStringExtra("URL")).fit().centerInside().into(detailImage, imageLoadedCallback);
             }
         }, 100);
     }
