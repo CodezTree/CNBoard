@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/LInear">
     <com.google.android.material.appbar.AppBarLayout
@@ -148,12 +147,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ListView
             android:id="@+id/listview"
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="561dp"
             android:layout_margin="10dp"
+            android:layout_marginTop="5dp"
             android:visibility="visible">
 
         </ListView>
