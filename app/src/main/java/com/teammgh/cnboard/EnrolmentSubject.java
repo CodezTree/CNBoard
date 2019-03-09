@@ -29,10 +29,10 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.internal.connection.StreamAllocation;
+
 import static com.teammgh.cnboard.Global.arrDataS;
 import static com.teammgh.cnboard.Global.arrKeyS;
 import static com.teammgh.cnboard.Global.arrSubjectMemo;
@@ -65,6 +65,7 @@ public class EnrolmentSubject extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enrolment_studentt);
+        init();
 
         arrSubjectMemo.add(new ArrayList<String>());
         arrSubjectMemo.add(new ArrayList<String>());
@@ -80,6 +81,8 @@ public class EnrolmentSubject extends AppCompatActivity {
         Linear = findViewById(R.id.LInear);
         Init_btn = findViewById(R.id.init_btn);
 
+        listview.setAdapter(adapter);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, examRangeList);
 
         serverDataReceive();
         First();
@@ -210,7 +213,6 @@ public class EnrolmentSubject extends AppCompatActivity {
                     //Log.d("myGradeNCode2",String.valueOf(myGradeNCode.get(1).myGrade));
 
                     onListItemAdd(grade + 1, arrKey1);
-                    listview.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 /*
                 try {
@@ -473,11 +475,10 @@ public class EnrolmentSubject extends AppCompatActivity {
                 range = tempExam.exam_range;
                 name = tempExam.exam_name;
                 examRangeList.add(name + " : " + range); // examRangeLIst로 리스트뷰 구성
-
                 break;
             }
         }
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, examRangeList);
+
         adapter.notifyDataSetChanged();
     }
 
@@ -498,16 +499,19 @@ public class EnrolmentSubject extends AppCompatActivity {
 
     //DONE
     protected void getData() { // 앱 껏다가 켰을 때 자기가 저장한 시험범위 리스트를 잃어버리지 않도록 저장해주는 역할
-
+        gson = new GsonBuilder().create();
         sp = getSharedPreferences("shared", MODE_PRIVATE);
 
         String strContact = sp.getString("myGradeNCode", null);
 
         Type listType = new TypeToken<ArrayList<MyGradeNcode>>() {
         }.getType();
-        ArrayList<MyGradeNcode> mySubject = gson.fromJson(strContact, listType);
 
-        examRangeList = new ArrayList<>();
+        mySubject = new ArrayList<>();
+        Log.d("debug strContact",strContact);
+        mySubject = gson.fromJson(strContact, listType);
+        Log.d("debug mySubject",String.valueOf(mySubject.get(1).myCode));
+        Log.d("debug mySubject",String.valueOf(mySubject.get(1).myGrade));
 
         for (MyGradeNcode data : mySubject) {
             onListItemAdd(data.myGrade + 1, data.myCode);
@@ -549,14 +553,14 @@ public class EnrolmentSubject extends AppCompatActivity {
                         }
                     }).create().show();
         }
-        /*
+        //TODO
         private void Delete () {
             examRangeList.remove(subjectIndexL);
             Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
             adapter.notifyDataSetChanged();
         }
-    }*/
-}
+    }
+
 
 
 
