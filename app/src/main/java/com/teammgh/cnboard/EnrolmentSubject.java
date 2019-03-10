@@ -84,10 +84,6 @@ public class EnrolmentSubject extends AppCompatActivity {
 
         // 툴바입니다 건들 ㄴㄴ
 
-        arrSubjectMemo.add(new ArrayList<String>());
-        arrSubjectMemo.add(new ArrayList<String>());
-        arrSubjectMemo.add(new ArrayList<String>());
-
         grade1_btn = findViewById(R.id.grade1_btn);
         grade2_btn = findViewById(R.id.grade2_btn);
         grade3_btn = findViewById(R.id.grade3_btn);
@@ -117,13 +113,17 @@ public class EnrolmentSubject extends AppCompatActivity {
 
         // 1. 카테고리 스피너 생성
 
-        final RequestQueue requestQueue1 = Volley.newRequestQueue(getApplicationContext());
+        final RequestQueue requestQueue1 = Volley.newRequestQueue(EnrolmentSubject.this);
 
         StringRequest strRequest = new StringRequest(Request.Method.GET, serverURL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        serviceAvailablity = Integer.parseInt(response);
+
+                        Log.d("debug response",response);
+
+                        String retStr = response.trim();
+                        serviceAvailablity = Integer.parseInt(retStr);
                         requestQueue1.stop();
                     }
                 }, new Response.ErrorListener() {
@@ -203,7 +203,7 @@ public class EnrolmentSubject extends AppCompatActivity {
 
                 }
             });
-        }else if (serviceAvailablity == 0){//서비스 불가능
+        }else if (serviceAvailablity==0){//서비스 불가능
         layout_serviceAvailable.setVisibility(View.GONE);
         layout_serviceNotAvailable.setVisibility(View.VISIBLE);
 
