@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:weightSum="30">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -48,19 +49,21 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:id="@+id/ddaylistview">
+            android:id="@+id/ddaylistview"
+            android:layout_weight="29">
 
         </ListView>
 
         <Button
             android:id="@+id/button_add_dday"
             android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="@string/add_dday"
             android:textStyle="bold"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/design_button"/>
+            android:background="@drawable/design_button"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

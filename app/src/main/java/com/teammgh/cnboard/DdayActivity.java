@@ -53,7 +53,7 @@ public class DdayActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true); // 커스터마이징
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
 
-        // 툴바입니다 건들 ㄴㄴ
+       // 툴바입니다 건들 ㄴㄴ
 
         button = (Button) findViewById(R.id.button_add_dday);
         listView = (ListView) findViewById(R.id.ddaylistview);

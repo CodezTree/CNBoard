@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,8 +31,11 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import static android.view.View.VISIBLE;
 import static com.teammgh.cnboard.Global.arrDataS;
 import static com.teammgh.cnboard.Global.arrKeyS;
@@ -42,6 +46,7 @@ import static com.teammgh.cnboard.Global.grade;
 import static com.teammgh.cnboard.Global.sp;
 import static com.teammgh.cnboard.Global.tempExamArr;
 import static com.teammgh.cnboard.Global.myGradeNCode;
+import static com.teammgh.cnboard.Global.subjectIndexL;
 import static com.teammgh.cnboard.Global.subjectIndexS;
 
 public class EnrolmentSubject extends AppCompatActivity {
@@ -54,17 +59,34 @@ public class EnrolmentSubject extends AppCompatActivity {
     private Gson gson;
     boolean Active, GetData = false;
     String serverURL = "http://45.32.49.247:8000/Service/exams/serviceAvailCheck/";
-    Integer serviceAvailablity;
+    int serviceAvailablity;
     TextView txt1,txt2;
 
     String[] arrCate = new String[3];
     String[] arrSubject = new String[3];
     Integer arrKey1;
+    Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enrolment_studentt);
+
+        // 툴바입니다 건들 ㄴㄴ
+
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true); // 커스터마이징
+        actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+
+        // 툴바입니다 건들 ㄴㄴ
+
+        arrSubjectMemo.add(new ArrayList<String>());
+        arrSubjectMemo.add(new ArrayList<String>());
+        arrSubjectMemo.add(new ArrayList<String>());
 
         grade1_btn = findViewById(R.id.grade1_btn);
         grade2_btn = findViewById(R.id.grade2_btn);
@@ -101,7 +123,7 @@ public class EnrolmentSubject extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        serviceAvailablity = Integer.valueOf(response);
+                        serviceAvailablity = Integer.parseInt(response);
                         requestQueue1.stop();
                     }
                 }, new Response.ErrorListener() {
@@ -264,7 +286,7 @@ public class EnrolmentSubject extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(EnrolmentSubject.this, "초기화 되었습니다", Toast.LENGTH_SHORT).show();
                         examRangeList.clear();
-                        myGradeNCode.clear();
+                        myGradeNCode .clear();
 
                         adapter.notifyDataSetChanged();
 
@@ -327,11 +349,12 @@ public class EnrolmentSubject extends AppCompatActivity {
             public void onClick(View v) {
 
                 sp = getSharedPreferences("shared", MODE_PRIVATE);
-                String strContact = sp.getString("myGradeNCode", "");
+                String strContact = sp.getString("myGradeNCode","" );
 
                 if (strContact.equals("")) {
                     Toast.makeText(getApplicationContext(), "저장된 시험범위가 없습니다.", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else {
                     Toast.makeText(getApplicationContext(), "저장된 시험범위를 불러옵니다.", Toast.LENGTH_SHORT).show();
                     getData();
                     adapter.notifyDataSetChanged();
@@ -512,7 +535,7 @@ public class EnrolmentSubject extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, examRangeList);
         listview.setAdapter(adapter);
 
-        if (tempExamArr.size() == 0) {
+        if (tempExamArr.size()==0) {
             return;
         }
     }
@@ -550,7 +573,7 @@ public class EnrolmentSubject extends AppCompatActivity {
             onListItemAdd(data.myGrade + 1, data.myCode);
             Log.d("getData2", String.valueOf(data.myCode));
         }
-        if (myGradeNCode.equals("[]")) {
+        if (myGradeNCode.equals("[]")){
             examRangeList = new ArrayList<>();
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, examRangeList);
         }
