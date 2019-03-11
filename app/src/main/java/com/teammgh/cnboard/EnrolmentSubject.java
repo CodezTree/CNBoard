@@ -84,10 +84,6 @@ public class EnrolmentSubject extends AppCompatActivity {
 
         // 툴바입니다 건들 ㄴㄴ
 
-        arrSubjectMemo.add(new ArrayList<String>());
-        arrSubjectMemo.add(new ArrayList<String>());
-        arrSubjectMemo.add(new ArrayList<String>());
-
         grade1_btn = findViewById(R.id.grade1_btn);
         grade2_btn = findViewById(R.id.grade2_btn);
         grade3_btn = findViewById(R.id.grade3_btn);
@@ -117,13 +113,17 @@ public class EnrolmentSubject extends AppCompatActivity {
 
         // 1. 카테고리 스피너 생성
 
-        final RequestQueue requestQueue1 = Volley.newRequestQueue(getApplicationContext());
+        final RequestQueue requestQueue1 = Volley.newRequestQueue(EnrolmentSubject.this);
 
-        StringRequest strRequest = new StringRequest(Request.Method.POST, serverURL,
+        StringRequest strRequest = new StringRequest(Request.Method.GET, serverURL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        serviceAvailablity = Integer.parseInt(response);
+
+                        Log.d("debug response",response);
+
+                        String retStr = response.trim();
+                        serviceAvailablity = Integer.parseInt(retStr);
                         requestQueue1.stop();
                     }
                 }, new Response.ErrorListener() {
@@ -203,7 +203,7 @@ public class EnrolmentSubject extends AppCompatActivity {
 
                 }
             });
-        }else if (serviceAvailablity == 0){//서비스 불가능
+        }else if (serviceAvailablity==0){//서비스 불가능
         layout_serviceAvailable.setVisibility(View.GONE);
         layout_serviceNotAvailable.setVisibility(View.VISIBLE);
 
@@ -580,9 +580,10 @@ public class EnrolmentSubject extends AppCompatActivity {
     }
 
 
+    //DONE
+    public void onBackPressed() {
 
-        //DONE
-        public void onBackPressed () {
+        //if (serviceAvailablity == 1) {
             // Alert을 이용해 종료시키기
             AlertDialog.Builder dialog = new AlertDialog.Builder(EnrolmentSubject.this);
             dialog.setTitle("종료 경고")
@@ -605,7 +606,13 @@ public class EnrolmentSubject extends AppCompatActivity {
                             Toast.makeText(EnrolmentSubject.this, "종료하지 않습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }).create().show();
-        }
+        //}
+        //if (serviceAvailablity == 0){
+            finish();
+        //}
+    }
+
+
 }
 
 

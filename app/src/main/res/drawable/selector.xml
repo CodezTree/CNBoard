@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_pressed="true">
+        <!--image대신 직접 selector를 그리겠다고 선언한다. -->
+        <shape >
+            <!--도형안에 채워질 색을 정의한다.-->
+            <solid android:color="#c9c7c6"/>
+
+            <!--각 모서리의 라운드 처리 - 값이 클수록 라운드의 각이 커진다.-->
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+
+    <!--위와 동일하다.
+    -->
+    <item android:state_pressed="false">
+        <shape >
+            <solid android:color="#FFFFFF"/>
+
+            <!--각 모서리의 라운드 처리 - 값이 클수록 라운드의 각이 커진다.-->
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+</selector>
