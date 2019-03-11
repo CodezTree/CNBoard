@@ -7,7 +7,7 @@
     tools:context=".LoginActivity"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#536dfe">
+    android:background="#97AFDB">
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,6 +16,7 @@
         android:textColor="#FFFFFF"
         android:textSize="80dp"
         android:layout_marginBottom="10dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,61 +31,68 @@
         android:orientation="horizontal">
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-            <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-                android:width="250dp"
-                android:layout_marginRight="40dp"
-                android:hint="CNSAnet ID"
-                android:textColorHint="#FFFFFF"
-                android:id="@+id/et_id"/>
-
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:width="250dp"
-                android:hint="CNSAnet PW"
-                android:layout_marginRight="40dp"
-                android:textColorHint="#FFFFFF"
-                android:id="@+id/et_pw"
-                android:inputType="textPassword"/>
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/linearlayout">
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/txt_loginFail"/>
+            <EditText
+                android:id="@+id/et_id"
+                android:layout_width="381dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:width="350dp"
+                android:height="43dp"
+                android:padding="10dp"
+                android:background="@drawable/edittext"
+                android:hint="     CNSAnet ID"
+                android:textColorHint=	"#676767" />
 
 
+            <EditText
+                android:id="@+id/et_pw"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginBottom="10dp"
+                android:width="350dp"
+                android:height="43dp"
+                android:padding="10dp"
+                android:background="@drawable/edittext"
+                android:hint="     CNSAnet PW"
+                android:inputType="textPassword"
+                android:textColorHint="	#676767" />
+
+            <LinearLayout
+                android:id="@+id/linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt_loginFail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="#FFFFFF"/>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/selector"
+                android:text="로그인"
+                android:textColor="#FFFFFF"
+                android:textSize="17dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="아이디 저장"
+                android:textColor="#363839" />
         </LinearLayout>
 
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="아이디 저장"
-            android:textColor="#363839"
-            android:id="@+id/checkbox"/>
-        </LinearLayout>
-
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="110dp"
-            android:textColor="#000000"
-            android:text="로그인"
-            android:background="@drawable/selector"
-            android:textSize="17dp"
-            android:id="@+id/btn_login"
-            />
 
     </LinearLayout>
 </LinearLayout>
