@@ -31,7 +31,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,14 +38,12 @@ import androidx.appcompat.widget.Toolbar;
 import static android.view.View.VISIBLE;
 import static com.teammgh.cnboard.Global.arrDataS;
 import static com.teammgh.cnboard.Global.arrKeyS;
-import static com.teammgh.cnboard.Global.arrSubjectMemo;
 import static com.teammgh.cnboard.Global.categoryNoS;
 import static com.teammgh.cnboard.Global.examRangeList;
 import static com.teammgh.cnboard.Global.grade;
 import static com.teammgh.cnboard.Global.sp;
 import static com.teammgh.cnboard.Global.tempExamArr;
 import static com.teammgh.cnboard.Global.myGradeNCode;
-import static com.teammgh.cnboard.Global.subjectIndexL;
 import static com.teammgh.cnboard.Global.subjectIndexS;
 
 public class EnrolmentSubject extends AppCompatActivity {
@@ -119,11 +116,26 @@ public class EnrolmentSubject extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         Log.d("debug response",response);
 
                         String retStr = response.trim();
                         serviceAvailablity = Integer.parseInt(retStr);
+
+
+                        if(serviceAvailablity == 1 && Active) {
+                            //서비스 가능
+                            layout_serviceAvailable.setVisibility(VISIBLE);
+                            layout_serviceNotAvailable.setVisibility(View.GONE);
+
+                        }else if (serviceAvailablity==0){//서비스 불가능
+                            layout_serviceAvailable.setVisibility(View.GONE);
+                            layout_serviceNotAvailable.setVisibility(View.VISIBLE);
+
+                            txt1.setText("시험기간이 아닙니다");
+                            txt2.setText("시험범위가 공개된 후 이용해주세요! 감사합니다");
+                        }
+
+                        Log.d("debug,serviceAvail",String.valueOf(serviceAvailablity));
                         requestQueue1.stop();
                     }
                 }, new Response.ErrorListener() {
@@ -137,80 +149,68 @@ public class EnrolmentSubject extends AppCompatActivity {
         });
         requestQueue1.add(strRequest);
 
-        //DONE
 
-        if(serviceAvailablity == 1 && Active) {//서비스 가능
-            layout_serviceAvailable.setVisibility(VISIBLE);
-            layout_serviceNotAvailable.setVisibility(View.GONE);
+        grade1_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            grade1_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                grade = 0;
+                Toast.makeText(getApplicationContext(), "1학년 선택", Toast.LENGTH_SHORT).show();
+                setCategory();
+                grade1_btn.setBackgroundResource(R.drawable.grade1btn_rectangle);
+                grade2_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                grade3_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                grade1_btn.setTextColor(Color.rgb(255, 255, 255));
+                grade2_btn.setTextColor(Color.rgb(112, 112, 112));
+                grade3_btn.setTextColor(Color.rgb(112, 112, 112));
 
-                    grade = 0;
-                    Toast.makeText(getApplicationContext(), "1학년 선택", Toast.LENGTH_SHORT).show();
-                    setCategory();
-                    grade1_btn.setBackgroundResource(R.drawable.grade1btn_rectangle);
-                    grade2_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
-                    grade3_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
-                    grade1_btn.setTextColor(Color.rgb(255, 255, 255));
-                    grade2_btn.setTextColor(Color.rgb(112, 112, 112));
-                    grade3_btn.setTextColor(Color.rgb(112, 112, 112));
-
-                    Category_spin.setVisibility(VISIBLE);
-                    Subject_spin.setVisibility(VISIBLE);
+                Category_spin.setVisibility(VISIBLE);
+                Subject_spin.setVisibility(VISIBLE);
 
 
-                    Linear.setBackgroundColor(Color.rgb(255, 248, 248));
-                }
-            });
+                Linear.setBackgroundColor(Color.rgb(255, 248, 248));
+            }
+        });
 
-            grade2_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    grade = 1;
-                    Toast.makeText(getApplicationContext(), "2학년", Toast.LENGTH_SHORT).show();
-                    setCategory();
-                    Linear.setBackgroundColor(Color.rgb(241, 255, 241));
-                    grade2_btn.setTextColor(Color.rgb(255, 255, 255));
-                    grade1_btn.setTextColor(Color.rgb(112, 112, 112));
-                    grade3_btn.setTextColor(Color.rgb(112, 112, 112));
+        grade2_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                grade = 1;
+                Toast.makeText(getApplicationContext(), "2학년", Toast.LENGTH_SHORT).show();
+                setCategory();
+                Linear.setBackgroundColor(Color.rgb(241, 255, 241));
+                grade2_btn.setTextColor(Color.rgb(255, 255, 255));
+                grade1_btn.setTextColor(Color.rgb(112, 112, 112));
+                grade3_btn.setTextColor(Color.rgb(112, 112, 112));
 
-                    grade2_btn.setBackgroundResource(R.drawable.grade2btn_rectangle);
-                    grade3_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
-                    grade1_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
-                    Category_spin.setVisibility(VISIBLE);
-                    Subject_spin.setVisibility(VISIBLE);
-                }
-            });
+                grade2_btn.setBackgroundResource(R.drawable.grade2btn_rectangle);
+                grade3_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                grade1_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                Category_spin.setVisibility(VISIBLE);
+                Subject_spin.setVisibility(VISIBLE);
+            }
+        });
 
-            grade3_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    grade = 2;
-                    Toast.makeText(getApplicationContext(), "3학년", Toast.LENGTH_SHORT).show();
-                    setCategory();
-                    Linear.setBackgroundColor(Color.rgb(241, 242, 252));
-                    grade3_btn.setTextColor(Color.rgb(255, 255, 255));
-                    grade1_btn.setTextColor(Color.rgb(112, 112, 112));
-                    grade2_btn.setTextColor(Color.rgb(112, 112, 112));
+        grade3_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                grade = 2;
+                Toast.makeText(getApplicationContext(), "3학년", Toast.LENGTH_SHORT).show();
+                setCategory();
+                Linear.setBackgroundColor(Color.rgb(241, 242, 252));
+                grade3_btn.setTextColor(Color.rgb(255, 255, 255));
+                grade1_btn.setTextColor(Color.rgb(112, 112, 112));
+                grade2_btn.setTextColor(Color.rgb(112, 112, 112));
 
-                    grade3_btn.setBackgroundResource(R.drawable.grade3btn_rectangle);
-                    grade1_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
-                    grade2_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
-                    Category_spin.setVisibility(VISIBLE);
-                    Subject_spin.setVisibility(VISIBLE);
+                grade3_btn.setBackgroundResource(R.drawable.grade3btn_rectangle);
+                grade1_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                grade2_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                Category_spin.setVisibility(VISIBLE);
+                Subject_spin.setVisibility(VISIBLE);
 
-                }
-            });
-        }else if (serviceAvailablity==0){//서비스 불가능
-        layout_serviceAvailable.setVisibility(View.GONE);
-        layout_serviceNotAvailable.setVisibility(View.VISIBLE);
+            }
+        });
 
-        txt1.setText("시험기간이 아닙니다");
-        txt2.setText("시험범위가 공개된 후 이용해주세요! 감사합니다");
-
-    }
 
         //=====================================================================================
         // 3. 사용자가 카테고리를 선택하면 해당 학년의 해당 카테고리의 과목 스피너를 생성한다.
