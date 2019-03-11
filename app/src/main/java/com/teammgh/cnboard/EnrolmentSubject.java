@@ -39,14 +39,12 @@ import androidx.appcompat.widget.Toolbar;
 import static android.view.View.VISIBLE;
 import static com.teammgh.cnboard.Global.arrDataS;
 import static com.teammgh.cnboard.Global.arrKeyS;
-import static com.teammgh.cnboard.Global.arrSubjectMemo;
 import static com.teammgh.cnboard.Global.categoryNoS;
 import static com.teammgh.cnboard.Global.examRangeList;
 import static com.teammgh.cnboard.Global.grade;
 import static com.teammgh.cnboard.Global.sp;
 import static com.teammgh.cnboard.Global.tempExamArr;
 import static com.teammgh.cnboard.Global.myGradeNCode;
-import static com.teammgh.cnboard.Global.subjectIndexL;
 import static com.teammgh.cnboard.Global.subjectIndexS;
 
 public class EnrolmentSubject extends AppCompatActivity {
@@ -151,8 +149,8 @@ public class EnrolmentSubject extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "1학년 선택", Toast.LENGTH_SHORT).show();
                     setCategory();
                     grade1_btn.setBackgroundResource(R.drawable.grade1btn_rectangle);
-                    grade2_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
-                    grade3_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                    grade2_btn.setBackgroundResource(R.drawable.comment_rectangle);
+                    grade3_btn.setBackgroundResource(R.drawable.comment_rectangle);
                     grade1_btn.setTextColor(Color.rgb(255, 255, 255));
                     grade2_btn.setTextColor(Color.rgb(112, 112, 112));
                     grade3_btn.setTextColor(Color.rgb(112, 112, 112));
@@ -177,8 +175,8 @@ public class EnrolmentSubject extends AppCompatActivity {
                     grade3_btn.setTextColor(Color.rgb(112, 112, 112));
 
                     grade2_btn.setBackgroundResource(R.drawable.grade2btn_rectangle);
-                    grade3_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
-                    grade1_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                    grade3_btn.setBackgroundResource(R.drawable.comment_rectangle);
+                    grade1_btn.setBackgroundResource(R.drawable.comment_rectangle);
                     Category_spin.setVisibility(VISIBLE);
                     Subject_spin.setVisibility(VISIBLE);
                 }
@@ -196,8 +194,8 @@ public class EnrolmentSubject extends AppCompatActivity {
                     grade2_btn.setTextColor(Color.rgb(112, 112, 112));
 
                     grade3_btn.setBackgroundResource(R.drawable.grade3btn_rectangle);
-                    grade1_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
-                    grade2_btn.setBackgroundResource(R.drawable.gradebtn_rectangle);
+                    grade1_btn.setBackgroundResource(R.drawable.comment_rectangle);
+                    grade2_btn.setBackgroundResource(R.drawable.comment_rectangle);
                     Category_spin.setVisibility(VISIBLE);
                     Subject_spin.setVisibility(VISIBLE);
 

@@ -57,7 +57,7 @@
             android:layout_margin="15dp"
             android:text="1학년"
             android:id="@+id/grade1_btn"
-            android:background = "@drawable/gradebtn_rectangle"
+            android:background = "@drawable/comment_rectangle"
             android:textColor="#707070" />
         <Button
             android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_margin="15dp"
             android:text="2학년"
             android:id="@+id/grade2_btn"
-            android:background = "@drawable/gradebtn_rectangle"
+            android:background = "@drawable/comment_rectangle"
             android:textColor="#707070"/>
         <Button
             android:layout_width="wrap_content"
@@ -75,7 +75,7 @@
             android:layout_margin="15dp"
             android:text="3학년"
             android:id="@+id/grade3_btn"
-            android:background = "@drawable/gradebtn_rectangle"
+            android:background = "@drawable/comment_rectangle"
             android:textColor="#707070"/>
 
 
