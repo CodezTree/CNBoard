@@ -86,14 +86,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }); // SETTING BUTTON
 
-        /*foodButton = findViewById(R.id.bt_food);
-        foodButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, FoodActivity.class);
-                startActivity(intent);
-            }
-        });*/ // FOOD BUTTON
+
+        // Notice Recycler
 
         mRecyclerView = findViewById(R.id.notice_recycler);
         mRecyclerView.setHasFixedSize(true);
@@ -102,17 +96,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         noticeDataList = new ArrayList<>();
 
-        //FAKE DATA FAKE DATA --------------- TEST
-        //noticeDataList.add(new NoticeData("2018-11-10 월요일", "정보공지"));
-        //noticeDataList.add(new NoticeData("2018-11-16 토요일", "테스트공지2"));
-        //noticeDataList.add(new NoticeData("2018-11-20 수요일", "테스트공지3"));
-        //http://45.32.49.247/notice/notice2_20181116.png
-
         requestNoticeList();
 
         noticeAdapter = new NoticeAdapter(noticeDataList, getApplicationContext());
 
         mRecyclerView.setAdapter(noticeAdapter);
+
+        // Notice Recycler END
 
     }
 
@@ -142,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_detailed_notice) {
-            Intent intent = new Intent(this, NoticeDetailActivity.class);
+            Intent intent = new Intent(this, DetailedNoticeActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_food_table) {
             Intent intent = new Intent(this, LakeViewActivity.class);
@@ -177,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String[] temp;
                     for(int i = 0; i < tempArr.length(); i++) {
                         JSONObject obj = tempArr.getJSONObject(i);
-                        noticeDataList.add(new NoticeData(obj.getString("notice_title"), obj.getString("notice_date"), obj.getString("notice_image"), obj.getInt("id"), obj.getInt("notice_kind"), obj.getInt("target_grade")));
+                            noticeDataList.add(new NoticeData(obj.getString("notice_title"), obj.getString("notice_date"), obj.getString("notice_image"), obj.getInt("id"), obj.getInt("notice_kind"), obj.getInt("target_grade")));
                         Log.d("test","time : "+obj.getString("notice_date") + "   URL : "+obj.getString("notice_image") + " title : "+obj.getString("notice_title"));
 
                         // {"id": 1, "notice_kind": 1, "notice_title": "Test", "notice_date": "2019-03-06", "notice_image": "notice/logo_3.png", "target_grade": 2

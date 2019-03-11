@@ -93,7 +93,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 //https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png
 
             }
-        }, 1);
+        }, 5);
 
         noticeViewHolder.cv_card.setOnClickListener(new View.OnClickListener() {
             @Override
