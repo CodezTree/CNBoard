@@ -1,6 +1,5 @@
 package com.teammgh.cnboard;
 
-// 아이디 저장 안해도 계쏙 저장됨ㅋㅋㅋㅋㅋㅋㅋ
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -15,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         String pwd=pref.getString("pwd_save", "");
         Boolean chk1=pref.getBoolean("chk1", false);
 
-        if(chk1==true){
+        if(chk1){
             et_id.setText(id);
             et_pw.setText(pwd);
             chk_loginSave.setChecked(chk1);
@@ -79,17 +79,15 @@ public class LoginActivity extends AppCompatActivity {
                     linearLayout.setVisibility(View.VISIBLE);
                     txt_loginFail.setText("아이디와 비밀번호를 입력해주세요.");
                 } else {
-
                     if (strRet.contains("입력한 사용자 ID 또는 비밀번호가 잘못되었습니다")) {
                         linearLayout.setVisibility(View.VISIBLE);
                         txt_loginFail.setText("아이디 혹은 비밀번호가 잘못되었습니다.");
                         et_pw.setText("");
                     } else {
-                        if (chk_loginSave.isChecked()) {
-                            saveData();
-                        }
+                        saveData();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
+                        Toast.makeText(getApplicationContext(),"환영합니다",Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }
@@ -146,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putBoolean("chk1", chk_loginSave.isChecked());
         editor.apply();
     }
+
 
 }
 

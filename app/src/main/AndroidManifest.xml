@@ -26,6 +26,9 @@
             android:name=".NoticeDetailActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".DetailedNoticeActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".FoodActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".SplashActivity"></activity>
