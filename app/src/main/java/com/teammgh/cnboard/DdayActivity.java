@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.Calendar;
@@ -31,6 +32,7 @@ public class DdayActivity extends AppCompatActivity {
 
     Button button;
     ListView listView;
+    LinearLayout no_ddday;
     DdayListViewAdapter adapter;
     boolean checking;
     final int NEW_DDAY = 21;
@@ -57,6 +59,7 @@ public class DdayActivity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.button_add_dday);
         listView = (ListView) findViewById(R.id.ddaylistview);
+        no_ddday = findViewById(R.id.no_ddday);
 
         if(isServiceRunningCheck() == false) {
             Intent intent;
@@ -71,7 +74,19 @@ public class DdayActivity extends AppCompatActivity {
         if(dbHelper == null) {
             dbHelper = new DBHelper_dday(DdayActivity.this,"TEST",null,1);
         }
+
         List data = dbHelper.getAllData();
+        adapter = new DdayListViewAdapter(data,DdayActivity.this);
+        if(adapter.getCount() == 0) {
+            listView.setVisibility(View.GONE);
+            no_ddday.setVisibility(View.VISIBLE);
+        }
+        else {
+            listView.setVisibility(View.VISIBLE);
+            no_ddday.setVisibility(View.GONE);
+        }
+
+        data = dbHelper.getAllData();
         listView.setAdapter(new DdayListViewAdapter(data, DdayActivity.this));
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +98,7 @@ public class DdayActivity extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemLongClickListener(  new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
@@ -103,12 +118,17 @@ public class DdayActivity extends AppCompatActivity {
                         List tempdata = dbHelper.getAllData();
                         adapter = new DdayListViewAdapter(tempdata,DdayActivity.this);
                         listView.setAdapter(adapter);
-
                         removeNotification(ID);
+
+                        Log.d("debug dbHElper",String.valueOf(dbHelper));
+
+                        if(adapter.getCount() == 0) {
+                            listView.setVisibility(View.GONE);
+                            no_ddday.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
                 dlg.show();
-                Log.d("test", "HI");
                 return true;
             }
         });
@@ -140,6 +160,8 @@ public class DdayActivity extends AppCompatActivity {
                             createNotification(database.getTitle(),setDday(i),database.get_id());
                         }
                     }
+                    listView.setVisibility(View.VISIBLE);
+                    no_ddday.setVisibility(View.GONE);
                 }
             }
         }

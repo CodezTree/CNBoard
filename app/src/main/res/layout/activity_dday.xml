@@ -54,7 +54,7 @@
                 android:layout_width="30dp"
                 android:layout_marginLeft="10dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon"/>
+                android:src="@drawable/d_day"/>
             <TextView
                 android:gravity="center"
                 android:textSize="15dp"

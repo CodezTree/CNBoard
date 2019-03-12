@@ -7,7 +7,7 @@
     tools:context=".LoginActivity"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#97AFDB">
+    android:background="#99afd9">
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,10 +43,11 @@
                 android:layout_marginBottom="10dp"
                 android:width="350dp"
                 android:height="43dp"
-                android:padding="10dp"
+                android:paddingStart="25dp"
                 android:background="@drawable/edittext"
-                android:hint="     CNSAnet ID"
-                android:textColorHint=	"#676767" />
+                android:hint="CNSAnet ID"
+                android:textColor="#757575"
+                android:textColorHint="#757575" />
 
 
             <EditText
@@ -56,11 +57,12 @@
                 android:layout_marginBottom="10dp"
                 android:width="350dp"
                 android:height="43dp"
-                android:padding="10dp"
+                android:paddingStart="25dp"
                 android:background="@drawable/edittext"
-                android:hint="     CNSAnet PW"
+                android:hint="CNSAnet PW"
                 android:inputType="textPassword"
-                android:textColorHint="	#676767" />
+                android:textColor="#757575"
+                android:textColorHint="	#757575" />
 
             <LinearLayout
                 android:id="@+id/linearlayout"
@@ -90,7 +92,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="아이디 저장"
-                android:textColor="#363839" />
+                android:textColor="#6b5f58"
+                android:buttonTint="#877a73">
+
+            </CheckBox>
         </LinearLayout>
 
 

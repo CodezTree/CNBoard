@@ -583,7 +583,8 @@ public class EnrolmentSubject extends AppCompatActivity {
     //DONE
     public void onBackPressed() {
 
-        //if (serviceAvailablity == 1) {
+        if (serviceAvailablity == 1) {
+            //if (serviceAvailablity == 1) {
             // Alert을 이용해 종료시키기
             AlertDialog.Builder dialog = new AlertDialog.Builder(EnrolmentSubject.this);
             dialog.setTitle("종료 경고")
@@ -606,10 +607,13 @@ public class EnrolmentSubject extends AppCompatActivity {
                             Toast.makeText(EnrolmentSubject.this, "종료하지 않습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }).create().show();
-        //}
-        //if (serviceAvailablity == 0){
+            //}
+            //if (serviceAvailablity == 0){
             finish();
-        //}
+            //}
+        }else {
+            finish();
+        }
     }
 
 
