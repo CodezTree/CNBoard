@@ -43,9 +43,9 @@
                 android:layout_marginBottom="10dp"
                 android:width="350dp"
                 android:height="43dp"
-                android:padding="10dp"
                 android:background="@drawable/edittext"
-                android:hint="     CNSAnet ID"
+                android:hint="CNSAnet ID"
+                android:paddingLeft="27dp"
                 android:textColorHint=	"#676767" />
 
 
@@ -53,12 +53,12 @@
                 android:id="@+id/et_pw"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="7dp"
                 android:width="350dp"
                 android:height="43dp"
-                android:padding="10dp"
+                android:paddingLeft="27dp"
                 android:background="@drawable/edittext"
-                android:hint="     CNSAnet PW"
+                android:hint="CNSAnet PW"
                 android:inputType="textPassword"
                 android:textColorHint="	#676767" />
 
@@ -71,7 +71,8 @@
                     android:id="@+id/txt_loginFail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="10dp"/>
 
 
             </LinearLayout>
@@ -91,7 +92,8 @@
                 android:layout_height="match_parent"
                 android:text="다음부터 자동 로그인"
                 android:textColor="#363839"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="7dp"/>
         </LinearLayout>
 
 

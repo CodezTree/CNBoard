@@ -57,6 +57,9 @@ public class LoginActivity extends AppCompatActivity {
             //et_id.setText(id);
             //et_pw.setText(pwd);
             //chk_loginSave.setChecked(chk1)
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            Toast.makeText(getApplicationContext(),"환영합니다",Toast.LENGTH_SHORT).show();
             finish();
         }else{
             et_id.setText("");
