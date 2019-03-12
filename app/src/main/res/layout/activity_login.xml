@@ -89,8 +89,9 @@
                 android:id="@+id/checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="아이디 저장"
-                android:textColor="#363839" />
+                android:text="다음부터 자동 로그인"
+                android:textColor="#363839"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
 

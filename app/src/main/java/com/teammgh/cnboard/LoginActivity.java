@@ -54,9 +54,10 @@ public class LoginActivity extends AppCompatActivity {
         Boolean chk1=pref.getBoolean("chk1", false);
 
         if(chk1){
-            et_id.setText(id);
-            et_pw.setText(pwd);
-            chk_loginSave.setChecked(chk1);
+            //et_id.setText(id);
+            //et_pw.setText(pwd);
+            //chk_loginSave.setChecked(chk1)
+            finish();
         }else{
             et_id.setText("");
             et_pw.setText("");
@@ -84,7 +85,10 @@ public class LoginActivity extends AppCompatActivity {
                         txt_loginFail.setText("아이디 혹은 비밀번호가 잘못되었습니다.");
                         et_pw.setText("");
                     } else {
-                        saveData();
+
+                        if(chk_loginSave.isChecked()){
+                            saveData();
+                        }
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         Toast.makeText(getApplicationContext(),"환영합니다",Toast.LENGTH_SHORT).show();
@@ -139,8 +143,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("pref", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString("id_save", txt_id);
-        editor.putString("pwd_save", txt_pw);
+        //editor.putString("id_save", txt_id);
+        //editor.putString("pwd_save", txt_pw);
         editor.putBoolean("chk1", chk_loginSave.isChecked());
         editor.apply();
     }
