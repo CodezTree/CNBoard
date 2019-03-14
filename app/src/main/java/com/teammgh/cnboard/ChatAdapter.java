@@ -19,8 +19,8 @@
 //
 //        public MyViewHolder(@NonNull View view) {
 //            super(view);
-//            username = view.findViewById(R.id. =----);
-//            chatcontent = view.findViewById(R.id. ---);
+////            username = view.findViewById(R.id. =----);
+////            chatcontent = view.findViewById(R.id. ---);
 //        }
 //    }
 //
@@ -33,8 +33,8 @@
 //    @NonNull
 //    @Override
 //    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.------, parent, false);
-//        return new MyViewHolder(v);
+//       // View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.------, parent, false);
+//        //return new MyViewHolder(v);
 //    }
 //
 //    @Override

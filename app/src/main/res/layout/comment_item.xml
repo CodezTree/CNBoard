@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_gravity="center_vertical"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/circle"
+        android:gravity="center"
+        android:text="이름"
+        android:textSize="10dp"
+        android:fontFamily="@font/nanumsquare_light"
+        />
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/comment_txt"
+        android:background="@drawable/comment_rectangle"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/nanumsquare_light"/>
+
+    <TextView
+        android:id="@+id/like"
+        android:text="20"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/like"
+        android:fontFamily="@font/nanumsquare_light"
+        />
+
+</LinearLayout>

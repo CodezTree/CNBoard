@@ -8,23 +8,6 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/start_page">
-    <!--android:background="#97AFDB">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CNBoard"
-        android:textColor="#FFFFFF"
-        android:textSize="80dp"
-        android:layout_marginBottom="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="쉽고 빠르게 공지 확인하기"
-        android:textColor="#FFFFFF"
-        android:textSize="14dp"
-        android:layout_marginBottom="60dp"/>-->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -35,7 +18,6 @@
         <LinearLayout
             android:layout_width="380dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"
             android:orientation="vertical">
 
             <EditText
@@ -60,13 +42,12 @@
                 android:layout_marginBottom="5dp"
                 android:width="350dp"
                 android:height="43dp"
-                android:padding="10dp"
                 android:background="@drawable/edittext"
                 android:hint="CNSAnet PW"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:inputType="textPassword"
-                android:textColorHint="#9e9e9e" />
+                android:textColorHint="	#676767" />
 
             <LinearLayout
                 android:id="@+id/linearlayout"
@@ -77,7 +58,8 @@
                     android:id="@+id/txt_loginFail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="10dp"/>
 
 
             </LinearLayout>
@@ -95,9 +77,10 @@
                 android:id="@+id/checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:text="아이디 저장"
-                android:textColor="#616161" />
+                android:text="다음부터 자동 로그인"
+                android:textColor="#616161"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="7dp"/>
         </LinearLayout>
 
 

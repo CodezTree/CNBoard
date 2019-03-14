@@ -407,7 +407,8 @@ public class LakeViewActivity extends AppCompatActivity {
             int time = object.get("meal_time_part").getAsInt();
             int id = object.get("id").getAsInt();
             String meal = object.get("meal_txt").getAsString();
-            String meal2 = meal.replaceFirst("\n", "")+"\n"; //줄바꿈 삭제+줄바꿈 추가
+            // String meal2 = meal.replaceFirst("\n", "")+"\n"; //줄바꿈 삭제+줄바꿈 추가
+            String meal2 = meal.substring(2, meal.length());
             String date = object.get("meal_date").getAsString();
 
             Log.d("시간",String.valueOf(time));
