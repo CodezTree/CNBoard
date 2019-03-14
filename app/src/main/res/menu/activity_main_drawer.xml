@@ -20,5 +20,9 @@
             android:id="@+id/nav_test"
             android:title="시험범위 확인"
             android:icon="@drawable/exam_list"/>
+        <!--<item
+            android:id="@+id/nav_setting"
+            android:title="설정"
+            android:icon="@drawable/settings"/>-->
     </group>
 </menu>

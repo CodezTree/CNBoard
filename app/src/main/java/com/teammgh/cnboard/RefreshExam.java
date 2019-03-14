@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class RefreshExam extends StringRequest{
 
-    final static private String URL = "http://45.32.49.247:8000/Service/showExam";
+    final static private String URL = "http://10.1.111.142:8000/Service/showExam";
     private Map<String, String> parameter;
 
     public RefreshExam(Response.Listener<String> listener) {

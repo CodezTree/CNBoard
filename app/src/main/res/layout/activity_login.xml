@@ -7,7 +7,8 @@
     tools:context=".LoginActivity"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#97AFDB">
+    android:background="@drawable/start_page">
+    <!--android:background="#97AFDB">
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +24,7 @@
         android:text="쉽고 빠르게 공지 확인하기"
         android:textColor="#FFFFFF"
         android:textSize="14dp"
-        android:layout_marginBottom="60dp"/>
+        android:layout_marginBottom="60dp"/>-->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -34,6 +35,7 @@
         <LinearLayout
             android:layout_width="380dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="400dp"
             android:orientation="vertical">
 
             <EditText
@@ -45,22 +47,26 @@
                 android:height="43dp"
                 android:padding="10dp"
                 android:background="@drawable/edittext"
-                android:hint="     CNSAnet ID"
-                android:textColorHint=	"#676767" />
+                android:hint="CNSAnet ID"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:textColorHint="#9e9e9e" />
 
 
             <EditText
                 android:id="@+id/et_pw"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:width="350dp"
                 android:height="43dp"
                 android:padding="10dp"
                 android:background="@drawable/edittext"
-                android:hint="     CNSAnet PW"
+                android:hint="CNSAnet PW"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
                 android:inputType="textPassword"
-                android:textColorHint="	#676767" />
+                android:textColorHint="#9e9e9e" />
 
             <LinearLayout
                 android:id="@+id/linearlayout"
@@ -89,8 +95,9 @@
                 android:id="@+id/checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:text="아이디 저장"
-                android:textColor="#363839" />
+                android:textColor="#616161" />
         </LinearLayout>
 
 

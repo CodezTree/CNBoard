@@ -56,7 +56,7 @@
             android:text="학년"/>
 
         <Spinner
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="3dp"
@@ -73,7 +73,7 @@
             android:text="종류"/>
 
         <Spinner
-            android:layout_width="wrap_content"
+            android:layout_width="125dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="3dp"

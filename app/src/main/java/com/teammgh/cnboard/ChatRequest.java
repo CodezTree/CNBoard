@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class ChatRequest extends StringRequest {
 
-    final static private String URL = "http://45.32.49.247:8000/Meal/addComment/";
+    final static private String URL = "http://10.1.111.142:8000/Meal/addComment/";
     private Map<String, String> parameters;
 
     public ChatRequest(String postID, String comment, String studentNum, Response.Listener<String> listener) {

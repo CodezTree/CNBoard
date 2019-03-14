@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
         String referer = "https://student.cnsa.hs.kr/login/userLogin";
 
         try {
-            Connection.Response res = Jsoup.connect("https://student.cnsa.hs.kr/login/userLogin")
+            Connection.Response res = Jsoup.connect("http://10.1.100.32/login/userLogin")
                     .data(postMap)
                     .userAgent(userAgent)
                     .referrer(referer)

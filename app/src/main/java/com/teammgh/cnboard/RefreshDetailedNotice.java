@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class RefreshDetailedNotice extends StringRequest{
 
-    final static private String URL = "http://45.32.49.247:8000/Service/showFilteredNotice/";
+    final static private String URL = "http://10.1.111.142:8000/Service/showFilteredNotice/";
     private Map<String, String> parameters;
 
     public RefreshDetailedNotice(Response.Listener<String> listener, int notice_kind, int target_grade) {

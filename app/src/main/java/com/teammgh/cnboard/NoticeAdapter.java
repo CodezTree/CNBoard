@@ -88,7 +88,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         noticeViewHolder.iv_notice.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Picasso.get().load("http://45.32.49.247:8000/notice/" +  noticeDataList.get(position).notice_image).into(noticeViewHolder.iv_notice);
+                Picasso.get().load("http://10.1.111.142:8000/notice/" +  noticeDataList.get(position).notice_image).into(noticeViewHolder.iv_notice);
                 //noticeDataList.get(position).imageURL
                 //https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png
 
