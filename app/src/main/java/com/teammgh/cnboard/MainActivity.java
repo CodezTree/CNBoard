@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import org.json.*;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -137,6 +136,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // TEST
             Intent intent = new Intent(this, EnrolmentSubject.class);
             startActivity(intent);
+        } else if (id == R.id.nav_apply) {
+            Intent intent = new Intent(this, ApplyActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -161,7 +163,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         JSONObject obj = tempArr.getJSONObject(i);
                             noticeDataList.add(new NoticeData(obj.getString("notice_title"), obj.getString("notice_date"), obj.getString("notice_image"), obj.getInt("id"), obj.getInt("notice_kind"), obj.getInt("target_grade")));
                         Log.d("test","time : "+obj.getString("notice_date") + "   URL : "+obj.getString("notice_image") + " title : "+obj.getString("notice_title"));
-
                         // {"id": 1, "notice_kind": 1, "notice_title": "Test", "notice_date": "2019-03-06", "notice_image": "notice/logo_3.png", "target_grade": 2
                     }
 

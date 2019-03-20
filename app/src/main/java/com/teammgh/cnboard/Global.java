@@ -15,6 +15,7 @@ public class Global {
     public static int categoryNo = -1;
     public static int categoryNoS = -1;
     public static int grade = -1;
+    public static int student_num = 0;
     public static ArrayList<Integer> arrKey = new ArrayList<Integer>();       // 특정학년의 과목의 키번호 배얼
     public static ArrayList<String> arrData = new ArrayList<String>();        // 특정학년의 과목이름 배열
     public static ArrayList<Integer> arrKeyS = new ArrayList<Integer>();       // 특정학년의 과목의 키번호 배얼

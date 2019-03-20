@@ -20,6 +20,10 @@
             android:id="@+id/nav_test"
             android:title="시험범위 확인"
             android:icon="@drawable/exam_list"/>
+        <item
+            android:id="@+id/nav_apply"
+            android:title="CNBoard 지원하기"
+            android:icon="@drawable/ic_apply"/>
         <!--<item
             android:id="@+id/nav_setting"
             android:title="설정"

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:weightSum="10"
+    tools:context=".ApplyActivity">
+
+    <!--<com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="CNBoard"
+                android:textColor="#757575"
+                android:textSize="20sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apply CNBoard"
+        android:textSize="45sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:layout_width="570dp"
+        android:layout_height="5dp"
+        android:background="#9e9e9e"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학번"
+            android:textSize="30sp"
+            android:layout_marginEnd="190dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="171107"
+            android:textSize="30sp"
+            android:id="@+id/tv_student_number"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지원구분"
+            android:textSize="30sp"
+            android:layout_marginEnd="40dp"/>
+
+        <EditText
+            android:id="@+id/et_apply_part"
+            android:layout_width="200dp"
+            android:layout_height="45sp"
+            android:textColor="#000000"
+            android:hint="기획/개발/디자인"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:maxLength="10"/>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="480dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_weight="9">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_apply"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            android:gravity="top"
+            android:hint="지원 동기와 포부를 작성해주세요. (500자 이내)"
+            android:maxLength="500"
+            android:textColor="#000000"
+            android:padding="10dp"
+            android:textSize="20dp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/bt_submit"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:text="제출"
+        android:textSize="30sp"
+        android:background="@drawable/design_button"/>
+
+</LinearLayout>

@@ -31,9 +31,9 @@ public class VersionCheckActivity extends AppCompatActivity {
                     finish();
                 } else {
                     AlertDialog.Builder dlg = new AlertDialog.Builder(getApplicationContext());
-                    dlg.setTitle("버전오류");
-                    dlg.setMessage("앱 버전이 구 버전입니다. 최신버전을 다운해주세요!");
-                    dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    dlg.setTitle("버전오류")
+                            .setMessage("앱 버전이 구 버전입니다. 최신버전을 다운해주세요!")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finishAffinity();
