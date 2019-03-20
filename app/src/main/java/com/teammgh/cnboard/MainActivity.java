@@ -19,20 +19,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -76,13 +70,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        setting = findViewById(R.id.bt_setting);
-        setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // SETTING
-            }
-        }); // SETTING BUTTON
+//         setting = findViewById(R.id.bt_setting);
+//         setting.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // SETTING
+//            }
+//        }); // SETTING BUTTON
 
 
         // Notice Recycler

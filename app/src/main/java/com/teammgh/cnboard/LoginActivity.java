@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Response;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -91,10 +94,10 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(chk_loginSave.isChecked()){
                             saveData();
-                        }
+                       }
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        Toast.makeText(getApplicationContext(),"환영합니다",Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getApplicationContext(),"환영합니다",Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }
@@ -142,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     private void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences("pref", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

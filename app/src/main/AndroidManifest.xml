@@ -19,9 +19,7 @@
         <activity
             android:name=".FoodDetail"
             android:parentActivityName=".LakeViewActivity" />
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"/>
         <activity
             android:name=".NoticeDetailActivity"
             android:parentActivityName=".MainActivity" />
@@ -31,10 +29,10 @@
         <activity
             android:name=".FoodActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".SplashActivity"></activity>
+        <activity android:name=".SplashActivity" />
         <activity
             android:name=".EnrolmentSubject"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".DdayActivity"
             android:parentActivityName=".MainActivity" />
@@ -45,18 +43,20 @@
             android:name=".LakeViewActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".InputSubject" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity" />
+
+        <service
+            android:name=".DdayService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".VersionCheckActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name=".DdayService"
-            android:enabled="true"
-            android:exported="true" />
     </application>
 
 </manifest>
