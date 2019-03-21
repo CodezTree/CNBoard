@@ -6,7 +6,7 @@
     <group android:checkableBehavior="none">
         <item
             android:id="@+id/nav_detailed_notice"
-            android:title="공지사항"
+            android:title="세부 사항"
             android:icon="@drawable/notice_board"/>
         <item
             android:id="@+id/nav_food_table"

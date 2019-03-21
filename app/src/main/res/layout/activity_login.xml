@@ -31,6 +31,7 @@
                 android:padding="10dp"
                 android:background="@drawable/edittext"
                 android:hint="CNSAnet ID"
+                android:maxLines="1"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:textColorHint="#9e9e9e" />
@@ -43,6 +44,7 @@
                 android:layout_marginBottom="5dp"
                 android:width="350dp"
                 android:height="43dp"
+                android:maxLines="1"
                 android:background="@drawable/edittext"
                 android:hint="CNSAnet PW"
                 android:paddingStart="30dp"

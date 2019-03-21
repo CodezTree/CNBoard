@@ -23,7 +23,7 @@ import static com.teammgh.cnboard.Global.student_num;
 
 public class ApplyActivity extends AppCompatActivity {
 
-    TextView tv_student_number;
+    EditText et_student_number;
     EditText et_apply_part;
     TextInputEditText tiet_apply;
     Button bt_submit;
@@ -33,16 +33,15 @@ public class ApplyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply);
 
-        tv_student_number = (TextView) findViewById(R.id.tv_student_number);
+        et_student_number = (EditText) findViewById(R.id.et_student_number);
         et_apply_part = (EditText) findViewById(R.id.et_apply_part);
         tiet_apply = (TextInputEditText) findViewById(R.id.tiet_apply);
         bt_submit = (Button) findViewById(R.id.bt_submit);
 
-        tv_student_number.setText(Integer.toString(student_num));
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dlg = new AlertDialog.Builder(view.getContext());
+                AlertDialog.Builder dlg = new AlertDialog.Builder(ApplyActivity.this);
                 dlg.setTitle("제출 확인");
                 dlg.setMessage("지원서를 제출 하시겠습니까?");
                 dlg.setIcon(R.drawable.icon);
@@ -50,6 +49,7 @@ public class ApplyActivity extends AppCompatActivity {
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Log.d("test", "Submit!!");
                         Submit();
                     }
                 });
@@ -59,7 +59,9 @@ public class ApplyActivity extends AppCompatActivity {
     }
 
     public void Submit() {
-        if (et_apply_part.getText() != null && tiet_apply.getText() != null) {
+        Log.d("test", "ADD : " + et_apply_part.getText().toString() + tiet_apply.getText().toString());
+        Log.d("test", Integer.toString(et_apply_part.getText().length()));
+        if (et_apply_part.getText().length() != 0 && tiet_apply.getText().length() != 0 && et_student_number.getText().length() != 0) {
             Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -67,11 +69,12 @@ public class ApplyActivity extends AppCompatActivity {
                 }
             };
 
-            ApplyRequest applyRequest = new ApplyRequest(responseListener, student_num, et_apply_part.getText().toString(), tiet_apply.getText().toString());
+            ApplyRequest applyRequest = new ApplyRequest(responseListener, Integer.parseInt(et_student_number.getText().toString()), et_apply_part.getText().toString(), tiet_apply.getText().toString());
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
             queue.add(applyRequest);
+            Log.d("test","Applyed");
         } else {
-            AlertDialog.Builder dlg = new AlertDialog.Builder(getApplicationContext());
+            AlertDialog.Builder dlg = new AlertDialog.Builder(ApplyActivity.this);
             dlg.setTitle("오류");
             dlg.setMessage("모든 란을 빠짐없이 채워주세요!");
             dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -86,9 +89,9 @@ public class ApplyActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder dlg = new AlertDialog.Builder(getApplicationContext());
-        dlg.setTitle("");
-        dlg.setMessage("돌아가시겠습니까?");
+        AlertDialog.Builder dlg = new AlertDialog.Builder(ApplyActivity.this);
+        dlg.setTitle("경고");
+        dlg.setMessage("지원을 그만 두시겠습니까?");
         dlg.setIcon(R.drawable.icon);
         dlg.setNegativeButton("취소", null);
         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {

@@ -25,12 +25,12 @@ public class VersionCheckActivity extends AppCompatActivity {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.equals("0001")) {
+                if (response.equals("0002")) {
                     Intent intent = new Intent(VersionCheckActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    AlertDialog.Builder dlg = new AlertDialog.Builder(getApplicationContext());
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(VersionCheckActivity.this);
                     dlg.setTitle("버전오류")
                             .setMessage("앱 버전이 구 버전입니다. 최신버전을 다운해주세요!")
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
