@@ -57,6 +57,7 @@ public class ApplyActivity extends AppCompatActivity {
             }
         });
     }
+    ///khkjk
 
     public void Submit() {
         Log.d("test", "ADD : " + et_apply_part.getText().toString() + tiet_apply.getText().toString());
